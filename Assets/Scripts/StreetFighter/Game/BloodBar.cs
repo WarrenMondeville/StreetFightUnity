@@ -1,81 +1,97 @@
+using StreetFighter.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace StreetFighter
+namespace StreetFighter.Game
 {
     /// <summary>
     /// 复刻 game.js 的 Blood：血量 1500，受击后血量条在最多 500ms 内线性收缩。
     /// 左条从左侧向内收缩，右条从右侧向内收缩。
     /// </summary>
-    public class BloodBar
+    public sealed class BloodBar
     {
         private const float FullBlood = 1500f;
+        private const float MaxShrinkDurationMs = 500f;
+        private const float DurationPerDamage = 1.5f;
 
-        private readonly Image _img;
-        private readonly bool _left;
+        private readonly Image _image;
+        private readonly bool _anchoredLeft;
+        private readonly float _originX;
         private readonly float _fullWidth;
-        private readonly float _x;
 
         private float _blood = FullBlood;
-        private float _currWidth;
+        private float _currentWidth;
 
-        private float _animFrom;
-        private float _animDelta;
-        private float _animStart;
-        private float _animDur;
-        private bool _animating;
+        private float _animationFrom;
+        private float _animationDelta;
+        private float _animationStart;
+        private float _animationDuration;
+        private bool _isAnimating;
 
-        public readonly Evt Event = new Evt();
+        /// <summary>血量见底时派发。</summary>
+        public readonly EventBus Events = new EventBus();
 
-        public BloodBar(Image img, bool left, float x, float fullWidth)
+        public BloodBar(Image image, bool anchoredLeft, float originX, float fullWidth)
         {
-            _img = img;
-            _left = left;
-            _x = x;
+            _image = image;
+            _anchoredLeft = anchoredLeft;
+            _originX = originX;
             _fullWidth = fullWidth;
-            _currWidth = fullWidth;
+            _currentWidth = fullWidth;
         }
 
+        /// <summary>扣血（传负数等于回血）。</summary>
         public void Reduce(float count)
         {
             _blood -= count;
 
-            float w = -count / FullBlood * _fullWidth;
-            float dur = Mathf.Min(500f, Mathf.Abs(count * 1.5f));
+            float delta = -count / FullBlood * _fullWidth;
+            float duration = Mathf.Min(MaxShrinkDurationMs, Mathf.Abs(count * DurationPerDamage));
 
-            if (_animating) _currWidth = _animFrom + _animDelta;
+            if (_isAnimating)
+            {
+                _currentWidth = _animationFrom + _animationDelta;
+            }
 
-            _animFrom = _currWidth;
-            _animDelta = w;
-            _animStart = Time.time * 1000f;
-            _animDur = dur;
-            _animating = true;
+            _animationFrom = _currentWidth;
+            _animationDelta = delta;
+            _animationStart = Time.time * 1000f;
+            _animationDuration = duration;
+            _isAnimating = true;
 
-            if (_blood < 0) Event.Fire("empty");
+            if (_blood < 0)
+            {
+                Events.Invoke(GameEvents.Empty);
+            }
         }
 
+        /// <summary>回满血。</summary>
         public void Reload() => Reduce(_blood - FullBlood);
 
+        /// <summary>每渲染帧推进收缩动画并写回 UI。</summary>
         public void Render()
         {
-            if (_animating)
+            if (_isAnimating)
             {
-                float t = (Time.time * 1000f - _animStart) / _animDur;
-                if (t >= 1f)
+                float elapsed = Time.time * 1000f - _animationStart;
+                if (elapsed / _animationDuration >= 1f)
                 {
-                    _currWidth = _animFrom + _animDelta;
-                    _animating = false;
+                    _currentWidth = _animationFrom + _animationDelta;
+                    _isAnimating = false;
                 }
                 else
                 {
-                    _currWidth = Easing.Eval("linear", Time.time * 1000f - _animStart, _animFrom, _animDelta, _animDur);
+                    _currentWidth = Easing.Evaluate(EasingNames.Linear, elapsed, _animationFrom, _animationDelta,
+                        _animationDuration);
                 }
             }
 
-            float w = Mathf.Clamp(_currWidth, 0f, _fullWidth);
-            var rt = _img.rectTransform;
-            rt.sizeDelta = new Vector2(w, rt.sizeDelta.y);
-            rt.anchoredPosition = new Vector2(_left ? _x + _fullWidth - w : _x, rt.anchoredPosition.y);
+            float width = Mathf.Clamp(_currentWidth, 0f, _fullWidth);
+            var rectTransform = _image.rectTransform;
+            rectTransform.sizeDelta = new Vector2(width, rectTransform.sizeDelta.y);
+            rectTransform.anchoredPosition = new Vector2(
+                _anchoredLeft ? _originX + _fullWidth - width : _originX,
+                rectTransform.anchoredPosition.y);
         }
     }
 }

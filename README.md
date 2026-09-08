@@ -73,18 +73,36 @@ Unity 版本：**2022.3.62f3c1**（2D 项目，无第三方依赖，只用内置
 ```
 Assets/
 ├── Resources/
-│   ├── config.json          # 由 js/config.js 导出
-│   ├── Art/                 # 序列帧 png（g/ hitEffect/ magic/ RYU1/ RYU2/）
-│   └── Sound/               # mp3
+│   ├── config.json               # 由 js/config.js 导出
+│   ├── Art/                      # 序列帧 png（g/ hitEffect/ magic/ RYU1/ RYU2/）
+│   └── Sound/                    # mp3
 ├── Scenes/Main.unity
-├── Editor/
-│   ├── TextureSettings.cs   # 纹理导入设置
-│   └── SceneBuilder.cs      # 生成场景
+├── Editor/                       # 程序集 StreetFighter.Editor（仅 Editor 平台）
+│   ├── StreetFighter.Editor.asmdef
+│   ├── TextureSettings.cs        # 纹理导入设置
+│   └── SceneBuilder.cs           # 生成场景
 └── Scripts/StreetFighter/
-    ├── Core/                # 引擎层：GameClock / Ani / Art / Sfx / JVal+Json / Evt,Q,Lock / Easing / Cfg
-    ├── Runtime/             # 玩法层：Spirit / SpiritFrames / Status / Collider / Melee / Wave / KeyInput / Ai
-    ├── View/                # 表现层：SpriteView / SpiritView / WaveView
-    └── Game/                # 流程层：GameManager / Stage / BloodBar
+    ├── StreetFighter.Runtime.asmdef
+    ├── Core/                     # 引擎层（StreetFighter.Core）
+    │   ├── GameClock.cs          # 17ms 固定步长逻辑帧 + 游戏内 setTimeout
+    │   ├── GameConfig.cs         # config.json 的只读视图
+    │   ├── JVal.cs / JsonParser.cs
+    │   ├── SpriteLibrary.cs      # 序列帧切片缓存
+    │   ├── AudioPlayer.cs / SoundPaths.cs
+    │   ├── Easing.cs / EasingNames.cs
+    │   ├── EventBus.cs / ActionLock.cs / GameEvents.cs
+    ├── Gameplay/                 # 玩法层（StreetFighter.Gameplay）
+    │   ├── Spirit.cs             # 角色总控
+    │   ├── FrameAnimator.cs / ComboAttack.cs / Mover.cs
+    │   ├── FighterStatus.cs / BodyCollider.cs
+    │   ├── MeleeAttack.cs / WaveProjectile.cs / AttackEffect.cs
+    │   ├── KeyboardInput.cs / AiController.cs
+    │   └── StateNames.cs / AttackState.cs / DistanceBand.cs / Side.cs / MeleeMode.cs
+    ├── View/                     # 表现层（StreetFighter.View）
+    │   ├── SpriteView.cs / SpiritView.cs / WaveView.cs
+    └── Game/                     # 流程层（StreetFighter.Game）
+        ├── GameManager.cs        # 唯一的 MonoBehaviour
+        ├── Stage.cs / StageScroll.cs / BloodBar.cs / GameMode.cs
 ```
 
 对应关系：
@@ -92,12 +110,12 @@ Assets/
 | Unity | 原版 |
 |---|---|
 | `Core/GameClock.cs` | `js/timer.js` |
-| `Core/Ani.cs`、`Core/Easing.cs` | `js/interface.js` 的 `Animate` + `config.easing` |
-| `Core/JVal.cs` | —— （Unity `JsonUtility` 不支持字典与混合类型数组，故自带解析器） |
-| `Runtime/Spirit.cs` | `js/main.js` 的 `Block` + `Spirit` |
-| `Runtime/Melee.cs` / `Wave.cs` | `js/main.js` 的 `Fighter` / `WaveBoxing` |
-| `Runtime/KeyInput.cs` | `js/interface.js` 的 `KeyManage` |
-| `Runtime/Ai.cs` | `js/ai.js` |
+| `Gameplay/Mover.cs`、`Core/Easing.cs` | `js/interface.js` 的 `Animate` + `config.easing` |
+| `Core/JVal.cs` + `Core/JsonParser.cs` | —— （Unity `JsonUtility` 不支持字典与混合类型数组，故自带解析器） |
+| `Gameplay/Spirit.cs` | `js/main.js` 的 `Block` + `Spirit` |
+| `Gameplay/MeleeAttack.cs` / `WaveProjectile.cs` | `js/main.js` 的 `Fighter` / `WaveBoxing` |
+| `Gameplay/KeyboardInput.cs` | `js/interface.js` 的 `KeyManage` |
+| `Gameplay/AiController.cs` | `js/ai.js` |
 | `Game/GameManager.cs` | `js/main.js` 的 `Game` / `gameStart` |
 | `Game/Stage.cs` | `js/map.js` 的 `Stage` |
 | `Game/BloodBar.cs` | `js/main.js` 的 `Blood` |
@@ -108,7 +126,18 @@ Assets/
 
 - 想调数值（伤害、判定框、帧数、位移）直接改 `Assets/Resources/config.json`，不要改代码常量；需要重新导出时用 Node 执行 `vm` 加载 `StreetFighter/js/config.js` 即可。
 - 想加角色：在 `config.json` 的 `Spirit` 下加一份配置（含 `states` / `keyMap`），并在 `GameManager.StartMatch()` 里实例化。
-- 想关掉 AI：`1`/`2` 切到双人模式，或删除 `StartMatch()` 中的 `Ai` 创建。
+- 想关掉 AI：`1`/`2` 切到双人模式，或删除 `StartMatch()` 中的 `AiController` 创建。
+- 出场位置、追帧上限、重开节奏等参数都提成了 `GameManager` 的 Inspector 字段，可以在场景里直接调。
+
+### 代码风格约定
+
+- 运行期脚本在 `StreetFighter.Runtime` 程序集，编辑器脚本在 `StreetFighter.Editor` 程序集（仅 Editor 平台）。
+- 命名空间跟随目录：`StreetFighter.Core` / `StreetFighter.Gameplay` / `StreetFighter.View` / `StreetFighter.Game`。
+- **一个文件一个公开类型**，文件名与类型名一致；私有嵌套类型（如 `Spirit.SpiritAction`）除外。
+- 对外只暴露属性，字段一律 `private` 且以 `_` 开头；`MonoBehaviour` 上需要在 Inspector 调整的参数使用 `[SerializeField]`。
+- 状态名、事件名、音效路径不用裸字符串，统一走 `StateNames` / `GameEvents` / `SoundPaths` / `EasingNames` 常量类。
+- 攻防姿态、距离分段、方位、判定体模式都用枚举（`AttackState` / `DistanceBand` / `Side` / `MeleeMode`），不比较字符串。
+- 事件用 C# `event`（`KeyboardInput.Matched`、`BodyCollider.Hit`）；需要按字符串分发的场景用 `EventBus`（`AddListener` / `RemoveListener` / `Invoke`，语义对齐 `UnityEvent`）。
 
 ---
 

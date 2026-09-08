@@ -1,56 +1,64 @@
-using UnityEngine;
+using StreetFighter.Gameplay;
 
-namespace StreetFighter
+namespace StreetFighter.Game
 {
-    /// <summary>共享的舞台横向卷轴位置（原版是一个可滚动的 div）。</summary>
-    public class StageScroll
-    {
-        public float ScrollLeft = 250f;
-        public const float Min = 0f;
-        public const float Max = 500f;
-        public const float ContentWidth = 1400f;
-
-        public void Add(float d) => ScrollLeft = Mathf.Clamp(ScrollLeft + d, Min, Max);
-    }
-
     /// <summary>
     /// 复刻 map.js 的 Stage：角色顶到屏幕边缘时推动背景滚动，并反推对手。
+    /// 每帧的滚动量是固定的，能否滚动取决于卷轴是否已到端点。
     /// </summary>
-    public class Stage
+    public sealed class Stage
     {
-        public static readonly StageScroll Bg = new StageScroll();
+        private const float ScrollStep = 3f;
 
-        private readonly Spirit _self;
+        /// <summary>全局共享的舞台卷轴。</summary>
+        public static readonly StageScroll Background = new StageScroll();
+
+        private readonly Spirit _owner;
+
         private float _oldScroll;
-        private float _dis;
+        private float _distance;
         private float _scrolling;
 
-        public Stage(Spirit self, GameClock clock)
+        public Stage(Spirit owner)
         {
-            _self = self;
+            _owner = owner;
         }
 
-        public void Begin() => _oldScroll = Bg.ScrollLeft;
+        /// <summary>记录本帧开始时的卷轴位置。</summary>
+        public void Begin() => _oldScroll = Background.ScrollLeft;
 
         public void End() => _scrolling = 0f;
 
-        public void Scroll(string dir)
+        /// <summary>朝指定方向推动舞台。</summary>
+        public void Scroll(Side side)
         {
-            _dis = dir == "left" ? -3f : 3f;
-            _oldScroll = Bg.ScrollLeft;
-            Bg.Add(_dis);
-            if (_oldScroll != Bg.ScrollLeft) _scrolling = _dis;
-            else End();
+            _distance = side == Side.Left ? -ScrollStep : ScrollStep;
+            _oldScroll = Background.ScrollLeft;
+            Background.Add(_distance);
+
+            if (_oldScroll != Background.ScrollLeft)
+            {
+                _scrolling = _distance;
+            }
+            else
+            {
+                End();
+            }
         }
 
+        /// <summary>把对手按本帧的滚动量反向推开。</summary>
         public void PushEnemy()
         {
-            if (_oldScroll == Bg.ScrollLeft || _scrolling == 0f) return;
-            _self.Enemy.Left -= _dis;
+            if (_oldScroll == Background.ScrollLeft || _scrolling == 0f)
+            {
+                return;
+            }
+
+            _owner.Enemy.Left -= _distance;
         }
 
-        public bool IsScrolling() => _scrolling != 0f;
+        public bool IsScrolling => _scrolling != 0f;
 
-        public float ScrollValue() => _scrolling;
+        public float ScrollValue => _scrolling;
     }
 }

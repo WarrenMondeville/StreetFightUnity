@@ -1,241 +1,350 @@
+using StreetFighter.Core;
+using StreetFighter.Gameplay;
+using StreetFighter.View;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace StreetFighter
+namespace StreetFighter.Game
 {
     /// <summary>
     /// 复刻 main.js / game.js：资源加载、开局、统一帧驱动、胜负与重开、模式切换。
+    /// 场景中只需要挂这一个组件，角色、背景、血条、特效都在运行时创建。
     /// </summary>
-    public class GameManager : MonoBehaviour
+    [AddComponentMenu("StreetFighter/Game Manager")]
+    [DefaultExecutionOrder(-100)]
+    public sealed class GameManager : MonoBehaviour
     {
-        public static GameManager Instance;
+        private const string ConfigAssetPath = "config";
+        private const string BarArtName = "bar";
 
-        private const float P1X = 280f;
-        private const float P2X = 480f;
-        private const float GY = 240f;
+        private const int PlayerOneSortingOrder = 10;
+        private const int PlayerTwoSortingOrder = 12;
+
+        private const float HudDepth = 5f;
+        private const float CameraDepth = -10f;
+
+        private const int BackgroundBehindOrder = -20;
+        private const int BackgroundFrontOrder = -10;
+
+        private const float BackgroundBehindHeight = 400f;
+
+        #region Inspector
+
+        [Header("出场位置")]
+        [SerializeField] private string _playerOneKey = "RYU1";
+        [SerializeField] private string _playerTwoKey = "RYU2";
+        [SerializeField] private float _playerOneStartX = 280f;
+        [SerializeField] private float _playerTwoStartX = 480f;
+        [SerializeField] private float _groundY = 240f;
+
+        [Header("时钟")]
+        [SerializeField] private int _maxCatchUpTicks = 8;
+        [SerializeField] private float _accumulatorDropThresholdMs = 200f;
+
+        [Header("重开节奏（毫秒）")]
+        [SerializeField] private float _reloadDelayMs = 1000f;
+        [SerializeField] private float _respawnDelayMs = 30f;
+        [SerializeField] private float _modeSwitchCooldownMs = 1000f;
+
+        #endregion
+
+        /// <summary>全局唯一实例。</summary>
+        public static GameManager Instance { get; private set; }
 
         private GameClock _clock;
-        private Spirit _p1, _p2;
-        private BloodBar _bar1, _bar2;
-        private SpriteView _bgBehind, _bgFront;
-        private Camera _cam;
-        private Sfx _music;
+        private Spirit _playerOne;
+        private Spirit _playerTwo;
+        private BloodBar _barOne;
+        private BloodBar _barTwo;
+        private SpriteView _backgroundBehind;
+        private SpriteView _backgroundFront;
+        private Camera _camera;
+        private AudioPlayer _music;
 
-        private int _mode = 1;
-        private bool _paused;
-        private bool _modeLock;
-        private float _acc;
+        private GameMode _mode = GameMode.VersusAi;
+        private bool _isPaused;
+        private bool _isModeLocked;
+        private float _accumulator;
+
+        private static Sprite _whiteSprite;
+
+        #region Unity 生命周期
 
         private void Awake()
         {
             Instance = this;
 
-            var text = Resources.Load<TextAsset>("config").text;
-            Cfg.Load(text);
-            Art.Init();
+            GameConfig.Load(Resources.Load<TextAsset>(ConfigAssetPath).text);
+            SpriteLibrary.Initialize();
 
             _clock = new GameClock();
-            Collider.Clear();
+            BodyCollider.Clear();
 
             SetupCamera();
             SetupBackground();
             SetupHud();
             StartMatch();
 
-            _music = new Sfx();
-            _music.Loop("sound/china.mp3");
+            _music = new AudioPlayer();
+            _music.PlayLoop(SoundPaths.BackgroundMusic);
         }
 
         private void Update()
         {
             HandleGlobalKeys();
 
-            if (!_paused)
+            if (!_isPaused)
             {
-                _acc += Time.deltaTime * 1000f;
-                int guard = 0;
-                while (_acc >= GameClock.TickMs && guard < 8)
+                _accumulator += Time.deltaTime * 1000f;
+
+                int ticks = 0;
+                while (_accumulator >= GameClock.TickMilliseconds && ticks < _maxCatchUpTicks)
                 {
-                    _acc -= GameClock.TickMs;
+                    _accumulator -= GameClock.TickMilliseconds;
                     _clock.Tick();
-                    guard++;
+                    ticks++;
                 }
-                if (_acc > 200f) _acc = 0f;
+
+                // 长时间卡顿后直接丢弃积压，避免追帧雪崩
+                if (_accumulator > _accumulatorDropThresholdMs)
+                {
+                    _accumulator = 0f;
+                }
             }
 
             Render();
         }
 
-        // ---------------- 初始化 ----------------
+        #endregion
+
+        #region 初始化
 
         private void SetupCamera()
         {
-            _cam = Camera.main;
-            if (_cam == null)
+            _camera = Camera.main;
+            if (_camera == null)
             {
-                var go = new GameObject("Main Camera");
-                go.tag = "MainCamera";
-                _cam = go.AddComponent<Camera>();
+                var cameraObject = new GameObject("Main Camera") { tag = "MainCamera" };
+                _camera = cameraObject.AddComponent<Camera>();
             }
-            _cam.clearFlags = CameraClearFlags.SolidColor;
-            _cam.backgroundColor = new Color32(0xA0, 0xAA, 0xB2, 0xFF);
-            _cam.orthographic = true;
-            _cam.transform.position = new Vector3(0f, 0f, -10f);
+
+            _camera.clearFlags = CameraClearFlags.SolidColor;
+            _camera.backgroundColor = new Color32(0xA0, 0xAA, 0xB2, 0xFF);
+            _camera.orthographic = true;
+            _camera.transform.position = new Vector3(0f, 0f, CameraDepth);
         }
 
         /// <summary>保持 900x490 的画面比例，多余部分留黑边。</summary>
         private void FitCamera()
         {
-            if (_cam == null) return;
-            float target = Cfg.MapWidth / Cfg.MapHeight;
-            float screen = (float)Screen.width / Screen.height;
-            float w = 1f, h = 1f;
-            if (screen > target) w = target / screen;
-            else h = screen / target;
+            if (_camera == null)
+            {
+                return;
+            }
 
-            _cam.rect = new Rect((1f - w) / 2f, (1f - h) / 2f, w, h);
-            _cam.aspect = target;
-            _cam.orthographicSize = Cfg.MapHeight / 2f;
+            float targetAspect = GameConfig.MapWidth / GameConfig.MapHeight;
+            float screenAspect = (float)Screen.width / Screen.height;
+
+            float width = 1f;
+            float height = 1f;
+            if (screenAspect > targetAspect)
+            {
+                width = targetAspect / screenAspect;
+            }
+            else
+            {
+                height = screenAspect / targetAspect;
+            }
+
+            _camera.rect = new Rect((1f - width) / 2f, (1f - height) / 2f, width, height);
+            _camera.aspect = targetAspect;
+            _camera.orthographicSize = GameConfig.MapHeight / 2f;
         }
 
         private void SetupBackground()
         {
-            _bgBehind = new SpriteView("bg_behind", -20);
-            _bgFront = new SpriteView("bg_front", -10);
+            _backgroundBehind = new SpriteView("bg_behind", BackgroundBehindOrder);
+            _backgroundFront = new SpriteView("bg_front", BackgroundFrontOrder);
         }
 
         private void SetupHud()
         {
-            var canvasGo = new GameObject("Hud");
-            var canvas = canvasGo.AddComponent<Canvas>();
+            var canvasObject = new GameObject("Hud");
+            var canvas = canvasObject.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.WorldSpace;
             canvas.sortingOrder = 100;
 
-            var rt = canvasGo.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(Cfg.MapWidth, Cfg.MapHeight);
-            canvasGo.transform.SetParent(_cam.transform, false);
-            canvasGo.transform.localPosition = new Vector3(0f, 0f, 5f);
+            var canvasRect = canvasObject.GetComponent<RectTransform>();
+            canvasRect.sizeDelta = new Vector2(GameConfig.MapWidth, GameConfig.MapHeight);
+            canvasObject.transform.SetParent(_camera.transform, false);
+            canvasObject.transform.localPosition = new Vector3(0f, 0f, HudDepth);
 
-            var white = WhiteSprite();
+            CreateImage(canvasObject.transform, "bar", 96f, 35f, 720f, 32f, Color.white,
+                SpriteLibrary.GetWhole(BarArtName));
 
-            MakeImage(canvasGo.transform, "bar", 96f, 35f, 720f, 32f, Color.white, Art.Whole("bar"));
+            var leftBlood = CreateImage(canvasObject.transform, "blood_left", 96f, 40f, 322f, 21f, Color.blue, WhiteSprite);
+            var rightBlood = CreateImage(canvasObject.transform, "blood_right", 493f, 40f, 320f, 21f, Color.yellow, WhiteSprite);
 
-            var img1 = MakeImage(canvasGo.transform, "blood_left", 96f, 40f, 322f, 21f, Color.blue, white);
-            var img2 = MakeImage(canvasGo.transform, "blood_right", 493f, 40f, 320f, 21f, Color.yellow, white);
-
-            _bar1 = new BloodBar(img1, true, 96f, 322f);
-            _bar2 = new BloodBar(img2, false, 493f, 320f);
-        }
-
-        private static Image MakeImage(Transform parent, string name, float x, float y, float w, float h, Color color, Sprite sprite)
-        {
-            var go = new GameObject(name);
-            go.transform.SetParent(parent, false);
-            var img = go.AddComponent<Image>();
-            img.sprite = sprite;
-            img.color = color;
-            var r = go.GetComponent<RectTransform>();
-            r.anchorMin = r.anchorMax = new Vector2(0f, 1f);
-            r.pivot = new Vector2(0f, 1f);
-            r.anchoredPosition = new Vector2(x, -y);
-            r.sizeDelta = new Vector2(w, h);
-            return img;
-        }
-
-        private static Sprite _white;
-
-        private static Sprite WhiteSprite()
-        {
-            if (_white != null) return _white;
-            var tex = new Texture2D(4, 4, TextureFormat.RGBA32, false);
-            for (int i = 0; i < 16; i++) tex.SetPixel(i % 4, i / 4, Color.white);
-            tex.Apply();
-            _white = Sprite.Create(tex, new Rect(0, 0, 4, 4), new Vector2(0.5f, 0.5f), 1f);
-            return _white;
+            _barOne = new BloodBar(leftBlood, true, 96f, 322f);
+            _barTwo = new BloodBar(rightBlood, false, 493f, 320f);
         }
 
         private void StartMatch()
         {
-            _p1 = new Spirit(_clock, "RYU1", Cfg.Spirit("RYU1"));
-            _p2 = new Spirit(_clock, "RYU2", Cfg.Spirit("RYU2"));
+            _playerOne = new Spirit(_clock, _playerOneKey, GameConfig.GetSpirit(_playerOneKey));
+            _playerTwo = new Spirit(_clock, _playerTwoKey, GameConfig.GetSpirit(_playerTwoKey));
 
-            _p1.SetEnemy(_p2);
-            _p2.SetEnemy(_p1);
+            _playerOne.SetEnemy(_playerTwo);
+            _playerTwo.SetEnemy(_playerOne);
 
-            _p1.BloodBar = _bar1;
-            _p2.BloodBar = _bar2;
+            _playerOne.BloodBar = _barOne;
+            _playerTwo.BloodBar = _barTwo;
 
-            _p1.AttachView(new SpiritView("RYU1", 10));
-            _p2.AttachView(new SpiritView("RYU2", 12));
+            _playerOne.AttachView(new SpiritView(_playerOneKey, PlayerOneSortingOrder));
+            _playerTwo.AttachView(new SpiritView(_playerTwoKey, PlayerTwoSortingOrder));
 
-            _p1.Init(P1X, GY, 1);
-            _p2.Init(P2X, GY, -1);
+            _playerOne.Initialize(_playerOneStartX, _groundY, 1);
+            _playerTwo.Initialize(_playerTwoStartX, _groundY, -1);
 
-            _p2.Keys.Stop();
-            _p2.Ai = new Ai(_clock, _p2);
-            _p2.Ai.Start();
+            _playerTwo.Keys.Stop();
+            _playerTwo.Ai = new AiController(_clock, _playerTwo);
+            _playerTwo.Ai.Start();
 
-            _p2.Enemy.BloodBar.Event.Listen("empty", () => _p2.Ai.Stop());
+            _playerTwo.Enemy.BloodBar.Events.AddListener(GameEvents.Empty, () => _playerTwo.Ai.Stop());
         }
 
-        // ---------------- 每帧 ----------------
+        #endregion
+
+        #region 每帧
 
         private void Render()
         {
             FitCamera();
 
-            float x = -Stage.Bg.ScrollLeft;
-            _bgBehind.ShowStretched(Cfg.BgBehind, x, 0f, StageScroll.ContentWidth, 400f);
-            _bgFront.ShowStretched(Cfg.BgFront, x, 0f, StageScroll.ContentWidth, Cfg.MapHeight);
+            float scrollX = -Stage.Background.ScrollLeft;
+            _backgroundBehind.ShowStretched(GameConfig.BackgroundBehind, scrollX, 0f,
+                StageScroll.ContentWidth, BackgroundBehindHeight);
+            _backgroundFront.ShowStretched(GameConfig.BackgroundFront, scrollX, 0f,
+                StageScroll.ContentWidth, GameConfig.MapHeight);
 
-            _p1.Render(Cfg.Zoom, 10);
-            _p2.Render(Cfg.Zoom, 12);
+            _playerOne.Render(GameConfig.Zoom, PlayerOneSortingOrder);
+            _playerTwo.Render(GameConfig.Zoom, PlayerTwoSortingOrder);
 
-            _bar1.Render();
-            _bar2.Render();
+            _barOne.Render();
+            _barTwo.Render();
         }
 
         private void HandleGlobalKeys()
         {
-            if (Input.GetKeyDown(KeyCode.F2)) _paused = !_paused;
-
-            if (!_modeLock && (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)))
+            if (Input.GetKeyDown(KeyCode.F2))
             {
-                _modeLock = true;
-                _mode = Input.GetKeyDown(KeyCode.Alpha1) ? 1 : 2;
-                _p2.Ai.Stop();
-                Reload();
-                _clock.Timeout(() => _modeLock = false, 1000);
+                _isPaused = !_isPaused;
+            }
+
+            if (_isModeLocked)
+            {
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SwitchMode(GameMode.VersusAi);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SwitchMode(GameMode.VersusPlayer);
             }
         }
+
+        private void SwitchMode(GameMode mode)
+        {
+            _isModeLocked = true;
+            _mode = mode;
+            _playerTwo.Ai.Stop();
+            Reload();
+            _clock.Timeout(() => _isModeLocked = false, _modeSwitchCooldownMs);
+        }
+
+        #endregion
+
+        #region 重开
 
         /// <summary>复刻 Game.reload：回满血、复位、恢复输入。</summary>
         public void Reload()
         {
-            _p1.Keys.Stop();
-            _p2.Keys.Stop();
-            _bar1.Reload();
-            _bar2.Reload();
+            _playerOne.Keys.Stop();
+            _playerTwo.Keys.Stop();
+            _barOne.Reload();
+            _barTwo.Reload();
 
             _clock.Timeout(() =>
             {
-                _p1.Play("force_wait", true);
+                _playerOne.Play(StateNames.ForceWait, true);
                 _clock.Timeout(() =>
                 {
-                    _p1.Ani.Moveto(P1X, GY);
-                    _p1.Keys.Start();
-                    _p1.Direction = 1;
-                }, 30);
+                    _playerOne.Motion.MoveTo(_playerOneStartX, _groundY);
+                    _playerOne.Keys.Start();
+                    _playerOne.Direction = 1;
+                }, _respawnDelayMs);
 
-                _p2.Play("force_wait", true);
+                _playerTwo.Play(StateNames.ForceWait, true);
                 _clock.Timeout(() =>
                 {
-                    _p2.Ani.Moveto(P2X, GY);
-                    _p2.Keys.Start();
-                    _p2.Direction = -1;
-                    if (_mode == 1) _p2.Ai.Start();
-                }, 30);
-            }, 1000);
+                    _playerTwo.Motion.MoveTo(_playerTwoStartX, _groundY);
+                    _playerTwo.Keys.Start();
+                    _playerTwo.Direction = -1;
+
+                    if (_mode == GameMode.VersusAi)
+                    {
+                        _playerTwo.Ai.Start();
+                    }
+                }, _respawnDelayMs);
+            }, _reloadDelayMs);
         }
+
+        #endregion
+
+        #region 工具
+
+        private static Sprite WhiteSprite
+        {
+            get
+            {
+                if (_whiteSprite != null)
+                {
+                    return _whiteSprite;
+                }
+
+                var texture = new Texture2D(4, 4, TextureFormat.RGBA32, false);
+                for (int i = 0; i < 16; i++)
+                {
+                    texture.SetPixel(i % 4, i / 4, Color.white);
+                }
+
+                texture.Apply();
+                _whiteSprite = Sprite.Create(texture, new Rect(0f, 0f, 4f, 4f), new Vector2(0.5f, 0.5f), 1f);
+                return _whiteSprite;
+            }
+        }
+
+        private static Image CreateImage(Transform parent, string name, float x, float y, float width, float height,
+            Color color, Sprite sprite)
+        {
+            var imageObject = new GameObject(name);
+            imageObject.transform.SetParent(parent, false);
+
+            var image = imageObject.AddComponent<Image>();
+            image.sprite = sprite;
+            image.color = color;
+
+            var rectTransform = imageObject.GetComponent<RectTransform>();
+            rectTransform.anchorMin = rectTransform.anchorMax = new Vector2(0f, 1f);
+            rectTransform.pivot = new Vector2(0f, 1f);
+            rectTransform.anchoredPosition = new Vector2(x, -y);
+            rectTransform.sizeDelta = new Vector2(width, height);
+            return image;
+        }
+
+        #endregion
     }
 }

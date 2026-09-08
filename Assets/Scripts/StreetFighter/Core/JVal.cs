@@ -1,216 +1,177 @@
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
-namespace StreetFighter
+namespace StreetFighter.Core
 {
     /// <summary>
-    /// 极简 JSON 值 + 解析器。Unity 自带的 JsonUtility 不支持字典 / 混合类型数组，
-    /// 而原版 config.js 大量使用这两种结构，因此这里自带一个轻量解析。
+    /// 极简 JSON 值。Unity 自带的 JsonUtility 不支持字典 / 混合类型数组，
+    /// 而原版 config.js 大量使用这两种结构，因此这里自带一个轻量表示 + 解析器（见 <see cref="JsonParser"/>）。
     /// </summary>
     public sealed class JVal
     {
-        public enum Kind { Null, Bool, Number, String, Array, Object }
+        /// <summary>值的类型。</summary>
+        public enum ValueKind
+        {
+            Null,
+            Bool,
+            Number,
+            String,
+            Array,
+            Object,
+        }
 
-        public Kind Type = Kind.Null;
-        public bool Bool;
-        public double Number;
-        public string Str;
-        public List<JVal> Items;
-        public List<string> Keys;
-        public List<JVal> Values;
+        /// <summary>共享的空值，读取缺失字段时返回它。</summary>
+        public static readonly JVal Nil = new JVal();
 
-        public static readonly JVal NIL = new JVal();
+        /// <summary>值类型。</summary>
+        public ValueKind Kind { get; private set; } = ValueKind.Null;
 
-        public bool IsNull => Type == Kind.Null;
+        /// <summary>布尔值（Kind 为 Bool 时有效）。</summary>
+        public bool BoolValue { get; private set; }
 
+        /// <summary>数值（Kind 为 Number 时有效）。</summary>
+        public double Number { get; private set; }
+
+        /// <summary>字符串（Kind 为 String 时有效）。</summary>
+        public string StringValue { get; private set; }
+
+        /// <summary>数组元素（Kind 为 Array 时有效）。</summary>
+        public List<JVal> Items { get; private set; }
+
+        /// <summary>对象键（Kind 为 Object 时有效）。</summary>
+        public List<string> Keys { get; private set; }
+
+        /// <summary>对象值（Kind 为 Object 时有效，与 <see cref="Keys"/> 一一对应）。</summary>
+        public List<JVal> Values { get; private set; }
+
+        /// <summary>是否为 null / 缺失字段。</summary>
+        public bool IsNull => Kind == ValueKind.Null;
+
+        /// <summary>数组长度或对象键数量。</summary>
         public int Count
         {
             get
             {
-                if (Items != null) return Items.Count;
-                if (Keys != null) return Keys.Count;
-                return 0;
+                if (Items != null)
+                {
+                    return Items.Count;
+                }
+
+                return Keys?.Count ?? 0;
             }
         }
 
+        /// <summary>按 key 读对象字段，缺失返回 <see cref="Nil"/>。</summary>
         public JVal Get(string key)
         {
-            if (Type != Kind.Object || Keys == null) return NIL;
+            if (Kind != ValueKind.Object || Keys == null)
+            {
+                return Nil;
+            }
+
             for (int i = 0; i < Keys.Count; i++)
-                if (Keys[i] == key) return Values[i];
-            return NIL;
+            {
+                if (Keys[i] == key)
+                {
+                    return Values[i];
+                }
+            }
+
+            return Nil;
         }
 
+        /// <summary>对象是否包含指定 key。</summary>
         public bool Has(string key)
         {
-            if (Type != Kind.Object || Keys == null) return false;
+            if (Kind != ValueKind.Object || Keys == null)
+            {
+                return false;
+            }
+
             return Keys.Contains(key);
         }
 
+        /// <summary>按下标读数组元素，越界返回 <see cref="Nil"/>。</summary>
         public JVal Get(int index)
         {
-            if (Type != Kind.Array || Items == null) return NIL;
-            if (index < 0 || index >= Items.Count) return NIL;
+            if (Kind != ValueKind.Array || Items == null)
+            {
+                return Nil;
+            }
+
+            if (index < 0 || index >= Items.Count)
+            {
+                return Nil;
+            }
+
             return Items[index];
         }
 
-        public float F
+        /// <summary>以 float 读取；字符串会尝试解析。</summary>
+        public float AsFloat
         {
             get
             {
-                if (Type == Kind.Number) return (float)Number;
-                if (Type == Kind.String)
+                if (Kind == ValueKind.Number)
                 {
-                    float v;
-                    if (float.TryParse(Str, NumberStyles.Float, CultureInfo.InvariantCulture, out v)) return v;
+                    return (float)Number;
                 }
+
+                if (Kind == ValueKind.String)
+                {
+                    float value;
+                    if (float.TryParse(StringValue, NumberStyles.Float, CultureInfo.InvariantCulture, out value))
+                    {
+                        return value;
+                    }
+                }
+
                 return 0f;
             }
         }
 
-        public int I => (int)F;
+        /// <summary>以 int 读取。</summary>
+        public int AsInt => (int)AsFloat;
 
-        public string S => Type == Kind.String ? Str : null;
+        /// <summary>以 string 读取，非字符串返回 null。</summary>
+        public string AsString => Kind == ValueKind.String ? StringValue : null;
 
-        public bool AsBool => Type == Kind.Bool && Bool;
+        /// <summary>以 bool 读取。</summary>
+        public bool AsBool => Kind == ValueKind.Bool && BoolValue;
+
+        /// <summary>原地改写成数字（角色配置里有个别字段需要在运行时微调）。</summary>
+        public void SetNumber(double value)
+        {
+            Kind = ValueKind.Number;
+            Number = value;
+        }
 
         public override string ToString()
         {
-            switch (Type)
+            switch (Kind)
             {
-                case Kind.Number: return Number.ToString(CultureInfo.InvariantCulture);
-                case Kind.String: return Str;
-                case Kind.Bool: return Bool.ToString();
-                case Kind.Array: return "[" + Items.Count + "]";
-                case Kind.Object: return "{" + Keys.Count + "}";
+                case ValueKind.Number: return Number.ToString(CultureInfo.InvariantCulture);
+                case ValueKind.String: return StringValue;
+                case ValueKind.Bool: return BoolValue.ToString();
+                case ValueKind.Array: return $"[{Items.Count}]";
+                case ValueKind.Object: return $"{{{Keys.Count}}}";
                 default: return "null";
             }
         }
-    }
 
-    public class Json
-    {
-        private string _s;
-        private int _i;
+        internal static JVal CreateArray() =>
+            new JVal { Kind = ValueKind.Array, Items = new List<JVal>() };
 
-        public static JVal Parse(string text)
-        {
-            var p = new Json { _s = text, _i = 0 };
-            p.Skip();
-            return p.Value();
-        }
+        internal static JVal CreateObject() =>
+            new JVal { Kind = ValueKind.Object, Keys = new List<string>(), Values = new List<JVal>() };
 
-        private void Skip()
-        {
-            while (_i < _s.Length && char.IsWhiteSpace(_s[_i])) _i++;
-        }
+        internal static JVal CreateString(string value) =>
+            new JVal { Kind = ValueKind.String, StringValue = value };
 
-        private char Peek() => _i < _s.Length ? _s[_i] : '\0';
+        internal static JVal CreateBool(bool value) =>
+            new JVal { Kind = ValueKind.Bool, BoolValue = value };
 
-        private JVal Value()
-        {
-            Skip();
-            char c = Peek();
-            switch (c)
-            {
-                case '{': return Object();
-                case '[': return Array();
-                case '"': return new JVal { Type = JVal.Kind.String, Str = Str() };
-                case 't': Expect("true"); return new JVal { Type = JVal.Kind.Bool, Bool = true };
-                case 'f': Expect("false"); return new JVal { Type = JVal.Kind.Bool, Bool = false };
-                case 'n': Expect("null"); return JVal.NIL;
-                default: return Number();
-            }
-        }
-
-        private void Expect(string word)
-        {
-            if (_i + word.Length > _s.Length) throw new Exception("json eof: " + word);
-            _i += word.Length;
-        }
-
-        private JVal Object()
-        {
-            var v = new JVal { Type = JVal.Kind.Object, Keys = new List<string>(), Values = new List<JVal>() };
-            _i++; // {
-            Skip();
-            if (Peek() == '}') { _i++; return v; }
-            while (true)
-            {
-                Skip();
-                string key = Str();
-                Skip();
-                if (Peek() == ':') _i++;
-                v.Keys.Add(key);
-                v.Values.Add(Value());
-                Skip();
-                char c = Peek();
-                if (c == ',') { _i++; continue; }
-                if (c == '}') { _i++; break; }
-                throw new Exception("json object: " + c + " at " + _i);
-            }
-            return v;
-        }
-
-        private JVal Array()
-        {
-            var v = new JVal { Type = JVal.Kind.Array, Items = new List<JVal>() };
-            _i++; // [
-            Skip();
-            if (Peek() == ']') { _i++; return v; }
-            while (true)
-            {
-                v.Items.Add(Value());
-                Skip();
-                char c = Peek();
-                if (c == ',') { _i++; continue; }
-                if (c == ']') { _i++; break; }
-                throw new Exception("json array: " + c + " at " + _i);
-            }
-            return v;
-        }
-
-        private string Str()
-        {
-            if (Peek() != '"') throw new Exception("json string at " + _i);
-            _i++;
-            var sb = new StringBuilder();
-            while (_i < _s.Length)
-            {
-                char c = _s[_i++];
-                if (c == '"') break;
-                if (c == '\\')
-                {
-                    char e = _i < _s.Length ? _s[_i++] : '\0';
-                    switch (e)
-                    {
-                        case 'n': sb.Append('\n'); break;
-                        case 't': sb.Append('\t'); break;
-                        case 'r': sb.Append('\r'); break;
-                        case 'b': sb.Append('\b'); break;
-                        case 'f': sb.Append('\f'); break;
-                        case 'u':
-                            sb.Append((char)Convert.ToInt32(_s.Substring(_i, 4), 16));
-                            _i += 4;
-                            break;
-                        default: sb.Append(e); break;
-                    }
-                }
-                else sb.Append(c);
-            }
-            return sb.ToString();
-        }
-
-        private JVal Number()
-        {
-            int start = _i;
-            while (_i < _s.Length && "+-0123456789.eE".IndexOf(_s[_i]) >= 0) _i++;
-            string t = _s.Substring(start, _i - start);
-            double d;
-            double.TryParse(t, NumberStyles.Float, CultureInfo.InvariantCulture, out d);
-            return new JVal { Type = JVal.Kind.Number, Number = d };
-        }
+        internal static JVal CreateNumber(double value) =>
+            new JVal { Kind = ValueKind.Number, Number = value };
     }
 }

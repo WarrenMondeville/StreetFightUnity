@@ -1,102 +1,154 @@
 using System;
 using System.Collections.Generic;
 
-namespace StreetFighter
+namespace StreetFighter.Core
 {
     /// <summary>
-    /// 复刻原版 timer.js：所有子系统共用一个固定节奏的帧驱动（17ms 一帧），
-    /// 每帧从后往前执行回调；支持 push（插到队首，最先执行）/ unshift（插到队尾，最后执行）。
-    /// 同时提供 setTimeout 等价的延时调用（使用游戏内时间，暂停时一起冻结）。
+    /// 固定步长的游戏时钟（等价于原版 <c>timer.js</c>）：所有子系统共用一个 17ms 的逻辑帧，
+    /// 保证手感与帧数相关的判定在任何机器上都一致。
+    /// 回调按「后注册的先执行」顺序触发；另外提供基于游戏内时间的延时调用，
+    /// 因此暂停时 <see cref="Timeout"/> 也会一并冻结。
     /// </summary>
-    public class GameClock
+    public sealed class GameClock
     {
-        public const int TickMs = 17;
+        /// <summary>一个逻辑帧的时长（毫秒）。</summary>
+        public const int TickMilliseconds = 17;
 
-        public class Handle
+        /// <summary>定时器状态。</summary>
+        public enum TimerState
         {
-            public Action Fn;
-            public int State; // 0 normal, 1 add, 2 stop
+            /// <summary>刚创建，尚未进入队列。</summary>
+            Idle = 0,
+
+            /// <summary>在队列中，每帧执行。</summary>
+            Active = 1,
+
+            /// <summary>已暂停，保留在队列中但不执行。</summary>
+            Stopped = 2,
         }
 
-        private struct Pending
+        /// <summary>定时器句柄，由 <see cref="Add"/> 创建后可反复 Start / Stop。</summary>
+        public sealed class TimerHandle
         {
-            public double Due;
-            public Action Fn;
+            /// <summary>每帧回调。</summary>
+            public Action Callback;
+
+            /// <summary>当前状态。</summary>
+            public TimerState State;
         }
 
-        private readonly List<Handle> _timers = new List<Handle>();
-        private readonly List<Handle> _prepare = new List<Handle>();
-        private readonly List<Pending> _pending = new List<Pending>();
+        private struct ScheduledCallback
+        {
+            public double DueTime;
+            public Action Callback;
+        }
+
+        private readonly List<TimerHandle> _timers = new List<TimerHandle>();
+        private readonly List<TimerHandle> _pending = new List<TimerHandle>();
+        private readonly List<ScheduledCallback> _scheduled = new List<ScheduledCallback>();
 
         /// <summary>游戏内累计时间（毫秒）。</summary>
         public double Now { get; private set; }
 
-        public bool Running { get; set; }
+        /// <summary>时钟是否在推进（目前仅作标记，暂停由 <c>GameManager</c> 控制）。</summary>
+        public bool IsRunning { get; set; }
 
-        public Handle Add(Action fn) => new Handle { Fn = fn, State = 0 };
+        /// <summary>创建一个默认处于 <see cref="TimerState.Idle"/> 的定时器。</summary>
+        public TimerHandle Add(Action callback) => new TimerHandle { Callback = callback, State = TimerState.Idle };
 
-        public void Start(Handle h)
+        /// <summary>把定时器放入队列（已在队列中的会恢复执行）。</summary>
+        public void Start(TimerHandle handle)
         {
-            if (h == null) return;
-            if (h.State == 0)
+            if (handle == null)
             {
-                h.State = 1;
-                _prepare.Insert(0, h);
+                return;
             }
-            else if (h.State == 2)
+
+            if (handle.State == TimerState.Idle)
             {
-                h.State = 1;
+                handle.State = TimerState.Active;
+                _pending.Insert(0, handle);
+            }
+            else if (handle.State == TimerState.Stopped)
+            {
+                handle.State = TimerState.Active;
             }
         }
 
-        public void Stop(Handle h)
+        /// <summary>暂停定时器（保留在队列中）。</summary>
+        public void Stop(TimerHandle handle)
         {
-            if (h != null) h.State = 2;
+            if (handle != null)
+            {
+                handle.State = TimerState.Stopped;
+            }
         }
 
-        /// <summary>push：直接放入队列首部（最先被执行，原版用于清屏）。</summary>
-        public void Push(Handle h)
+        /// <summary>直接插到队首，也即在每帧最后执行（原版用于清屏）。</summary>
+        public void Push(TimerHandle handle)
         {
-            if (h == null) return;
-            if (!_timers.Contains(h)) _timers.Insert(0, h);
-            h.State = 1;
+            if (handle == null)
+            {
+                return;
+            }
+
+            if (!_timers.Contains(handle))
+            {
+                _timers.Insert(0, handle);
+            }
+
+            handle.State = TimerState.Active;
         }
 
-        public void Timeout(Action fn, double ms)
+        /// <summary>延时调用，使用游戏内时间。</summary>
+        public void Timeout(Action callback, double delayMs)
         {
-            _pending.Add(new Pending { Due = Now + ms, Fn = fn });
+            _scheduled.Add(new ScheduledCallback { DueTime = Now + delayMs, Callback = callback });
         }
 
+        /// <summary>推进一个逻辑帧。</summary>
         public void Tick()
         {
-            Now += TickMs;
+            Now += TickMilliseconds;
 
-            for (int i = _pending.Count - 1; i >= 0; i--)
+            for (int i = _scheduled.Count - 1; i >= 0; i--)
             {
-                if (_pending[i].Due <= Now)
+                if (_scheduled[i].DueTime <= Now)
                 {
-                    var p = _pending[i];
-                    _pending.RemoveAt(i);
-                    p.Fn?.Invoke();
+                    var scheduled = _scheduled[i];
+                    _scheduled.RemoveAt(i);
+                    scheduled.Callback?.Invoke();
                 }
             }
 
-            for (int i = _prepare.Count - 1; i >= 0; i--) _timers.Insert(0, _prepare[i]);
-            if (_prepare.Count > 0) _prepare.Clear();
+            for (int i = _pending.Count - 1; i >= 0; i--)
+            {
+                _timers.Insert(0, _pending[i]);
+            }
+
+            if (_pending.Count > 0)
+            {
+                _pending.Clear();
+            }
 
             for (int i = _timers.Count - 1; i >= 0; i--)
             {
-                var h = _timers[i];
-                if (h.State == 2) continue;
-                h.Fn?.Invoke();
+                var handle = _timers[i];
+                if (handle.State == TimerState.Stopped)
+                {
+                    continue;
+                }
+
+                handle.Callback?.Invoke();
             }
         }
 
+        /// <summary>清空所有定时器并归零时间。</summary>
         public void Clear()
         {
             _timers.Clear();
-            _prepare.Clear();
             _pending.Clear();
+            _scheduled.Clear();
             Now = 0;
         }
     }
