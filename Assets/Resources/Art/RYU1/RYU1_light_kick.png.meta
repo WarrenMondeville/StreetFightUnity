@@ -43,10 +43,10 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
+  spriteMeshType: 0
+  alignment: 1
   spritePivot: {x: 0, y: 1}
   spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -108,7 +108,112 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RYU1_light_kick_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 116
+        height: 94
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48b3e15e1a690c0b0800000000000000
+      internalID: -5710398705427924092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_light_kick_1
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 0
+        width: 116
+        height: 94
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca43c2bd8971682d0800000000000000
+      internalID: -3276905733585881940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_light_kick_2
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 0
+        width: 116
+        height: 94
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61a0632d4f0226670800000000000000
+      internalID: 8530416880064006678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_light_kick_3
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 0
+        width: 116
+        height: 94
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7d6d116d5f5ae8f0800000000000000
+      internalID: -510490753087214209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_light_kick_4
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 0
+        width: 116
+        height: 94
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf38c677c479f57b0800000000000000
+      internalID: -5233297887304317956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +224,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RYU1_light_kick_0: -5710398705427924092
+      RYU1_light_kick_1: -3276905733585881940
+      RYU1_light_kick_2: 8530416880064006678
+      RYU1_light_kick_3: -510490753087214209
+      RYU1_light_kick_4: -5233297887304317956
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

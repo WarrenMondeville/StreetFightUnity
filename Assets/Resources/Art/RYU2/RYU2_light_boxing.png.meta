@@ -43,10 +43,10 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
+  spriteMeshType: 0
+  alignment: 1
   spritePivot: {x: 0, y: 1}
   spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -108,7 +108,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RYU2_light_boxing_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 94
+        height: 91
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3968d731e34b60c80800000000000000
+      internalID: -8356793879831411053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_light_boxing_1
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 0
+        width: 94
+        height: 91
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80ea0b335f468bda0800000000000000
+      internalID: -5928877905136275960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_light_boxing_2
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 0
+        width: 94
+        height: 91
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dcaeddb51e1f97e0800000000000000
+      internalID: -1756652250922570542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +182,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RYU2_light_boxing_0: -8356793879831411053
+      RYU2_light_boxing_1: -5928877905136275960
+      RYU2_light_boxing_2: -1756652250922570542
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

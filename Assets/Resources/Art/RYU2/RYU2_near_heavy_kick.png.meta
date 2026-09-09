@@ -43,10 +43,10 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
+  spriteMeshType: 0
+  alignment: 1
   spritePivot: {x: 0, y: 1}
   spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -108,7 +108,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RYU2_near_heavy_kick_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 99
+        height: 122
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 980aa0ea878c4b020800000000000000
+      internalID: 2356728925663174793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_kick_1
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 0
+        width: 99
+        height: 122
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f411649321668790800000000000000
+      internalID: -7528222921662065416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_kick_2
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 99
+        height: 122
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1981a759e12fed960800000000000000
+      internalID: 7628801031982946449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_kick_3
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 0
+        width: 99
+        height: 122
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cca1a46e703f6400800000000000000
+      internalID: 319527417978924226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_kick_4
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 0
+        width: 99
+        height: 122
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a30c606316592940800000000000000
+      internalID: 5271839480035935139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_kick_5
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 0
+        width: 99
+        height: 122
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 310d7c2a94930f330800000000000000
+      internalID: 3742554278771281939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +245,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RYU2_near_heavy_kick_0: 2356728925663174793
+      RYU2_near_heavy_kick_1: -7528222921662065416
+      RYU2_near_heavy_kick_2: 7628801031982946449
+      RYU2_near_heavy_kick_3: 319527417978924226
+      RYU2_near_heavy_kick_4: 5271839480035935139
+      RYU2_near_heavy_kick_5: 3742554278771281939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

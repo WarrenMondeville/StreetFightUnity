@@ -46,7 +46,7 @@ namespace StreetFighter.Gameplay
 
         public void Start(string type, float left, float top, int direction)
         {
-            _frameCount = FrameCountOf(type);
+            _frameCount = GameConfig.GetEffectFrameCount(type);
             _currentFrame = 0;
             _tickCount = 0;
             _name = type;
@@ -56,7 +56,7 @@ namespace StreetFighter.Gameplay
 
             var texture = SpriteLibrary.GetTexture(type);
             Width = texture != null ? texture.width / (float)_frameCount : 0f;
-            Height = HeightOf(type);
+            Height = GameConfig.GetEffectHeight(type);
 
             if (_view == null)
             {
@@ -97,29 +97,6 @@ namespace StreetFighter.Gameplay
             if (_currentFrame >= _frameCount)
             {
                 _clock.Stop(_timer);
-            }
-        }
-
-        private static int FrameCountOf(string type)
-        {
-            switch (type)
-            {
-                case "heavy": return 4;
-                case "defense": return 5;
-                case "transverseWaveDisappear": return 5;
-                default: return 3;
-            }
-        }
-
-        private static float HeightOf(string type)
-        {
-            switch (type)
-            {
-                case "light": return 19f;
-                case "heavy": return 31f;
-                case "defense": return 32f;
-                case "transverseWaveDisappear": return 28f;
-                default: return 19f;
             }
         }
     }

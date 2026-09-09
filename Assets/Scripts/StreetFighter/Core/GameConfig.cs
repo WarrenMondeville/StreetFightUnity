@@ -16,6 +16,8 @@ namespace StreetFighter.Core
 
         private const float DefaultFps = 17f;
         private const float DefaultZoom = 2.1f;
+        private const int DefaultEffectFrameCount = 3;
+        private const float DefaultEffectHeight = 19f;
 
         /// <summary>配置根节点。</summary>
         public static JVal Root { get; private set; }
@@ -128,6 +130,20 @@ namespace StreetFighter.Core
 
         /// <summary>attack_type，用于映射到 <c>AttackState</c>。</summary>
         public static int GetAttackType(JVal state) => state.Get("attack_type").AsInt;
+
+        /// <summary>特效图的帧数（Config.hitEffect[type].framesNum）。</summary>
+        public static int GetEffectFrameCount(string type)
+        {
+            int frames = Root.Get("hitEffect").Get(type).Get("framesNum").AsInt;
+            return frames <= 0 ? DefaultEffectFrameCount : frames;
+        }
+
+        /// <summary>特效图的绘制高度（Config.hitEffect[type].height）。</summary>
+        public static float GetEffectHeight(string type)
+        {
+            float height = Root.Get("hitEffect").Get(type).Get("height").AsFloat;
+            return height <= 0f ? DefaultEffectHeight : height;
+        }
 
         /// <summary>读取数值数组，字段缺失返回 null。</summary>
         public static float[] ReadFloatArray(JVal state, string key)

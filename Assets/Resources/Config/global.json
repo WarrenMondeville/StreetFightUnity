@@ -9,5 +9,23 @@
     "windowWidth": 776,
     "spiritZoom": 2.1
   },
-  "spiritShadow": "fighterShadow"
+  "spiritShadow": "fighterShadow",
+  "hitEffect": {
+    "light": {
+      "framesNum": 3,
+      "height": 19
+    },
+    "heavy": {
+      "framesNum": 4,
+      "height": 31
+    },
+    "defense": {
+      "framesNum": 5,
+      "height": 32
+    },
+    "transverseWaveDisappear": {
+      "framesNum": 5,
+      "height": 28
+    }
+  }
 }

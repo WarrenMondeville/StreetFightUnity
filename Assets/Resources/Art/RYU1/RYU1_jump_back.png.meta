@@ -43,10 +43,10 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
+  spriteMeshType: 0
+  alignment: 1
   spritePivot: {x: 0, y: 1}
   spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -108,7 +108,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RYU1_jump_back_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 124
+        height: 109
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85b61b30f5039abd0800000000000000
+      internalID: -2618508523697247400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_jump_back_1
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 0
+        width: 124
+        height: 109
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 986f45c96004630c0800000000000000
+      internalID: -4596415972548217207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_jump_back_2
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 0
+        width: 124
+        height: 109
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36d27c35b0f27f500800000000000000
+      internalID: 429864015133879651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_jump_back_3
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 0
+        width: 124
+        height: 109
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3215fcaba59b61ce0800000000000000
+      internalID: -1434755631938580189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_jump_back_4
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 0
+        width: 124
+        height: 109
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f51c4d5d5012d1e30800000000000000
+      internalID: 4475769913622184287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_jump_back_5
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 0
+        width: 124
+        height: 109
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67006382f1c9aba60800000000000000
+      internalID: 7690630971321090166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_jump_back_6
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 0
+        width: 124
+        height: 109
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cd94feda11ed3c40800000000000000
+      internalID: 5493794625987845575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_jump_back_7
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 0
+        width: 124
+        height: 109
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a867ec07dc88b1f20800000000000000
+      internalID: 3394457160096052874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU1_jump_back_8
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 0
+        width: 124
+        height: 109
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08d51a881c1bb9b00800000000000000
+      internalID: 836457600586440064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +308,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RYU1_jump_back_0: -2618508523697247400
+      RYU1_jump_back_1: -4596415972548217207
+      RYU1_jump_back_2: 429864015133879651
+      RYU1_jump_back_3: -1434755631938580189
+      RYU1_jump_back_4: 4475769913622184287
+      RYU1_jump_back_5: 7690630971321090166
+      RYU1_jump_back_6: 5493794625987845575
+      RYU1_jump_back_7: 3394457160096052874
+      RYU1_jump_back_8: 836457600586440064
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

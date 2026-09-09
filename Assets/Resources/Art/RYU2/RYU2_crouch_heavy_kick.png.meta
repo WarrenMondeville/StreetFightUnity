@@ -43,10 +43,10 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
+  spriteMeshType: 0
+  alignment: 1
   spritePivot: {x: 0, y: 1}
   spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -108,7 +108,112 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RYU2_crouch_heavy_kick_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 123
+        height: 61
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b2b37fa6f1db6270800000000000000
+      internalID: 8244914400267580080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_crouch_heavy_kick_1
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 0
+        width: 123
+        height: 61
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82d72147086a26070800000000000000
+      internalID: 8098218150598966568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_crouch_heavy_kick_2
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 0
+        width: 123
+        height: 61
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdd17de28b2547570800000000000000
+      internalID: 8463480550749314523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_crouch_heavy_kick_3
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 0
+        width: 123
+        height: 61
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd646712d5199e4f0800000000000000
+      internalID: -798947629702166817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_crouch_heavy_kick_4
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 0
+        width: 123
+        height: 61
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd2d82b757b2fdf20800000000000000
+      internalID: 3449523623166530268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +224,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RYU2_crouch_heavy_kick_0: 8244914400267580080
+      RYU2_crouch_heavy_kick_1: 8098218150598966568
+      RYU2_crouch_heavy_kick_2: 8463480550749314523
+      RYU2_crouch_heavy_kick_3: -798947629702166817
+      RYU2_crouch_heavy_kick_4: 3449523623166530268
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -43,10 +43,10 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
+  spriteMeshType: 0
+  alignment: 1
   spritePivot: {x: 0, y: 1}
   spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -108,7 +108,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RYU2_near_heavy_boxing_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 91
+        height: 113
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63fe65cfb2403e6a0800000000000000
+      internalID: -6421284056736534730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_boxing_1
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 0
+        width: 91
+        height: 113
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9c6a10513776aa70800000000000000
+      internalID: 8837882372442188959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_boxing_2
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 0
+        width: 91
+        height: 113
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 488cb086bb9acb3d0800000000000000
+      internalID: -3189487813715572604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_boxing_3
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 0
+        width: 91
+        height: 113
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf9b15edd11560700800000000000000
+      internalID: 506181196851558907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_boxing_4
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 0
+        width: 91
+        height: 113
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70bf325ddae388da0800000000000000
+      internalID: -5942430791989200121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RYU2_near_heavy_boxing_5
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 0
+        width: 91
+        height: 113
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a441b51d8fe8f060800000000000000
+      internalID: 6987598211098690721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +245,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RYU2_near_heavy_boxing_0: -6421284056736534730
+      RYU2_near_heavy_boxing_1: 8837882372442188959
+      RYU2_near_heavy_boxing_2: -3189487813715572604
+      RYU2_near_heavy_boxing_3: 506181196851558907
+      RYU2_near_heavy_boxing_4: -5942430791989200121
+      RYU2_near_heavy_boxing_5: 6987598211098690721
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

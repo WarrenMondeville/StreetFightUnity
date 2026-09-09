@@ -14,13 +14,13 @@ namespace StreetFighter.Editor
         private const string MenuPath = "StreetFighter/Build Scene";
         private const string SceneDirectory = "Assets/Scenes";
         private const string ScenePath = "Assets/Scenes/Main.unity";
-        private const string ArtSearchFolder = "Assets/Resources/Art";
         private const string GameManagerObjectName = "GameManager";
 
         [MenuItem(MenuPath)]
         public static void Build()
         {
-            ReimportArt();
+            // 重新导入美术资源并生成预切好的 Sprite 子资源。
+            ArtSpriteSlicer.ApplyAll();
 
             if (!Directory.Exists(SceneDirectory))
             {
@@ -69,25 +69,6 @@ namespace StreetFighter.Editor
         {
             var gameObject = new GameObject(GameManagerObjectName);
             gameObject.AddComponent<GameManager>();
-        }
-
-        private static void ReimportArt()
-        {
-            var guids = AssetDatabase.FindAssets("t:Texture2D", new[] { ArtSearchFolder });
-            foreach (var guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                var importer = AssetImporter.GetAtPath(path) as TextureImporter;
-                if (importer == null)
-                {
-                    continue;
-                }
-
-                TextureSettings.Apply(importer);
-                importer.SaveAndReimport();
-            }
-
-            Debug.Log($"[SF] 纹理导入设置已应用: {guids.Length}");
         }
     }
 }
