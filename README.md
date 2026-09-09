@@ -1,6 +1,7 @@
 # StreetFighterUnity
 
-把 [AlloyTeam 的 Canvas 版街头霸王](../StreetFighter)（`js/` + `images/*.gif`）复刻成 Unity 项目。
+使用AI复刻街头霸王到 Unity 项目。
+![街头霸王](Display.gif)
 
 Unity 版本：**2022.3.62f3c1**（2D 项目，无第三方依赖，只用内置模块 + UGUI）。
 
@@ -115,22 +116,9 @@ Assets/
             ├── Stage.cs / StageScroll.cs / BloodBar.cs / GameMode.cs
 ```
 
-对应关系：
 
-| Unity | 原版 |
-|---|---|
-| `Core/GameClock.cs` | `js/timer.js` |
-| `Gameplay/Mover.cs`、`Core/Easing.cs` | `js/interface.js` 的 `Animate` + `config.easing` |
-| `Core/JVal.cs` + `Core/JsonParser.cs` | —— （Unity `JsonUtility` 不支持字典与混合类型数组，故自带解析器） |
-| `Gameplay/Spirit.cs` | `js/main.js` 的 `Block` + `Spirit` |
-| `Gameplay/MeleeAttack.cs` / `WaveProjectile.cs` | `js/main.js` 的 `Fighter` / `WaveBoxing` |
-| `Gameplay/FighterInput.cs` | `js/interface.js` 的 `KeyManage` |
-| `Gameplay/AiController.cs` | `js/ai.js` |
-| `Game/GameManager.cs` | `js/main.js` 的 `Game` / `gameStart` |
-| `Game/Stage.cs` | `js/map.js` 的 `Stage` |
-| `Game/BloodBar.cs` | `js/main.js` 的 `Blood` |
 
----
+
 
 ## 二次开发提示
 
