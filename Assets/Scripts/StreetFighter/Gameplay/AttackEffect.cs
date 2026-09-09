@@ -5,8 +5,8 @@ using UnityEngine;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 interface.js 的 AttackEffect：命中 / 防御 / 波动相消的特效序列帧。
-    /// 每个特效图都是横向条带，帧数与高度由类型决定（与原版硬编码一致）。
+    /// 命中 / 防御 / 波动相消的特效序列帧。
+    /// 每个特效图都是横向条带，帧数与高度由类型决定。
     /// </summary>
     public sealed class AttackEffect
     {
@@ -66,7 +66,7 @@ namespace StreetFighter.Gameplay
             _clock.Start(_timer);
         }
 
-        /// <summary>每渲染帧同步到场景（原版是每帧直接 drawImage）。</summary>
+        /// <summary>每渲染帧同步到场景。</summary>
         public void Render(float zoom)
         {
             if (_view == null)

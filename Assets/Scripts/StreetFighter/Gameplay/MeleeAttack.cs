@@ -5,7 +5,7 @@ using UnityEngine;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 main.js 的 Fighter：跟随角色 / 独立移动的近身攻击判定体。
+    /// 跟随角色 / 独立移动的近身攻击判定体。
     /// 传给 <see cref="Start"/> 的两个数组来自 attack_config 的第 2~8 项，含义：
     /// 0 位移x，1 位移y，2 时长，3 缓动名，4 特效，5 受击状态，6 伤害。
     /// </summary>

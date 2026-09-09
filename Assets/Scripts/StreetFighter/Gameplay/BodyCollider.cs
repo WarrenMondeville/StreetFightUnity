@@ -6,7 +6,7 @@ using UnityEngine;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 interface.js 的 Collision：全局共享一个实体表，圆形相交判定，
+    /// 碰撞检测：全局共享一个实体表，圆形相交判定，
     /// 半径 = (自身宽 / 2 + 对方宽 / 2) * spiritZoom。
     /// </summary>
     public sealed class BodyCollider

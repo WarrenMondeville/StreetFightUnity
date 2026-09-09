@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 固定步长的游戏时钟（等价于原版 <c>timer.js</c>）：所有子系统共用一个 17ms 的逻辑帧，
+    /// 固定步长的游戏时钟：所有子系统共用一个 17ms 的逻辑帧，
     /// 保证手感与帧数相关的判定在任何机器上都一致。
     /// 回调按「后注册的先执行」顺序触发；另外提供基于游戏内时间的延时调用，
     /// 因此暂停时 <see cref="Timeout"/> 也会一并冻结。

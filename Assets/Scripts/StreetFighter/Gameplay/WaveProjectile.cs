@@ -5,7 +5,7 @@ using UnityEngine;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 main.js 的 WaveBoxing（波动拳）：延迟发射的飞行道具，可与对方波动拳相消。
+    /// 波动拳：延迟发射的飞行道具，可与对方波动拳相消。
     /// light_wave / heavy_wave 的 attack_config：
     /// 0 尺寸偏移x，1 偏移y，2 判定体尺寸，3 未使用，4 消失特效，5 受击状态，6 伤害，7 防御伤害。
     /// </summary>

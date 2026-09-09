@@ -3,8 +3,8 @@ using UnityEngine;
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 原版 config.js 的 C# 只读视图。运行时从 <c>Resources/Config/</c> 下的分片 json 合并载入，
-    /// 保证数值与原版 100% 一致，避免手写常量出错。
+    /// 游戏配置的 C# 只读视图。运行时从 <c>Resources/Config/</c> 下的分片 json 合并载入，
+    /// 保证数值只来自配置，避免手写常量出错。
     /// </summary>
     public static class GameConfig
     {

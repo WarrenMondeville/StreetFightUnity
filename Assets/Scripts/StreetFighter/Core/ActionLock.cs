@@ -1,7 +1,7 @@
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 动作优先级锁（等价于原版 interface.js 的 Lock）。
+    /// 动作优先级锁。
     /// 级别越大优先级越高；只有更高或同级别解锁时才能打断当前动作。
     /// </summary>
     public sealed class ActionLock

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 interface.js 的 SpiritFrames：逐帧推进序列帧并算出当前要绘制的图集与帧号。
+    /// 逐帧推进序列帧并算出当前要绘制的图集与帧号。
     /// 绘制本身交给表现层（每帧读取 <see cref="DrawBackground"/> / <see cref="DrawFrame"/>）。
     /// </summary>
     public sealed class FrameAnimator

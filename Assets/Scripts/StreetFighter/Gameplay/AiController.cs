@@ -5,7 +5,7 @@ using StreetFighter.Core;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 ai.js：规则驱动的电脑决策。
+    /// 规则驱动的电脑决策。
     /// 输入 = 距离分段 + 敌方动作状态 + 是否飞行道具 + 是否无敌；输出 = 高概率正确 / 低概率错误的动作。
     /// </summary>
     public sealed class AiController

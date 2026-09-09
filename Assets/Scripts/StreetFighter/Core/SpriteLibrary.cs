@@ -4,9 +4,9 @@ using UnityEngine;
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 序列帧资源池。原版所有角色 / 特效图都是横向排列的 gif 条带，
-    /// 这里已转成 png，运行时按 framesNum 横向切片成 Sprite。
-    /// 切片使用 pivot(0, 1)（左上角）+ PPU=1，方便直接沿用原版 left / top 像素坐标。
+    /// 序列帧资源池。所有角色 / 特效图都是横向排列的条带图，
+    /// 已转成 png，运行时按 framesNum 横向切片成 Sprite。
+    /// 切片使用 pivot(0, 1)（左上角）+ PPU=1，方便直接沿用 left / top 像素坐标。
     /// </summary>
     public static class SpriteLibrary
     {

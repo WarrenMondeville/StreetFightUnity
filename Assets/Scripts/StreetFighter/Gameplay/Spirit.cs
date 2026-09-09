@@ -7,7 +7,7 @@ using UnityEngine;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 main.js 的 Block + Spirit：角色总控。
+    /// 角色总控。
     /// 组合了帧动画、位移插值、动作队列、锁、输入、碰撞、近战判定、波动拳、状态机与舞台推挤。
     /// </summary>
     public sealed class Spirit : ICollidable, IMovable
@@ -409,7 +409,7 @@ namespace StreetFighter.Gameplay
             Status.SetAttackType(attackType);
             Status.SetAttackPower(GameConfig.ReadFloatArray(definition, "attack_power"));
 
-            // 原版是 attack_config && this.attack.start(...)：部分动作（如波动拳）只有 attack_type 没有判定配置
+            // 部分动作（如波动拳）只有 attack_type 没有判定配置，需要判空
             var attackConfig = definition.Get("attack_config");
             if (attackType == MeleeAttackType && !attackConfig.IsNull)
             {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 极简字符串事件总线，等价于原版 interface.js 的 Event。
+    /// 极简字符串事件总线。
     /// 同名事件可以有多个监听，触发顺序是「后注册的先执行」。
     /// </summary>
     public sealed class EventBus

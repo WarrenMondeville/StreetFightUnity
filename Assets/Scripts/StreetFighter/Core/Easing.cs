@@ -1,8 +1,8 @@
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 复刻 config.js 里的 easing 函数集合（原版是 JS 函数，这里按名字等价实现）。
-    /// 签名与 JS 一致：<c>f(t, b, c, d) = c * ease(t / d) + b</c>。
+    /// 缓动函数集合，按名字实现。
+    /// 签名：<c>f(t, b, c, d) = c * ease(t / d) + b</c>。
     /// </summary>
     public static class Easing
     {

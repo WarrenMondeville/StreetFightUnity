@@ -11,7 +11,7 @@ using UnityEngine.InputSystem.Utilities;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 interface.js 的 KeyManage：
+    /// 输入识别：
     /// 移动键持续采样 + 攻击键边缘触发 + 短动作序列匹配出招表。
     /// 输入来自 Unity Input System，键盘与手柄共用同一套判定逻辑。
     /// </summary>

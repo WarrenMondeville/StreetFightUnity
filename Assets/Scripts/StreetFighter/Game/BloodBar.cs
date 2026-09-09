@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace StreetFighter.Game
 {
     /// <summary>
-    /// 复刻 game.js 的 Blood：血量 1500，受击后血量条在最多 500ms 内线性收缩。
+    /// 血条：血量 1500，受击后血量条在最多 500ms 内线性收缩。
     /// 左条从左侧向内收缩，右条从右侧向内收缩。
     /// </summary>
     public sealed class BloodBar

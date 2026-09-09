@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 原版 配置 的 keyMap 里存的是 JS keyCode（如 <c>97</c> 代表小键盘 1），
+    /// 配置的 keyMap 里存的是键盘 keyCode（如 <c>97</c> 代表小键盘 1），
     /// 这里把它们翻译成 Input System 的键盘控件路径（如 <c>&lt;Keyboard&gt;/numpad1</c>），
     /// 这样每个玩家的按键绑定仍然只由 配置 决定，不需要在 C# 里再写一份。
     /// </summary>
@@ -71,7 +71,7 @@ namespace StreetFighter.Core
             { 123, "f12" },
         };
 
-        /// <summary>把 JS keyCode 转成 Input System 的键盘控件路径，无法识别时返回 null。</summary>
+        /// <summary>把 keyCode 转成 Input System 的键盘控件路径，无法识别时返回 null。</summary>
         public static string Get(int keyCode)
         {
             string name;

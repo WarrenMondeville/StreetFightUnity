@@ -3,7 +3,7 @@ using System;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 空中组合技：在原动作上叠加播放另一段序列帧（等价于原版 SpiritFrames 里的 combo 支持）。
+    /// 空中组合技：在原动作上叠加播放另一段序列帧。
     /// </summary>
     public sealed class ComboAttack
     {

@@ -4,8 +4,8 @@ using UnityEngine;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 interface.js 的 Animate：基于时间的位移插值（横向 / 纵向），
-    /// 并提供 lock / push / stagePush 等原版特有的推挤能力。
+    /// 基于时间的位移插值（横向 / 纵向），
+    /// 并提供 lock / push / stagePush 等推挤能力。
     /// </summary>
     public sealed class Mover
     {

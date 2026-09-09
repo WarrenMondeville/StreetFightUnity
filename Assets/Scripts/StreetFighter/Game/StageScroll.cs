@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace StreetFighter.Game
 {
-    /// <summary>共享的舞台横向卷轴位置（原版是一个可滚动的 div）。</summary>
+    /// <summary>共享的舞台横向卷轴位置。</summary>
     public sealed class StageScroll
     {
         /// <summary>背景内容总宽（比画布宽，多出来的部分靠滚动展示）。</summary>

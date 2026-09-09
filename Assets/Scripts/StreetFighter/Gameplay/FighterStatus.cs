@@ -4,7 +4,7 @@ using UnityEngine;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 复刻 interface.js 的 StatusManage：维护攻击姿态 / 攻击等级 / 无敌 / 敌我距离分段，
+    /// 维护攻击姿态 / 攻击等级 / 无敌 / 敌我距离分段，
     /// 是 AI、命中判定、防御、受击行为的共同依据。
     /// </summary>
     public sealed class FighterStatus

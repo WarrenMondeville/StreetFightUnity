@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace StreetFighter.Game
 {
     /// <summary>
-    /// 复刻 main.js / game.js：资源加载、开局、统一帧驱动、胜负与重开、模式切换。
+    /// 流程总控：资源加载、开局、统一帧驱动、胜负与重开、模式切换。
     /// 场景中只需要挂这一个组件，角色、背景、血条、特效都在运行时创建。
     /// </summary>
     [AddComponentMenu("StreetFighter/Game Manager")]
@@ -280,7 +280,7 @@ namespace StreetFighter.Game
 
         #region 重开
 
-        /// <summary>复刻 Game.reload：回满血、复位、恢复输入。</summary>
+        /// <summary>重开一局：回满血、复位、恢复输入。</summary>
         public void Reload()
         {
             _playerOne.Keys.Stop();

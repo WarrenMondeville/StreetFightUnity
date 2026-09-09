@@ -4,9 +4,9 @@ using UnityEngine;
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 配置分片加载器。原版 config.js 导出的配置按「功能 + 角色」拆成
+    /// 配置分片加载器。配置按「功能 + 角色」拆成
     /// <c>Assets/Resources/Config/</c> 下的多个 json（每个分片都是同一棵配置树的一个分支），
-    /// 运行时全部读出后深度合并成单一根节点，逻辑上等价于原来的单个 config.json。
+    /// 运行时全部读出后深度合并成单一根节点。
     /// </summary>
     public static class ConfigLoader
     {

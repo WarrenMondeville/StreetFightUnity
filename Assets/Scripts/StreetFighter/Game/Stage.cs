@@ -3,7 +3,7 @@ using StreetFighter.Gameplay;
 namespace StreetFighter.Game
 {
     /// <summary>
-    /// 复刻 map.js 的 Stage：角色顶到屏幕边缘时推动背景滚动，并反推对手。
+    /// 舞台：角色顶到屏幕边缘时推动背景滚动，并反推对手。
     /// 每帧的滚动量是固定的，能否滚动取决于卷轴是否已到端点。
     /// </summary>
     public sealed class Stage

@@ -5,7 +5,7 @@ namespace StreetFighter.Core
 {
     /// <summary>
     /// 极简 JSON 值。Unity 自带的 JsonUtility 不支持字典 / 混合类型数组，
-    /// 而原版 config.js 大量使用这两种结构，因此这里自带一个轻量表示 + 解析器（见 <see cref="JsonParser"/>）。
+    /// 而配置分片大量使用这两种结构，因此这里自带一个轻量表示 + 解析器（见 <see cref="JsonParser"/>）。
     /// </summary>
     public sealed class JVal
     {

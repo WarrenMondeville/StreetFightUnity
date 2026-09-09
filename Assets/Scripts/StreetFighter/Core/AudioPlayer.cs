@@ -4,8 +4,8 @@ using UnityEngine;
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 音效播放器（等价于原版 interface.js 的 Audio）。
-    /// 每个实例独占一个 <see cref="AudioSource"/>，与原版「一个 Audio 对象同时只能播一个音」的行为保持一致。
+    /// 音效播放器。
+    /// 每个实例独占一个 <see cref="AudioSource"/>，与「一个播放器同时只能播一个音」的行为保持一致。
     /// </summary>
     public sealed class AudioPlayer
     {
