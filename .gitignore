@@ -4,3 +4,8 @@
 /ProjectSettings
 /Temp
 /Packages/packages-lock.json
+/*.csproj
+/*.sln
+/*.vsconfig
+/obj
+/.vs
