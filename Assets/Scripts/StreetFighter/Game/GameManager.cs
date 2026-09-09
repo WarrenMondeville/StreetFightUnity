@@ -74,6 +74,7 @@ namespace StreetFighter.Game
         {
             Instance = this;
 
+            GameInput.Initialize();
             GameConfig.Load(Resources.Load<TextAsset>(ConfigAssetPath).text);
             SpriteLibrary.Initialize();
 
@@ -91,7 +92,7 @@ namespace StreetFighter.Game
 
         private void Update()
         {
-            HandleGlobalKeys();
+            HandleSystemInput();
 
             if (!_isPaused)
             {
@@ -113,6 +114,16 @@ namespace StreetFighter.Game
             }
 
             Render();
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+
+            GameInput.Shutdown();
         }
 
         #endregion
@@ -234,9 +245,10 @@ namespace StreetFighter.Game
             _barTwo.Render();
         }
 
-        private void HandleGlobalKeys()
+        /// <summary>暂停与模式切换，键盘 / 手柄均可触发。</summary>
+        private void HandleSystemInput()
         {
-            if (Input.GetKeyDown(KeyCode.F2))
+            if (GameInput.WasPausePressed)
             {
                 _isPaused = !_isPaused;
             }
@@ -246,11 +258,11 @@ namespace StreetFighter.Game
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (GameInput.WasVersusAiPressed)
             {
                 SwitchMode(GameMode.VersusAi);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            else if (GameInput.WasVersusPlayerPressed)
             {
                 SwitchMode(GameMode.VersusPlayer);
             }

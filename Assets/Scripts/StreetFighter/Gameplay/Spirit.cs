@@ -132,7 +132,7 @@ namespace StreetFighter.Gameplay
 
         public ActionLock Lock { get; private set; }
 
-        public KeyboardInput Keys { get; private set; }
+        public FighterInput Keys { get; private set; }
 
         public BodyCollider Collider { get; private set; }
 
@@ -169,7 +169,7 @@ namespace StreetFighter.Gameplay
             Motion = new Mover(_clock, this);
             Actions = new Queue<SpiritAction>();
             Lock = new ActionLock();
-            Keys = new KeyboardInput(_clock, RawStates.Get("keyMap"));
+            Keys = new FighterInput(_clock, RawStates.Get("keyMap"));
             Collider = new BodyCollider(this);
             Attack = new MeleeAttack(_clock, this);
             Wave = new WaveProjectile(_clock, this);

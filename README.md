@@ -20,11 +20,15 @@ Unity 版本：**2022.3.62f3c1**（2D 项目，无第三方依赖，只用内置
 
 ## 操作
 
-| | 主机（P1，RYU1） | 副机（P2，RYU2） |
-|---|---|---|
-| 移动 | `W` 上 / `S` 下 / `A` 后 / `D` 前 | `↑` `↓` `←` `→` |
-| 轻拳 / 重拳 | `J` / `K` | 小键盘 `1` / `2` |
-| 轻腿 / 重腿 | `U` / `I` | 小键盘 `4` / `5` |
+输入基于 **Unity Input System**（键盘 + 手柄同时支持，手柄按序号分给 P1 / P2）。
+
+| | 主机（P1，RYU1） | 副机（P2，RYU2） | 手柄 |
+|---|---|---|---|
+| 移动 | `W` 上 / `S` 下 / `A` 后 / `D` 前 | `↑` `↓` `←` `→` | 左摇杆 / 十字键 |
+| 轻拳 / 重拳 | `J` / `K` | 小键盘 `1` / `2` | □（X）/ △（Y） |
+| 轻腿 / 重腿 | `U` / `I` | 小键盘 `4` / `5` | ✕（A）/ ○（B） |
+
+> 招式与手柄按键的对应关系写在 `Gameplay/FighterInput.cs` 的 `GamepadAttackPaths` 里。
 
 **出招**（双方通用）：
 
@@ -34,11 +38,15 @@ Unity 版本：**2022.3.62f3c1**（2D 项目，无第三方依赖，只用内置
 
 **其他**：
 
-- `F2` 暂停 / 继续
+- `F2` / 手柄 `Start` 暂停、继续
 - `1` 人机对战（P2 由 AI 接管）
 - `2` 双人对打
 
 > 副机使用小键盘；主键盘数字 `1` `2` 专门用于切换模式，不参与攻击。
+
+键盘按键不是写死在 C# 里的，而是由 `config.json` 每个角色的 `keyMap.mapping`（原版 JS keyCode）在运行时翻译成 Input System 的键盘路径，改配置即可改键；手柄按键则按招式固定映射。
+
+> 需要 **Package: Input System 1.14.2**，且 `Project Settings → Player → Active Input Handling` 必须是 `Input System Package (New)`（当前工程已设为该值）。
 
 角色靠近到一定距离会自动切换朝向，此时移动键的前后含义会镜像（与原版一致）。
 
@@ -91,18 +99,20 @@ Assets/
     │   ├── AudioPlayer.cs / SoundPaths.cs
     │   ├── Easing.cs / EasingNames.cs
     │   ├── EventBus.cs / ActionLock.cs / GameEvents.cs
-    ├── Gameplay/                 # 玩法层（StreetFighter.Gameplay）
+    │   ├── KeyboardPaths.cs / InputActionNames.cs   # 输入：keyCode 翻译、动作名
+        ├── Gameplay/                 # 玩法层（StreetFighter.Gameplay）
     │   ├── Spirit.cs             # 角色总控
     │   ├── FrameAnimator.cs / ComboAttack.cs / Mover.cs
     │   ├── FighterStatus.cs / BodyCollider.cs
     │   ├── MeleeAttack.cs / WaveProjectile.cs / AttackEffect.cs
-    │   ├── KeyboardInput.cs / AiController.cs
+    │   ├── FighterInput.cs / AiController.cs
     │   └── StateNames.cs / AttackState.cs / DistanceBand.cs / Side.cs / MeleeMode.cs
-    ├── View/                     # 表现层（StreetFighter.View）
+        ├── View/                     # 表现层（StreetFighter.View）
     │   ├── SpriteView.cs / SpiritView.cs / WaveView.cs
-    └── Game/                     # 流程层（StreetFighter.Game）
-        ├── GameManager.cs        # 唯一的 MonoBehaviour
-        ├── Stage.cs / StageScroll.cs / BloodBar.cs / GameMode.cs
+        └── Game/                     # 流程层（StreetFighter.Game）
+            ├── GameManager.cs        # 唯一的 MonoBehaviour
+            ├── GameInput.cs          # 全局输入（系统动作 + 手柄分配）
+            ├── Stage.cs / StageScroll.cs / BloodBar.cs / GameMode.cs
 ```
 
 对应关系：
@@ -114,7 +124,7 @@ Assets/
 | `Core/JVal.cs` + `Core/JsonParser.cs` | —— （Unity `JsonUtility` 不支持字典与混合类型数组，故自带解析器） |
 | `Gameplay/Spirit.cs` | `js/main.js` 的 `Block` + `Spirit` |
 | `Gameplay/MeleeAttack.cs` / `WaveProjectile.cs` | `js/main.js` 的 `Fighter` / `WaveBoxing` |
-| `Gameplay/KeyboardInput.cs` | `js/interface.js` 的 `KeyManage` |
+| `Gameplay/FighterInput.cs` | `js/interface.js` 的 `KeyManage` |
 | `Gameplay/AiController.cs` | `js/ai.js` |
 | `Game/GameManager.cs` | `js/main.js` 的 `Game` / `gameStart` |
 | `Game/Stage.cs` | `js/map.js` 的 `Stage` |
@@ -127,6 +137,8 @@ Assets/
 - 想调数值（伤害、判定框、帧数、位移）直接改 `Assets/Resources/config.json`，不要改代码常量；需要重新导出时用 Node 执行 `vm` 加载 `StreetFighter/js/config.js` 即可。
 - 想加角色：在 `config.json` 的 `Spirit` 下加一份配置（含 `states` / `keyMap`），并在 `GameManager.StartMatch()` 里实例化。
 - 想关掉 AI：`1`/`2` 切到双人模式，或删除 `StartMatch()` 中的 `AiController` 创建。
+- 想改键盘按键：改 `config.json` 里对应角色 `keyMap.mapping` 的 JS keyCode（`KeyboardPaths` 负责翻译成 Input System 路径）；想改手柄按键：改 `FighterInput.GamepadAttackPaths`。
+- 想加第三个玩家：给 `GameInput` 注册一个新的 `FighterInput` 即可，手柄会按注册序号自动分配。
 - 出场位置、追帧上限、重开节奏等参数都提成了 `GameManager` 的 Inspector 字段，可以在场景里直接调。
 
 ### 代码风格约定
@@ -135,9 +147,10 @@ Assets/
 - 命名空间跟随目录：`StreetFighter.Core` / `StreetFighter.Gameplay` / `StreetFighter.View` / `StreetFighter.Game`。
 - **一个文件一个公开类型**，文件名与类型名一致；私有嵌套类型（如 `Spirit.SpiritAction`）除外。
 - 对外只暴露属性，字段一律 `private` 且以 `_` 开头；`MonoBehaviour` 上需要在 Inspector 调整的参数使用 `[SerializeField]`。
-- 状态名、事件名、音效路径不用裸字符串，统一走 `StateNames` / `GameEvents` / `SoundPaths` / `EasingNames` 常量类。
+- 状态名、事件名、音效路径、Input System 动作名不用裸字符串，统一走 `StateNames` / `GameEvents` / `SoundPaths` / `EasingNames` / `InputActionNames` 常量类。
 - 攻防姿态、距离分段、方位、判定体模式都用枚举（`AttackState` / `DistanceBand` / `Side` / `MeleeMode`），不比较字符串。
-- 事件用 C# `event`（`KeyboardInput.Matched`、`BodyCollider.Hit`）；需要按字符串分发的场景用 `EventBus`（`AddListener` / `RemoveListener` / `Invoke`，语义对齐 `UnityEvent`）。
+- 事件用 C# `event`（`FighterInput.Matched`、`BodyCollider.Hit`）；需要按字符串分发的场景用 `EventBus`（`AddListener` / `RemoveListener` / `Invoke`，语义对齐 `UnityEvent`）。
+- 输入一律走 Input System：不用 `UnityEngine.Input` / `KeyCode`。每个玩家一份 `InputActionMap`（`FighterInput`），全局系统动作与设备分配在 `GameInput`。
 
 ---
 
