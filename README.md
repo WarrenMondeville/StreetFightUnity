@@ -2,7 +2,9 @@
 
 使用AI复刻街头霸王到 Unity 项目,（**2022.3.62f3c1**,2D 项目，无第三方依赖，只用内置模块 + UGUI）。
 
-![街头霸王](Display.gif) ![Hitbox](Hitbox.png)
+![街头霸王](Display.gif)
+
+![Hitbox](Hitbox.png)
 
 https://github.com/WarrenMondeville/StreetFightUnity.git
 
