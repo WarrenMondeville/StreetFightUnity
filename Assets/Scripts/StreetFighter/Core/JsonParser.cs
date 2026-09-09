@@ -7,7 +7,7 @@ namespace StreetFighter.Core
 {
     /// <summary>
     /// 与 <see cref="JVal"/> 配套的递归下降 JSON 解析器。
-    /// 只覆盖 config.json 用到的语法：对象、数组、字符串（含转义）、数字、true/false/null。
+    /// 只覆盖配置分片用到的语法：对象、数组、字符串（含转义）、数字、true/false/null。
     /// </summary>
     public static class JsonParser
     {

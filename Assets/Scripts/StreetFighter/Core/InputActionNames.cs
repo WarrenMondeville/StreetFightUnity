@@ -1,7 +1,7 @@
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// Input System 的动作名常量。招式动作直接沿用 config.json 里的招式名，
+    /// Input System 的动作名常量。招式动作直接沿用配置分片里的招式名，
     /// 这里只登记代码里固定创建的几个动作。
     /// </summary>
     public static class InputActionNames

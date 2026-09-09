@@ -1,7 +1,7 @@
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 角色状态名常量。值必须与 config.json 中 <c>Spirit.*.states</c> 与 <c>play</c> 的键完全一致。
+    /// 角色状态名常量。值必须与配置分片中 <c>Spirit.*.states</c> 与 <c>play</c> 的键完全一致。
     /// </summary>
     public static class StateNames
     {

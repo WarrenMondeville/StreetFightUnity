@@ -25,7 +25,7 @@ namespace StreetFighter.Gameplay
 
         private const string FighterMapName = "Fighter";
 
-        /// <summary>招式名到手柄按键的映射，键盘那一路仍然由 config.json 决定。</summary>
+        /// <summary>招式名到手柄按键的映射，键盘那一路仍然由 配置 决定。</summary>
         private static readonly Dictionary<string, string> GamepadAttackPaths = new Dictionary<string, string>
         {
             { "light_boxing", "<Gamepad>/buttonWest" },
@@ -34,7 +34,7 @@ namespace StreetFighter.Gameplay
             { "heavy_kick", "<Gamepad>/buttonEast" },
         };
 
-        /// <summary>config.json 的 move 表中，单键动作名对应的绝对方向。</summary>
+        /// <summary>配置 的 move 表中，单键动作名对应的绝对方向。</summary>
         private static readonly Dictionary<string, MoveDirection> DirectionsByMove = new Dictionary<string, MoveDirection>
         {
             { "jump", MoveDirection.Up },
@@ -160,7 +160,7 @@ namespace StreetFighter.Gameplay
             }
         }
 
-        /// <summary>把 config.json 的 keyCode 映射翻译成 字母 -> 键盘控件路径。</summary>
+        /// <summary>把 配置 的 keyCode 映射翻译成 字母 -> 键盘控件路径。</summary>
         private static Dictionary<string, string> ReadKeyboardPaths(JVal mapping)
         {
             var paths = new Dictionary<string, string>();

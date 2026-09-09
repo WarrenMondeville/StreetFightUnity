@@ -9,7 +9,7 @@ namespace StreetFighter.Editor
     /// </summary>
     public sealed class TextureSettings : AssetPostprocessor
     {
-        private const string ArtMarker = "/Resources/Art/";
+        private const string ArtMarker = "/Resources/Art1/";
 
         private const int MaxTextureSize = 2048;
 

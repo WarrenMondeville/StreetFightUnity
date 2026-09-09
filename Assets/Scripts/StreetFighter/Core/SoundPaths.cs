@@ -2,7 +2,7 @@ namespace StreetFighter.Core
 {
     /// <summary>
     /// 写在代码里的固定音效路径（Resources/Sound 下的相对路径）。
-    /// 角色动作音效来自 config.json，不在本类中。
+    /// 角色动作音效来自配置分片，不在本类中。
     /// </summary>
     public static class SoundPaths
     {

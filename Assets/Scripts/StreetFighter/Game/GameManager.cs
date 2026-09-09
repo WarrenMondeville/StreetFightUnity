@@ -14,7 +14,6 @@ namespace StreetFighter.Game
     [DefaultExecutionOrder(-100)]
     public sealed class GameManager : MonoBehaviour
     {
-        private const string ConfigAssetPath = "config";
         private const string BarArtName = "bar";
 
         private const int PlayerOneSortingOrder = 10;
@@ -75,7 +74,7 @@ namespace StreetFighter.Game
             Instance = this;
 
             GameInput.Initialize();
-            GameConfig.Load(Resources.Load<TextAsset>(ConfigAssetPath).text);
+            GameConfig.Load();
             SpriteLibrary.Initialize();
 
             _clock = new GameClock();

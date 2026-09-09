@@ -3,7 +3,7 @@ using UnityEngine;
 namespace StreetFighter.Core
 {
     /// <summary>
-    /// 原版 config.js 的 C# 只读视图。运行时从 <c>Resources/config.json</c> 载入，
+    /// 原版 config.js 的 C# 只读视图。运行时从 <c>Resources/Config/</c> 下的分片 json 合并载入，
     /// 保证数值与原版 100% 一致，避免手写常量出错。
     /// </summary>
     public static class GameConfig
@@ -38,10 +38,10 @@ namespace StreetFighter.Core
         /// <summary>角色脚下阴影图名。</summary>
         public static string SpiritShadow { get; private set; }
 
-        /// <summary>载入配置文本。</summary>
-        public static void Load(string text)
+        /// <summary>载入配置：读取 <c>Resources/Config</c> 下的全部分片并合并。</summary>
+        public static void Load()
         {
-            Root = JsonParser.Parse(text);
+            Root = ConfigLoader.Load();
             Fps = Root.Get("fps").AsFloat;
             KeyFps = Root.Get("key_fps").AsFloat;
 

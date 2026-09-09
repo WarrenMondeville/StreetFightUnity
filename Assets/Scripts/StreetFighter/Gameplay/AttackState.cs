@@ -1,7 +1,7 @@
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 角色的攻防姿态，对应 config.json 里的 attack_type（0~4）。
+    /// 角色的攻防姿态，对应配置分片里的 attack_type（0~4）。
     /// </summary>
     public enum AttackState
     {

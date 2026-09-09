@@ -46,7 +46,7 @@ https://github.com/WarrenMondeville/StreetFightUnity.git
 
 > 副机使用小键盘；主键盘数字 `1` `2` 专门用于切换模式，不参与攻击。
 
-键盘按键不是写死在 C# 里的，而是由 `config.json` 每个角色的 `keyMap.mapping`（原版 JS keyCode）在运行时翻译成 Input System 的键盘路径，改配置即可改键；手柄按键则按招式固定映射。
+键盘按键不是写死在 C# 里的，而是由 `Resources/Config/` 下每个角色配置分片的 `keyMap.mapping`（原版 JS keyCode）在运行时翻译成 Input System 的键盘路径，改配置即可改键；手柄按键则按招式固定映射。
 
 > 需要 **Package: Input System 1.14.2**，且 `Project Settings → Player → Active Input Handling` 必须是 `Input System Package (New)`（当前工程已设为该值）。
 
@@ -58,7 +58,7 @@ https://github.com/WarrenMondeville/StreetFightUnity.git
 
 原版核心是四件事，Unity 版本全部保持机制等价：
 
-1. **配置驱动状态机** —— `config.js` 的 `Config` 对象经 Node 导出为 `Assets/Resources/config.json`，运行时读取。61 个角色状态、48 个 `play` 动作组合、出招表、判定框参数与原版数值一致，不手写常量。`easing` 原本是 JS 函数，在 C# 中按名字重新实现。
+1. **配置驱动状态机** —— `config.js` 的 `Config` 对象经 Node 导出后，按「功能 + 角色」拆成 `Assets/Resources/Config/` 下的多个 json 分片，运行时全部读出后深度合并成一棵配置树（`ConfigLoader`）。61 个角色状态、48 个 `play` 动作组合、出招表、判定框参数与原版数值一致，不手写常量。`easing` 原本是 JS 函数，在 C# 中按名字重新实现。
 2. **输入缓冲连招识别** —— 移动键持续采样 + 攻击键边缘触发 + 短动作序列拼接成字符串匹配 `attack.special`（如 `forward,crouch,forward,heavy_boxing` → 升龙拳）。
 3. **基于状态的攻防判定** —— 攻击等级互拼、防御削血、受击/击飞/倒地/起身短暂无敌、飞行道具相消。
 4. **统一帧驱动** —— `GameClock` 以 17ms 固定步长推进所有子系统（等价于原版 `setInterval(Config.fps)`），回调注册顺序与 `timer.js` 一致；`setTimeout` 也换成游戏内时钟，暂停时一并冻结。
@@ -83,7 +83,11 @@ https://github.com/WarrenMondeville/StreetFightUnity.git
 ```
 Assets/
 ├── Resources/
-│   ├── config.json               # 由 js/config.js 导出
+│   ├── Config/                   # 由 js/config.js 导出后按功能/角色拆分，运行时合并
+│   │   ├── global.json           # fps / key_fps / map / spiritShadow
+│   │   ├── play.json             # 48 个动作的组合编排（compose）与优先级（lock）
+│   │   ├── Spirit_RYU1.json      # 角色 1：states + keyMap
+│   │   └── Spirit_RYU2.json      # 角色 2：states + keyMap
 │   ├── Art/                      # 序列帧 png（g/ hitEffect/ magic/ RYU1/ RYU2/）
 │   └── Sound/                    # mp3
 ├── Scenes/Main.unity
@@ -95,7 +99,8 @@ Assets/
     ├── StreetFighter.Runtime.asmdef
     ├── Core/                     # 引擎层（StreetFighter.Core）
     │   ├── GameClock.cs          # 17ms 固定步长逻辑帧 + 游戏内 setTimeout
-    │   ├── GameConfig.cs         # config.json 的只读视图
+    │   ├── ConfigLoader.cs       # 读取 Config/ 下所有分片并深度合并
+    │   ├── GameConfig.cs         # 配置的只读视图
     │   ├── JVal.cs / JsonParser.cs
     │   ├── SpriteLibrary.cs      # 序列帧切片缓存
     │   ├── AudioPlayer.cs / SoundPaths.cs
@@ -123,10 +128,10 @@ Assets/
 
 ## 二次开发提示
 
-- 想调数值（伤害、判定框、帧数、位移）直接改 `Assets/Resources/config.json`，不要改代码常量；需要重新导出时用 Node 执行 `vm` 加载 `StreetFighter/js/config.js` 即可。
-- 想加角色：在 `config.json` 的 `Spirit` 下加一份配置（含 `states` / `keyMap`），并在 `GameManager.StartMatch()` 里实例化。
+- 想调数值（伤害、判定框、帧数、位移）直接改 `Assets/Resources/Config/` 下对应的分片，不要改代码常量；需要重新导出时用 Node 执行 `vm` 加载 `StreetFighter/js/config.js` 即可。
+- 想加角色：在 `Assets/Resources/Config/` 下新建 `Spirit_<名字>.json`（内容形如 `{"Spirit": {"<名字>": {...states, keyMap...}}}`），无需改加载代码，再到 `GameManager.StartMatch()` 里实例化。
 - 想关掉 AI：`1`/`2` 切到双人模式，或删除 `StartMatch()` 中的 `AiController` 创建。
-- 想改键盘按键：改 `config.json` 里对应角色 `keyMap.mapping` 的 JS keyCode（`KeyboardPaths` 负责翻译成 Input System 路径）；想改手柄按键：改 `FighterInput.GamepadAttackPaths`。
+- 想改键盘按键：改角色分片（`Spirit_*.json`）里 `keyMap.mapping` 的 JS keyCode（`KeyboardPaths` 负责翻译成 Input System 路径）；想改手柄按键：改 `FighterInput.GamepadAttackPaths`。
 - 想加第三个玩家：给 `GameInput` 注册一个新的 `FighterInput` 即可，手柄会按注册序号自动分配。
 - 出场位置、追帧上限、重开节奏等参数都提成了 `GameManager` 的 Inspector 字段，可以在场景里直接调。
 
