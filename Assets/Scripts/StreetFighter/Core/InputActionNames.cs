@@ -17,5 +17,8 @@ namespace StreetFighter.Core
 
         /// <summary>切到双人模式。</summary>
         public const string VersusPlayer = "VersusPlayer";
+
+        /// <summary>测试模式开关（绘制攻击框 / 受击框）。</summary>
+        public const string DebugHitBox = "DebugHitBox";
     }
 }

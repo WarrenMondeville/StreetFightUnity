@@ -87,6 +87,12 @@ namespace StreetFighter.Gameplay
         /// <summary>当前跟随方式。</summary>
         public MeleeMode Mode { get; private set; } = MeleeMode.Normal;
 
+        /// <summary>判定体是否正在生效（测试模式据此决定是否绘制攻击框）。</summary>
+        public bool IsActive => _timer.State == GameClock.TimerState.Active;
+
+        /// <summary>判定体，测试模式用它的实际尺寸绘制攻击框。</summary>
+        public BodyCollider Collider => _collider;
+
         /// <summary>音效播放器，供外部（受击方）复用。</summary>
         public AudioPlayer Audio { get; }
 

@@ -99,6 +99,9 @@ namespace StreetFighter.Gameplay
         /// <summary>已起手、等待正式发射。</summary>
         public bool IsReadyFiring { get; set; }
 
+        /// <summary>判定体，测试模式用它的实际尺寸绘制波动拳判定框。</summary>
+        public BodyCollider Collider => _collider;
+
         /// <summary>特效控制器，供对手相消时使用。</summary>
         public AttackEffect Effects => _effects;
 

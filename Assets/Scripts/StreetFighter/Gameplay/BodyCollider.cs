@@ -35,11 +35,23 @@ namespace StreetFighter.Gameplay
         /// <summary>清空实体表（重开一局时调用）。</summary>
         public static void Clear() => Bodies.Clear();
 
+        /// <summary>实际参与判定的宽度（构造时传入的覆盖值优先）。</summary>
+        public float BoxWidth => _overrideWidth > 0f ? _overrideWidth : _self.Width;
+
+        /// <summary>实际参与判定的高度（构造时传入的覆盖值优先）。</summary>
+        public float BoxHeight => _overrideHeight > 0f ? _overrideHeight : _self.Height;
+
+        /// <summary>判定框左上角的画布 x，与 <see cref="Check"/> 使用的判定中心对齐。</summary>
+        public float BoxLeft => _self.Left + (_self.Width - BoxWidth) * GameConfig.Zoom / 2f;
+
+        /// <summary>判定框左上角的画布 y，与 <see cref="Check"/> 使用的判定中心对齐。</summary>
+        public float BoxTop => _self.Top + (_self.Height - BoxHeight) * GameConfig.Zoom / 2f;
+
         /// <summary>与实体表中的所有其它实体做一次检测。</summary>
         public void Check()
         {
-            float width = _overrideWidth > 0f ? _overrideWidth : _self.Width;
-            float height = _overrideHeight > 0f ? _overrideHeight : _self.Height;
+            float width = BoxWidth;
+            float height = BoxHeight;
 
             for (int i = 0; i < Bodies.Count; i++)
             {

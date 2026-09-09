@@ -250,6 +250,7 @@ MonoBehaviour:
   _groundY: 240
   _maxCatchUpTicks: 8
   _accumulatorDropThresholdMs: 200
+  _debugHitBox: 1
   _reloadDelayMs: 1000
   _respawnDelayMs: 30
   _modeSwitchCooldownMs: 1000

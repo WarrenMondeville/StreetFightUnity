@@ -40,6 +40,9 @@ namespace StreetFighter.Game
         [SerializeField] private int _maxCatchUpTicks = 8;
         [SerializeField] private float _accumulatorDropThresholdMs = 200f;
 
+        [Header("测试模式")]
+        [SerializeField] private bool _debugHitBox;
+
         [Header("重开节奏（毫秒）")]
         [SerializeField] private float _reloadDelayMs = 1000f;
         [SerializeField] private float _respawnDelayMs = 30f;
@@ -57,6 +60,7 @@ namespace StreetFighter.Game
         private BloodBar _barTwo;
         private SpriteView _backgroundBehind;
         private SpriteView _backgroundFront;
+        private HitBoxOverlay _hitBoxOverlay;
         private Camera _camera;
         private AudioPlayer _music;
 
@@ -84,6 +88,12 @@ namespace StreetFighter.Game
             SetupBackground();
             SetupHud();
             StartMatch();
+
+            _hitBoxOverlay = new HitBoxOverlay();
+            if (_debugHitBox)
+            {
+                DebugMode.Toggle();
+            }
 
             _music = new AudioPlayer();
             _music.PlayLoop(SoundPaths.BackgroundMusic);
@@ -244,12 +254,23 @@ namespace StreetFighter.Game
             _barTwo.Render();
         }
 
+        /// <summary>测试模式：用 Gizmos 绘制攻击框 / 受击框。</summary>
+        private void OnDrawGizmos()
+        {
+            _hitBoxOverlay?.DrawGizmos(_playerOne, _playerTwo);
+        }
+
         /// <summary>暂停与模式切换，键盘 / 手柄均可触发。</summary>
         private void HandleSystemInput()
         {
             if (GameInput.WasPausePressed)
             {
                 _isPaused = !_isPaused;
+            }
+
+            if (GameInput.WasDebugHitBoxPressed)
+            {
+                DebugMode.Toggle();
             }
 
             if (_isModeLocked)

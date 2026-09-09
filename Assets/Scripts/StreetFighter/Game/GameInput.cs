@@ -21,6 +21,7 @@ namespace StreetFighter.Game
         private static InputAction _pause;
         private static InputAction _versusAi;
         private static InputAction _versusPlayer;
+        private static InputAction _debugHitBox;
 
         /// <summary>是否已经初始化。</summary>
         public static bool IsInitialized { get; private set; }
@@ -33,6 +34,9 @@ namespace StreetFighter.Game
 
         /// <summary>本帧是否按下了双人模式键（主键盘 2）。</summary>
         public static bool WasVersusPlayerPressed => WasPressed(_versusPlayer);
+
+        /// <summary>本帧是否按下了测试模式键（F1）。</summary>
+        public static bool WasDebugHitBoxPressed => WasPressed(_debugHitBox);
 
         /// <summary>创建系统动作并开始监听设备变化，可重复调用。</summary>
         public static void Initialize()
@@ -49,6 +53,7 @@ namespace StreetFighter.Game
 
             _versusAi = _system.AddAction(InputActionNames.VersusAi, InputActionType.Button, "<Keyboard>/1");
             _versusPlayer = _system.AddAction(InputActionNames.VersusPlayer, InputActionType.Button, "<Keyboard>/2");
+            _debugHitBox = _system.AddAction(InputActionNames.DebugHitBox, InputActionType.Button, "<Keyboard>/f1");
 
             _system.Enable();
             InputSystem.onDeviceChange += OnDeviceChange;
@@ -71,6 +76,7 @@ namespace StreetFighter.Game
             _pause = null;
             _versusAi = null;
             _versusPlayer = null;
+            _debugHitBox = null;
 
             Players.Clear();
         }
