@@ -1,0 +1,3521 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87347cdcbc473341ac953056869fdf2, type: 3}
+  m_Name: RYU1
+  m_EditorClassIdentifier: 
+  _fighterName: RYU1
+  _defaultState: wait
+  _states:
+  - _name: wait
+    _background: RYU1_wait
+    _frameCount: 6
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: force_wait
+    _background: RYU1_wait
+    _frameCount: 6
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: back
+    _background: RYU1_goBack
+    _frameCount: 6
+    _repeat: 
+    _easing:
+      _dx: -120
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: force_back
+    _background: RYU1_goBack
+    _frameCount: 6
+    _repeat: 
+    _easing:
+      _dx: -120
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: forward
+    _background: RYU1_goForward
+    _frameCount: 6
+    _repeat: 
+    _easing:
+      _dx: 150
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: force_forward
+    _background: RYU1_goForward
+    _frameCount: 6
+    _repeat: 
+    _easing:
+      _dx: 150
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: stand_up
+    _background: RYU1_stand_up
+    _frameCount: 3
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: easeIn
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: stand_up_defense
+    _background: RYU1_stand_up_defense
+    _frameCount: 2
+    _repeat: 0100000064000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: easeIn
+    _position: 0
+    _attackType: 1
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: force_stand_up_defense
+    _background: RYU1_stand_up_defense
+    _frameCount: 2
+    _repeat: 0000000005000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 5
+      _ease: easeIn
+    _position: 0
+    _attackType: 1
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: crouch
+    _background: RYU1_crouch
+    _frameCount: 1
+    _repeat: 64000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: easeIn
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: stand_crouch_defense
+    _background: RYU1_stand_crouch_defense
+    _frameCount: 2
+    _repeat: 0100000064000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: easeIn
+    _position: 0
+    _attackType: 1
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: force_stand_crouch_defense
+    _background: RYU1_stand_crouch_defense
+    _frameCount: 2
+    _repeat: 0000000005000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 5
+      _ease: easeIn
+    _position: 0
+    _attackType: 1
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jumpUp
+    _background: RYU1_jumpUp
+    _frameCount: 8
+    _repeat: 0100000001000000020000000200000002000000010000000000000000000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: -170
+      _step: 3
+      _ease: sineaseOut
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_forward_up
+    _background: RYU1_jump_forward
+    _frameCount: 9
+    _repeat: 010000000400000001000000010000000000000000000000000000000000000000000000
+    _easing:
+      _dx: 200
+      _autoTop: 0
+      _top: -170
+      _step: 3
+      _ease: sineaseOut
+    _position: 62
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_forward_down
+    _background: RYU1_jump_forward
+    _frameCount: 9
+    _repeat: 000000000000000000000000000000000100000001000000010000000400000002000000
+    _easing:
+      _dx: 100
+      _autoTop: 0
+      _top: 170
+      _step: 3
+      _ease: sineaseIn
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_back_up
+    _background: RYU1_jump_back
+    _frameCount: 9
+    _repeat: 010000000400000001000000010000000000000000000000000000000000000000000000
+    _easing:
+      _dx: -200
+      _autoTop: 0
+      _top: -170
+      _step: 3
+      _ease: sineaseOut
+    _position: 62
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_back_down
+    _background: RYU1_jump_back
+    _frameCount: 9
+    _repeat: 000000000000000000000000000000000100000001000000010000000400000002000000
+    _easing:
+      _dx: -100
+      _autoTop: 0
+      _top: 170
+      _step: 3
+      _ease: sineaseIn
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jumpDown
+    _background: RYU1_jump_down
+    _frameCount: 2
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 170
+      _step: 10
+      _ease: sineaseIn
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: light_boxing
+    _background: RYU1_light_boxing
+    _frameCount: 3
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 7
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 60
+      _moveX: 110
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: light
+      _beatState: attacked_light_top
+      _damage: 20
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 1
+    - 0
+    _effectPosition:
+    - 0
+    - 20
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: near_light_boxing
+    _background: RYU1_near_light_boxing
+    _frameCount: 3
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 130
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 45
+      _moveX: 110
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: light
+      _beatState: attacked_light_top
+      _damage: 25
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 1
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: heavy_boxing
+    _background: RYU1_middle_boxing
+    _frameCount: 5
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 7
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 60
+      _moveX: 120
+      _moveY: 0
+      _duration: 150
+      _ease: linear
+      _effect: heavy
+      _beatState: attacked_heavy
+      _damage: 120
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 2
+    - 0
+    _effectPosition:
+    - 0
+    - 25
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_boxing.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: near_heavy_boxing
+    _background: RYU1_near_heavy_boxing
+    _frameCount: 6
+    _repeat: 010000000100000003000000030000000100000001000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 140
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 60
+      _moveX: 110
+      _moveY: 0
+      _duration: 150
+      _ease: linear
+      _effect: heavy
+      _beatState: attacked_heavy_top
+      _damage: 130
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 2
+    - 0
+    _effectPosition:
+    - 0
+    - 0
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_boxing.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: crouch_light_boxing
+    _background: RYU1_crouch_light_boxing
+    _frameCount: 3
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 60
+      _moveX: 150
+      _moveY: 0
+      _duration: 150
+      _ease: linear
+      _effect: light
+      _beatState: attacked_light_bottom
+      _damage: 30
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 3
+    - 0
+    _effectPosition:
+    - 0
+    - 80
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: crouch_heavy_boxing
+    _background: RYU1_crouch_middle_boxing
+    _frameCount: 3
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 60
+      _moveX: 150
+      _moveY: 0
+      _duration: 150
+      _ease: linear
+      _effect: heavy
+      _beatState: attacked_heavy_bottom
+      _damage: 120
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 4
+    - 0
+    _effectPosition:
+    - 0
+    - 80
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_boxing.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: light_kick
+    _background: RYU1_light_kick
+    _frameCount: 5
+    _repeat: 0100000001000000020000000100000001000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: -50
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 40
+      _moveX: 120
+      _moveY: 0
+      _duration: 150
+      _ease: linear
+      _effect: light
+      _beatState: attacked_light_top
+      _damage: 30
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 1
+    - 0
+    _effectPosition:
+    - 0
+    - 0
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: near_light_kick
+    _background: RYU1_near_light_kick
+    _frameCount: 5
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 140
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 150
+      _moveX: 110
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: light
+      _beatState: attacked_light_bottom
+      _damage: 40
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 1
+    - 0
+    _effectPosition:
+    - 0
+    - 140
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: crouch_light_kick
+    _background: RYU1_crouch_light_kick
+    _frameCount: 3
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 100
+      _moveX: 210
+      _moveY: 0
+      _duration: 150
+      _ease: linear
+      _effect: light
+      _beatState: attacked_light_bottom
+      _damage: 40
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 3
+    - 0
+    _effectPosition:
+    - 0
+    - 140
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: heavy_kick
+    _background: RYU1_heavy_kick
+    _frameCount: 5
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: easeIn
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 120
+      _moveX: 160
+      _moveY: -100
+      _duration: 200
+      _ease: linear
+      _effect: heavy
+      _beatState: attacked_heavy_top
+      _damage: 150
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 2
+    - 0
+    _effectPosition:
+    - 0
+    - -20
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_kick.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: near_heavy_kick
+    _background: RYU1_near_heavy_kick
+    _frameCount: 6
+    _repeat: 010000000200000003000000030000000200000002000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: easeIn
+    _position: 0
+    _attackType: 2
+    _near: 160
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 90
+      _moveX: 110
+      _moveY: 0
+      _duration: 150
+      _ease: linear
+      _effect: heavy
+      _beatState: attacked_heavy_top
+      _damage: 160
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 2
+    - 0
+    _effectPosition:
+    - 0
+    - -20
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_kick.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: crouch_heavy_kick
+    _background: RYU1_crouch_heavy_kick
+    _frameCount: 5
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: easeIn
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 10
+      _offsetY: 50
+      _moveX: 230
+      _moveY: 0
+      _duration: 150
+      _ease: linear
+      _effect: heavy
+      _beatState: crouch_kick_attacked_fall
+      _damage: 130
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 4
+    - 0
+    _effectPosition:
+    - 0
+    - 140
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_kick.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_light_impact_boxing
+    _background: RYU1_impact_boxing
+    _frameCount: 3
+    _repeat: 010000000200000004000000
+    _easing:
+      _dx: 10
+      _autoTop: 0
+      _top: -120
+      _step: 3
+      _ease: strongEaseOut
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 150
+      _offsetY: 130
+      _moveX: 0
+      _moveY: -120
+      _duration: 100
+      _ease: linear
+      _effect: heavy
+      _beatState: heavy_attacked_fall_down
+      _damage: 150
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 9
+    - 0
+    _effectPosition:
+    - 70
+    - -20
+    _sounds:
+    - 
+    - sound/hit_heavy_boxing.mp3
+    _specialSound: sound/impact_boxing.mp3
+    _defenseBlood: 30
+    _afterFrame: 0
+  - _name: after_jump_light_impact_boxing
+    _background: RYU1_after_impact_boxing
+    _frameCount: 3
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 120
+      _step: 6
+      _ease: strongEaseIn
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_heavy_impact_boxing
+    _background: RYU1_impact_boxing
+    _frameCount: 3
+    _repeat: 010000000300000007000000
+    _easing:
+      _dx: 40
+      _autoTop: 0
+      _top: -180
+      _step: 3
+      _ease: strongEaseOut
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 150
+      _offsetY: 130
+      _moveX: 0
+      _moveY: -180
+      _duration: 200
+      _ease: linear
+      _effect: heavy
+      _beatState: heavy_attacked_fall_down
+      _damage: 220
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 10
+    - 0
+    _effectPosition:
+    - 70
+    - -70
+    _sounds:
+    - 
+    - sound/hit_heavy_boxing.mp3
+    _specialSound: sound/impact_boxing.mp3
+    _defenseBlood: 50
+    _afterFrame: 0
+  - _name: after_jump_heavy_impact_boxing
+    _background: RYU1_after_impact_boxing
+    _frameCount: 3
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 180
+      _step: 12
+      _ease: strongEaseIn
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: before_jump_whirl_kick
+    _background: RYU1_before_whirl_kick
+    _frameCount: 3
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: -20
+      _step: 3
+      _ease: strongEaseOut
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: sound/whirl_kick.mp3
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: after_jump_whirl_kick
+    _background: RYU1_after_whirl_kick
+    _frameCount: 5
+    _repeat: 
+    _easing:
+      _dx: 20
+      _autoTop: 0
+      _top: 20
+      _step: 2
+      _ease: strongEaseIn
+    _position: 0
+    _attackType: 0
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_whirl_kick
+    _background: RYU1_whirl_kick
+    _frameCount: 4
+    _repeat: 
+    _easing:
+      _dx: 90
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: easeIn
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 1
+    _meleeAttack:
+      _offsetX: 50
+      _offsetY: 120
+      _moveX: 370
+      _moveY: 0
+      _duration: 150
+      _ease: linear
+      _effect: heavy
+      _beatState: heavy_attacked_fall_down
+      _damage: 180
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 8
+    - 0
+    _effectPosition:
+    - 70
+    - -30
+    _sounds:
+    - 
+    - sound/hit_heavy_kick.mp3
+    _specialSound: 
+    _defenseBlood: 5
+    _afterFrame: 0
+  - _name: light_wave_boxing
+    _background: RYU1_wave_boxing
+    _frameCount: 4
+    _repeat: 0100000001000000010000000a000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: easeIn
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: sound/wave_boxing.mp3
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: heavy_wave_boxing
+    _background: RYU1_wave_boxing
+    _frameCount: 4
+    _repeat: 0100000001000000010000000f000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: easeIn
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: sound/wave_boxing.mp3
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: light_wave
+    _background: transverseWave
+    _frameCount: 2
+    _repeat: 0100000002000000
+    _easing:
+      _dx: 50
+      _autoTop: 0
+      _top: 0
+      _step: 2
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 2
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 7
+      _sizeOffsetY: 16
+      _colliderSize: 0
+      _disappearEffect: transverseWaveDisappear
+      _beatState: attacked_light_impact
+      _damage: 80
+      _defenseDamage: 10
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: heavy_wave
+    _background: transverseWave
+    _frameCount: 2
+    _repeat: 0100000002000000
+    _easing:
+      _dx: 80
+      _autoTop: 0
+      _top: 0
+      _step: 2
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 2
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 7
+      _sizeOffsetY: 116
+      _colliderSize: 0
+      _disappearEffect: transverseWaveDisappear
+      _beatState: attacked_heavy_impact
+      _damage: 120
+      _defenseDamage: 20
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower: []
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: before_crouch_kick_attacked_fall
+    _background: RYU1_beAttacked_fall
+    _frameCount: 4
+    _repeat: 05000000000000000000000000000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: -110
+      _step: 3
+      _ease: sineaseOut
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: crouch_kick_attacked_fall
+    _background: RYU1_beAttacked_fall
+    _frameCount: 4
+    _repeat: 
+    _easing:
+      _dx: -70
+      _autoTop: 1
+      _top: 0
+      _step: 6
+      _ease: sineaseIn
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: before_light_attacked_fall_down
+    _background: RYU1_beAttacked_fall
+    _frameCount: 4
+    _repeat: 05000000000000000000000000000000
+    _easing:
+      _dx: -110
+      _autoTop: 0
+      _top: -50
+      _step: 3
+      _ease: sineaseOut
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_back_fall_down
+    _background: RYU1_jump_back
+    _frameCount: 9
+    _repeat: 000000000000000000000000000000000100000001000000010000000400000002000000
+    _easing:
+      _dx: -100
+      _autoTop: 1
+      _top: 0
+      _step: 3
+      _ease: sineaseIn
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: before_heavy_attacked_fall_down
+    _background: RYU1_beAttacked_fall
+    _frameCount: 4
+    _repeat: 05000000000000000000000000000000
+    _easing:
+      _dx: -100
+      _autoTop: 0
+      _top: -110
+      _step: 6
+      _ease: sineaseOut
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: after_heavy_attacked_fall_down
+    _background: RYU1_beAttacked_fall
+    _frameCount: 4
+    _repeat: 05000000000000000000000000000000
+    _easing:
+      _dx: -110
+      _autoTop: 1
+      _top: 0
+      _step: 6
+      _ease: sineaseIn
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: before_dead
+    _background: RYU1_before_fall_down
+    _frameCount: 1
+    _repeat: 
+    _easing:
+      _dx: -70
+      _autoTop: 0
+      _top: -160
+      _step: 60
+      _ease: sineaseOut
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: dead
+    _background: RYU1_before_fall_down
+    _frameCount: 1
+    _repeat: 
+    _easing:
+      _dx: -120
+      _autoTop: 1
+      _top: 0
+      _step: 45
+      _ease: sineaseIn
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: after_dead
+    _background: RYU1_fall_down
+    _frameCount: 3
+    _repeat: 010000000000000000000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: -30
+      _step: 6
+      _ease: sineaseOut
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: after_dead2
+    _background: RYU1_fall_down
+    _frameCount: 3
+    _repeat: 010000000100000088130000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 30
+      _step: 3
+      _ease: sineaseIn
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: somesault_up
+    _background: RYU1_somesault_up
+    _frameCount: 5
+    _repeat: 
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 4
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: attacked_light_top
+    _background: RYU1_beAttacked_top
+    _frameCount: 2
+    _repeat: 
+    _easing:
+      _dx: -20
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 3
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: attacked_heavy_top
+    _background: RYU1_beAttacked_top
+    _frameCount: 2
+    _repeat: 0200000003000000
+    _easing:
+      _dx: -100
+      _autoTop: 0
+      _top: 0
+      _step: 7
+      _ease: linear
+    _position: 0
+    _attackType: 3
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: attacked_light_bottom
+    _background: RYU1_beAttacked_bottom
+    _frameCount: 2
+    _repeat: 
+    _easing:
+      _dx: -20
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 3
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: attacked_heavy_bottom
+    _background: RYU1_beAttacked_bottom
+    _frameCount: 2
+    _repeat: 0100000003000000
+    _easing:
+      _dx: -60
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 3
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: attacked_heavy
+    _background: RYU1_beAttacked_heavy
+    _frameCount: 3
+    _repeat: 010000000100000003000000
+    _easing:
+      _dx: -80
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 3
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: attacked_light_impact
+    _background: RYU1_beAttacked_impact
+    _frameCount: 3
+    _repeat: 010000000200000001000000
+    _easing:
+      _dx: -40
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 3
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: attacked_heavy_impact
+    _background: RYU1_beAttacked_impact
+    _frameCount: 3
+    _repeat: 010000000400000002000000
+    _easing:
+      _dx: -80
+      _autoTop: 0
+      _top: 0
+      _step: 6
+      _ease: linear
+    _position: 0
+    _attackType: 3
+    _near: 0
+    _attack: 0
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _size: 50
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _attackPower:
+    - 0
+    - 0
+    _effectPosition: []
+    _sounds: []
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  _combos:
+  - _name: jump_light_boxing
+    _background: RYU1_jump_light_boxing
+    _frameCount: 2
+    _repeat: 0300000024000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 100
+      _size: 40
+      _effect: heavy
+      _beatState: attacked_light_top
+      _damage: 30
+    _attackPower:
+    - 5
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 1
+  - _name: jump_heavy_boxing
+    _background: RYU1_jump_middle_boxing
+    _frameCount: 4
+    _repeat: 03000000030000000f00000003000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 100
+      _size: 40
+      _effect: heavy
+      _beatState: attacked_heavy_top
+      _damage: 100
+    _attackPower:
+    - 7
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_boxing.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 1
+  - _name: jump_light_kick
+    _background: RYU1_jump_light_kick
+    _frameCount: 2
+    _repeat: 0300000006000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 170
+      _offsetY: 50
+      _size: 50
+      _effect: heavy
+      _beatState: attacked_light_top
+      _damage: 40
+    _attackPower:
+    - 5
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 3
+  - _name: jump_heavy_kick
+    _background: RYU1_jump_heavy_kick
+    _frameCount: 5
+    _repeat: 0300000003000000060000000300000003000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 170
+      _offsetY: 100
+      _size: 50
+      _effect: heavy
+      _beatState: attacked_heavy_top
+      _damage: 120
+    _attackPower:
+    - 7
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_kick.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 1
+  - _name: jump_forward_light_boxing
+    _background: RYU1_jumpMoved_light_kick
+    _frameCount: 3
+    _repeat: 030000000600000018000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 100
+      _size: 40
+      _effect: heavy
+      _beatState: attacked_light_top
+      _damage: 30
+    _attackPower:
+    - 5
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_back_light_boxing
+    _background: RYU1_jumpMoved_light_kick
+    _frameCount: 3
+    _repeat: 030000000600000018000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 100
+      _size: 40
+      _effect: heavy
+      _beatState: attacked_light_top
+      _damage: 30
+    _attackPower:
+    - 5
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_forward_heavy_boxing
+    _background: RYU1_jump_middle_boxing
+    _frameCount: 4
+    _repeat: 03000000030000000f00000003000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 100
+      _size: 50
+      _effect: heavy
+      _beatState: attacked_heavy_top
+      _damage: 100
+    _attackPower:
+    - 6
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_boxing.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_back_heavy_boxing
+    _background: RYU1_jump_middle_boxing
+    _frameCount: 4
+    _repeat: 03000000030000000f00000003000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 100
+      _size: 50
+      _effect: heavy
+      _beatState: attacked_heavy_top
+      _damage: 100
+    _attackPower:
+    - 6
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_boxing.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_forward_light_kick
+    _background: RYU1_jumpMoved_light_kick
+    _frameCount: 3
+    _repeat: 030000000600000018000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 100
+      _size: 40
+      _effect: heavy
+      _beatState: attacked_light_top
+      _damage: 40
+    _attackPower:
+    - 5
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_back_light_kick
+    _background: RYU1_jumpMoved_light_kick
+    _frameCount: 3
+    _repeat: 030000000600000018000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 100
+      _size: 40
+      _effect: heavy
+      _beatState: attacked_light_top
+      _damage: 40
+    _attackPower:
+    - 5
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/light_boxing.mp3
+    - sound/hit_light.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_forward_heavy_kick
+    _background: RYU1_jumpMoved_middle_kick
+    _frameCount: 4
+    _repeat: 03000000030000000c00000003000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 120
+      _size: 50
+      _effect: heavy
+      _beatState: attacked_heavy_top
+      _damage: 130
+    _attackPower:
+    - 6
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_kick.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  - _name: jump_back_heavy_kick
+    _background: RYU1_jumpMoved_middle_kick
+    _frameCount: 4
+    _repeat: 03000000030000000c00000003000000
+    _easing:
+      _dx: 0
+      _autoTop: 0
+      _top: 0
+      _step: 3
+      _ease: linear
+    _position: 0
+    _attackType: 2
+    _near: 0
+    _attack: 3
+    _meleeAttack:
+      _offsetX: 0
+      _offsetY: 0
+      _moveX: 0
+      _moveY: 0
+      _duration: 100
+      _ease: linear
+      _effect: 
+      _beatState: 
+      _damage: 0
+    _waveAttack:
+      _sizeOffsetX: 0
+      _sizeOffsetY: 0
+      _colliderSize: 0
+      _disappearEffect: 
+      _beatState: 
+      _damage: 0
+      _defenseDamage: 0
+    _comboAttack:
+      _offsetX: 150
+      _offsetY: 120
+      _size: 50
+      _effect: heavy
+      _beatState: attacked_heavy_top
+      _damage: 130
+    _attackPower:
+    - 6
+    - 0
+    _effectPosition:
+    - 0
+    - 10
+    _sounds:
+    - sound/heavy_boxing.mp3
+    - sound/hit_heavy_kick.mp3
+    _specialSound: 
+    _defenseBlood: 0
+    _afterFrame: 0
+  _keyMap:
+    _mappings:
+    - _keyCode: 65
+      _token: a
+    - _keyCode: 68
+      _token: d
+    - _keyCode: 73
+      _token: i
+    - _keyCode: 74
+      _token: j
+    - _keyCode: 75
+      _token: k
+    - _keyCode: 83
+      _token: s
+    - _keyCode: 85
+      _token: u
+    - _keyCode: 87
+      _token: w
+    _moves:
+    - _token: w
+      _state: jump
+    - _token: a
+      _state: back
+    - _token: wa
+      _state: jump_back
+    - _token: aw
+      _state: jump_back
+    - _token: wd
+      _state: jump_forward
+    - _token: dw
+      _state: jump_forward
+    - _token: sd
+      _state: crouch
+    - _token: ds
+      _state: crouch
+    - _token: as
+      _state: stand_crouch_defense
+    - _token: sa
+      _state: stand_crouch_defense
+    - _token: d
+      _state: forward
+    - _token: s
+      _state: crouch
+    _movesMirrored:
+    - _token: w
+      _state: jump
+    - _token: a
+      _state: forward
+    - _token: wa
+      _state: jump_forward
+    - _token: aw
+      _state: jump_forward
+    - _token: wd
+      _state: jump_back
+    - _token: dw
+      _state: jump_back
+    - _token: sd
+      _state: stand_crouch_defense
+    - _token: ds
+      _state: stand_crouch_defense
+    - _token: as
+      _state: crouch
+    - _token: sa
+      _state: crouch
+    - _token: d
+      _state: back
+    - _token: s
+      _state: crouch
+    _normalAttacks:
+    - _token: j
+      _state: light_boxing
+    - _token: k
+      _state: heavy_boxing
+    - _token: u
+      _state: light_kick
+    - _token: i
+      _state: heavy_kick
+    _specialAttacks:
+    - _token: crouch,light_boxing
+      _state: crouch_light_boxing
+    - _token: crouch,heavy_boxing
+      _state: crouch_heavy_boxing
+    - _token: crouch,light_kick
+      _state: crouch_light_kick
+    - _token: crouch,heavy_kick
+      _state: crouch_heavy_kick
+    - _token: crouch,back,light_kick
+      _state: light_jump_whirl_kick
+    - _token: crouch,back,heavy_kick
+      _state: jump_whirl_kick
+    - _token: crouch,stand_crouch_defense,back,light_kick
+      _state: light_jump_whirl_kick
+    - _token: crouch,stand_crouch_defense,back,heavy_kick
+      _state: jump_whirl_kick
+    - _token: crouch,forward,light_boxing
+      _state: light_wave_boxing
+    - _token: crouch,forward,heavy_boxing
+      _state: heavy_wave_boxing
+    - _token: forward,crouch,forward,light_boxing
+      _state: jump_light_impact_boxing
+    - _token: forward,crouch,forward,crouch,light_boxing
+      _state: jump_light_impact_boxing
+    - _token: forward,crouch,forward,heavy_boxing
+      _state: jump_heavy_impact_boxing
+    - _token: forward,crouch,forward,crouch,heavy_boxing
+      _state: jump_heavy_impact_boxing

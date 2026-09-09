@@ -4,8 +4,6 @@
 
 ![街头霸王](Display.gif)
 
-![Hitbox](Hitbox.png)
-
 https://github.com/WarrenMondeville/StreetFightUnity.git
 
 ---

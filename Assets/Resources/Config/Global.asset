@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b420c6b46b1af0244a4e94f42ae5a2d3, type: 3}
+  m_Name: Global
+  m_EditorClassIdentifier: 
+  _fps: 17
+  _keyFps: 800
+  _map:
+    _backgroundBehind: behind
+    _backgroundFront: front
+    _width: 776
+    _height: 440
+    _windowWidth: 776
+    _spiritZoom: 2.1
+  _spiritShadow: fighterShadow
+  _hitEffects:
+  - _type: light
+    _frameCount: 3
+    _height: 19
+  - _type: heavy
+    _frameCount: 4
+    _height: 31
+  - _type: defense
+    _frameCount: 5
+    _height: 32
+  - _type: transverseWaveDisappear
+    _frameCount: 5
+    _height: 28

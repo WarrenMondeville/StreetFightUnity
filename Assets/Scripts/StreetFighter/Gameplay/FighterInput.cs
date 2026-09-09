@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
+using StreetFighter.Config;
 using StreetFighter.Core;
 using StreetFighter.Game;
 using UnityEngine;
@@ -86,32 +86,32 @@ namespace StreetFighter.Gameplay
             Right,
         }
 
-        public FighterInput(GameClock clock, JVal keyMap)
+        public FighterInput(GameClock clock, KeyMapConfig keyMap)
         {
             _clock = clock;
             _sampleInterval = Mathf.Max(1, (int)(GameConfig.KeyFps / GameConfig.Fps));
 
-            var mapping = keyMap.Get("mapping");
-            var normalAttacks = keyMap.Get("attack").Get("normal");
-            var keyboardPaths = ReadKeyboardPaths(mapping);
+            var mappings = keyMap.Mappings;
+            var normalAttacks = keyMap.NormalAttacks;
+            var keyboardPaths = ReadKeyboardPaths(mappings);
 
-            for (int i = 0; i < mapping.Values.Count; i++)
+            for (int i = 0; i < mappings.Count; i++)
             {
-                string letter = mapping.Values[i].AsString;
-                bool isAttack = normalAttacks.Has(letter);
+                string letter = mappings[i].Token;
+                bool isAttack = HasToken(normalAttacks, letter);
                 if (!isAttack && !_moveKeys.Contains(letter))
                 {
                     _moveKeys.Add(letter);
                 }
             }
 
-            Fill(_moveForward, keyMap.Get("move"));
-            Fill(_moveMirrored, keyMap.Get("move_mirror"));
+            Fill(_moveForward, keyMap.Moves);
+            Fill(_moveMirrored, keyMap.MovesMirrored);
             Fill(_normalAttacks, normalAttacks);
-            Fill(_specialAttacks, keyMap.Get("attack").Get("special"));
+            Fill(_specialAttacks, keyMap.SpecialAttacks);
             _activeMoves = _moveForward;
 
-            ReadDirections(keyMap.Get("move"));
+            ReadDirections(keyMap.Moves);
 
             _map = new InputActionMap(FighterMapName);
             BuildMoveAction(keyboardPaths);
@@ -147,32 +147,35 @@ namespace StreetFighter.Gameplay
         /// <summary>限制该玩家只接收指定设备的输入（由 <see cref="GameInput"/> 分配）。</summary>
         internal void SetDevices(InputDevice[] devices) => _map.devices = new ReadOnlyArray<InputDevice>(devices);
 
-        private static void Fill(Dictionary<string, string> target, JVal source)
+        private static bool HasToken(IReadOnlyList<TokenMapping> source, string token)
         {
-            if (source.IsNull)
-            {
-                return;
-            }
-
             for (int i = 0; i < source.Count; i++)
             {
-                target[source.Keys[i]] = source.Values[i].AsString;
+                if (source[i].Token == token)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static void Fill(Dictionary<string, string> target, IReadOnlyList<TokenMapping> source)
+        {
+            for (int i = 0; i < source.Count; i++)
+            {
+                target[source[i].Token] = source[i].State;
             }
         }
 
-        /// <summary>把 配置 的 keyCode 映射翻译成 字母 -> 键盘控件路径。</summary>
-        private static Dictionary<string, string> ReadKeyboardPaths(JVal mapping)
+        /// <summary>把配置的 keyCode 映射翻译成 字母 -> 键盘控件路径。</summary>
+        private static Dictionary<string, string> ReadKeyboardPaths(IReadOnlyList<KeyCodeMapping> mappings)
         {
             var paths = new Dictionary<string, string>();
-            for (int i = 0; i < mapping.Count; i++)
+            for (int i = 0; i < mappings.Count; i++)
             {
-                string letter = mapping.Values[i].AsString;
-                int keyCode;
-                if (!int.TryParse(mapping.Keys[i], NumberStyles.Integer, CultureInfo.InvariantCulture, out keyCode))
-                {
-                    Debug.LogWarning($"[SF] keyMap.mapping 里的按键码不是数字: {mapping.Keys[i]}");
-                    continue;
-                }
+                string letter = mappings[i].Token;
+                int keyCode = mappings[i].KeyCode;
 
                 string path = KeyboardPaths.Get(keyCode);
                 if (path == null)
@@ -188,18 +191,18 @@ namespace StreetFighter.Gameplay
         }
 
         /// <summary>从 move 表取出单键条目，确定每个字母对应的绝对方向。</summary>
-        private void ReadDirections(JVal move)
+        private void ReadDirections(IReadOnlyList<TokenMapping> moves)
         {
-            for (int i = 0; i < move.Count; i++)
+            for (int i = 0; i < moves.Count; i++)
             {
-                string letters = move.Keys[i];
+                string letters = moves[i].Token;
                 if (string.IsNullOrEmpty(letters) || letters.Length != 1)
                 {
                     continue;
                 }
 
                 MoveDirection direction;
-                if (DirectionsByMove.TryGetValue(move.Values[i].AsString, out direction))
+                if (DirectionsByMove.TryGetValue(moves[i].State, out direction))
                 {
                     _directions[letters] = direction;
                 }
@@ -228,12 +231,12 @@ namespace StreetFighter.Gameplay
             }
         }
 
-        private void BuildAttackActions(JVal normalAttacks, Dictionary<string, string> keyboardPaths)
+        private void BuildAttackActions(IReadOnlyList<TokenMapping> normalAttacks, Dictionary<string, string> keyboardPaths)
         {
             for (int i = 0; i < normalAttacks.Count; i++)
             {
-                string letter = normalAttacks.Keys[i];
-                string attack = normalAttacks.Values[i].AsString;
+                string letter = normalAttacks[i].Token;
+                string attack = normalAttacks[i].State;
 
                 var action = _map.FindAction(attack);
                 if (action == null)

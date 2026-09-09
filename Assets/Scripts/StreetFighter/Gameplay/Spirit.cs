@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using StreetFighter.Config;
 using StreetFighter.Core;
 using StreetFighter.Game;
 using StreetFighter.View;
@@ -12,18 +13,20 @@ namespace StreetFighter.Gameplay
     /// </summary>
     public sealed class Spirit : ICollidable, IMovable
     {
-        /// <summary>动作队列元素：动作名 + states 中的定义（原版是 states 的浅拷贝 + currState 标记）。</summary>
+        /// <summary>动作队列元素：状态名 + 配置里的状态定义。</summary>
         public sealed class SpiritAction
         {
-            public SpiritAction(string name, JVal definition)
+            public SpiritAction(string name, StateConfig definition)
             {
                 Name = name;
                 Definition = definition;
             }
 
+            /// <summary>状态名，回到默认状态时为 null。</summary>
             public string Name { get; }
 
-            public JVal Definition { get; }
+            /// <summary>状态定义。</summary>
+            public StateConfig Definition { get; }
         }
 
         private const float MinLeft = 15f;
@@ -43,17 +46,17 @@ namespace StreetFighter.Gameplay
         /// <summary>attack_type = 2 表示带近身判定框。</summary>
         private const int MeleeAttackType = 2;
 
-        private const int AttackConfigValueCount = 7;
-
         private readonly GameClock _clock;
         private SpiritView _view;
 
-        public Spirit(GameClock clock, string key, JVal spiritConfig)
+        /// <summary>前进步伐的横向位移，推挤时会在运行时微调（不写回配置资产）。</summary>
+        private float _forwardSpeed;
+
+        public Spirit(GameClock clock, string key, FighterAsset config)
         {
             _clock = clock;
             Key = key;
-            RawStates = spiritConfig;
-            States = spiritConfig.Get("states");
+            Config = config;
         }
 
         #region 配置与标识
@@ -61,11 +64,8 @@ namespace StreetFighter.Gameplay
         /// <summary>角色键，如 RYU1。</summary>
         public string Key { get; }
 
-        /// <summary>states 表。</summary>
-        public JVal States { get; }
-
-        /// <summary>完整角色配置（含 keyMap）。</summary>
-        public JVal RawStates { get; }
+        /// <summary>角色配置资产（状态表、组合技表、按键表）。</summary>
+        public FighterAsset Config { get; }
 
         /// <summary>当前动作名（play 的键）。</summary>
         public string StateName { get; private set; }
@@ -73,7 +73,8 @@ namespace StreetFighter.Gameplay
         /// <summary>当前正在播放的组合动作名（compose 的键）。</summary>
         public string CurrentState { get; private set; }
 
-        public string DefaultState => States.Get(StateNames.Default).AsString;
+        /// <summary>默认状态名。</summary>
+        public string DefaultState => Config.DefaultState;
 
         #endregion
 
@@ -161,15 +162,18 @@ namespace StreetFighter.Gameplay
             FloorLeft = floorLeft;
             FloorTop = floorTop;
 
-            var definition = States.Get(DefaultState);
-            FloorHeight = SpriteLibrary.GetSize(GameConfig.GetBackground(definition)).y;
+            var definition = Config.GetState(DefaultState);
+            FloorHeight = SpriteLibrary.GetSize(definition.Background).y;
             Direction = direction;
+
+            var forward = Config.GetState(StateNames.Forward);
+            _forwardSpeed = forward != null ? forward.Easing.Dx : 0f;
 
             Frames = new FrameAnimator(_clock);
             Motion = new Mover(_clock, this);
             Actions = new Queue<SpiritAction>();
             Lock = new ActionLock();
-            Keys = new FighterInput(_clock, RawStates.Get("keyMap"));
+            Keys = new FighterInput(_clock, Config.KeyMap);
             Collider = new BodyCollider(this);
             Attack = new MeleeAttack(_clock, this);
             Wave = new WaveProjectile(_clock, this);
@@ -178,7 +182,7 @@ namespace StreetFighter.Gameplay
 
             BindEvents();
 
-            ChangeBackground(GameConfig.GetBackground(definition), GameConfig.GetFrameCount(definition), 0);
+            ChangeBackground(definition.Background, definition.FrameCount, 0);
             Play(DefaultState);
             Motion.MoveTo(floorLeft, floorTop);
         }
@@ -190,7 +194,8 @@ namespace StreetFighter.Gameplay
         /// <param name="force">为 true 时无视锁与重复判断。</param>
         public void Play(string state, bool force = false)
         {
-            if (GameConfig.GetPlay(state).IsNull)
+            var play = GameConfig.GetPlay(state);
+            if (play == null)
             {
                 return;
             }
@@ -225,11 +230,10 @@ namespace StreetFighter.Gameplay
             Lock.Set(lockLevel);
             Actions.Clear();
 
-            var compose = GameConfig.GetPlay(state).Get("compose");
-            for (int i = 0; i < compose.Count; i++)
+            var compose = play.Compose;
+            for (int i = 0; i < compose.Length; i++)
             {
-                string actionName = compose.Get(i).AsString;
-                Actions.Enqueue(new SpiritAction(actionName, States.Get(actionName)));
+                Actions.Enqueue(new SpiritAction(compose[i], Config.GetState(compose[i])));
             }
 
             StateName = state;
@@ -244,7 +248,7 @@ namespace StreetFighter.Gameplay
                     return;
                 }
 
-                Wave.Start(Direction, States.Get(state == StateNames.LightWaveBoxing
+                Wave.Start(Direction, Config.GetState(state == StateNames.LightWaveBoxing
                     ? StateNames.LightWave
                     : StateNames.HeavyWave));
             }
@@ -269,34 +273,21 @@ namespace StreetFighter.Gameplay
                 return false;
             }
 
-            var table = States.Get(StateNames.Combo);
-            var combo = table.IsNull ? JVal.Nil : table.Get($"{StateName}_{state}");
-            if (combo.IsNull)
+            var combo = Config.GetCombo($"{StateName}_{state}");
+            if (combo == null)
             {
                 return true;
             }
 
-            bool started = Frames.Combo.Start(GameConfig.GetBackground(combo), GameConfig.GetFrameCount(combo),
-                GameConfig.GetRepeatPattern(combo), combo.Get("afterFrame").AsInt);
+            bool started = Frames.Combo.Start(combo.Background, combo.FrameCount,
+                combo.RepeatPattern, combo.AfterFrame);
 
-            Status.SetAttackType(GameConfig.GetAttackType(combo));
-
-            var attackConfig = combo.Get("attack_config");
-            var values = new float[attackConfig.Count];
-            var texts = new string[attackConfig.Count];
-            for (int i = 0; i < attackConfig.Count; i++)
-            {
-                values[i] = attackConfig.Get(i).AsFloat;
-                texts[i] = attackConfig.Get(i).AsString;
-            }
-
-            Status.SetAttackPower(GameConfig.ReadFloatArray(combo, "attack_power"));
+            Status.SetAttackType(combo.AttackType);
+            Status.SetAttackPower(combo.AttackPower);
 
             if (started)
             {
-                Attack.StickStart(values, texts,
-                    GameConfig.ReadFloatArray(combo, "effect_position"),
-                    GameConfig.ReadStringArray(combo, "sound"));
+                Attack.StickStart(combo.ComboAttack, combo.EffectPosition, combo.Sounds);
 
                 Frames.Combo.OnFinished(() =>
                 {
@@ -364,7 +355,7 @@ namespace StreetFighter.Gameplay
                 }
 
                 string defaultState = DefaultState;
-                Actions.Enqueue(new SpiritAction(null, States.Get(defaultState)));
+                Actions.Enqueue(new SpiritAction(null, Config.GetState(defaultState)));
                 Lock.Set(0);
                 StateName = defaultState;
                 Frames.Combo.Stop();
@@ -379,56 +370,39 @@ namespace StreetFighter.Gameplay
             }
 
             var definition = action.Definition;
-            string background = GameConfig.GetBackground(definition);
-            int frameCount = GameConfig.GetFrameCount(definition);
-            int position = definition.Get("position").AsInt;
+            var easing = definition.Easing;
+            string background = definition.Background;
+            int frameCount = definition.FrameCount;
+            int position = definition.Position;
 
             ChangeBackground(background, frameCount, position);
 
-            float? autoTop = null;
-            if (GameConfig.HasAutoTop(definition))
-            {
-                autoTop = FloorTop - Top + (FloorHeight - Height) * GameConfig.Zoom;
-            }
-
-            float top = autoTop ?? GameConfig.GetEaseValue(definition, 1);
-
             CurrentState = action.Name;
 
-            Frames.Start(background, frameCount, (int)GameConfig.GetEaseValue(definition, 2),
-                GameConfig.GetRepeatPattern(definition), position, Direction);
-            Motion.Start(GameConfig.GetEaseValue(definition, 0) * Direction, top,
-                GameConfig.GetEaseValue(definition, 2) * GameConfig.Fps * frameCount,
-                GameConfig.GetEaseFunction(definition));
+            // top 为 null 时按包围盒自动补齐，保证换图集后脚底仍然贴地
+            float top = easing.AutoTop
+                ? FloorTop - Top + (FloorHeight - Height) * GameConfig.Zoom
+                : easing.Top;
 
-            float horizontal = GameConfig.GetEaseValue(definition, 0) * Direction;
+            Frames.Start(background, frameCount, (int)easing.Step, definition.RepeatPattern, position, Direction);
+
+            float horizontal = (CurrentState == StateNames.Forward ? _forwardSpeed : easing.Dx) * Direction;
+            Motion.Start(horizontal, top, easing.Step * GameConfig.Fps * frameCount, easing.Ease);
+
             HorizontalMoveSign = horizontal == 0f ? 0f : Mathf.Sign(horizontal);
             VerticalMoveSign = top == 0f ? 0f : Mathf.Sign(top);
 
-            int attackType = GameConfig.GetAttackType(definition);
+            int attackType = definition.AttackType;
             Status.SetAttackType(attackType);
-            Status.SetAttackPower(GameConfig.ReadFloatArray(definition, "attack_power"));
+            Status.SetAttackPower(definition.AttackPower);
 
-            // 部分动作（如波动拳）只有 attack_type 没有判定配置，需要判空
-            var attackConfig = definition.Get("attack_config");
-            if (attackType == MeleeAttackType && !attackConfig.IsNull)
+            // 只有近身攻击才有跟随判定体，波动拳等状态只有 attack_type 没有近身配置
+            if (attackType == MeleeAttackType && definition.Attack == AttackConfigKind.Melee)
             {
-                var easingValues = new float[AttackConfigValueCount];
-                var easingTexts = new string[AttackConfigValueCount];
-                for (int i = 0; i < AttackConfigValueCount; i++)
-                {
-                    easingValues[i] = attackConfig.Get(i + 2).AsFloat;
-                    easingTexts[i] = attackConfig.Get(i + 2).AsString;
-                }
-
-                easingValues[0] = attackConfig.Get(2).AsFloat * Direction;
-
-                Attack.Start(attackConfig.Get(0).AsFloat, attackConfig.Get(1).AsFloat, easingValues, easingTexts,
-                    GameConfig.ReadFloatArray(definition, "effect_position"),
-                    GameConfig.ReadStringArray(definition, "sound"));
+                Attack.Start(definition.MeleeAttack, Direction, definition.EffectPosition, definition.Sounds);
             }
 
-            string specialSound = definition.Get("specialSound").AsString;
+            string specialSound = definition.SpecialSound;
             if (!string.IsNullOrEmpty(specialSound))
             {
                 Attack.Audio.Play(specialSound);
@@ -619,7 +593,7 @@ namespace StreetFighter.Gameplay
 
         private void OnInputMatched(string state)
         {
-            if (Status.IsCrouch() && !States.Get(StateNames.CrouchPrefix + state).IsNull)
+            if (Status.IsCrouch() && Config.GetState(StateNames.CrouchPrefix + state) != null)
             {
                 Play(StateNames.CrouchPrefix + state);
                 return;
@@ -627,8 +601,8 @@ namespace StreetFighter.Gameplay
 
             if (!Status.IsJump())
             {
-                var near = States.Get(StateNames.NearPrefix + state);
-                if (!near.IsNull && Status.Distance <= near.Get("near").AsFloat)
+                var near = Config.GetState(StateNames.NearPrefix + state);
+                if (near != null && Status.Distance <= near.Near)
                 {
                     Play(StateNames.NearPrefix + state);
                     return;
@@ -653,17 +627,8 @@ namespace StreetFighter.Gameplay
             }
         }
 
-        /// <summary>原版在推挤时动态改写 forward 的横向位移量。</summary>
-        private void SetForwardEasing(float value)
-        {
-            var forward = States.Get(StateNames.Forward);
-            if (forward.IsNull)
-            {
-                return;
-            }
-
-            forward.Get("easing").Get(0).SetNumber(value);
-        }
+        /// <summary>推挤时动态改写 forward 的横向位移量（只改运行时副本，不写回配置资产）。</summary>
+        private void SetForwardEasing(float value) => _forwardSpeed = value;
 
         #endregion
 

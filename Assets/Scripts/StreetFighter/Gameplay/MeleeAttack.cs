@@ -1,3 +1,4 @@
+using StreetFighter.Config;
 using StreetFighter.Core;
 using StreetFighter.Game;
 using UnityEngine;
@@ -5,9 +6,9 @@ using UnityEngine;
 namespace StreetFighter.Gameplay
 {
     /// <summary>
-    /// 跟随角色 / 独立移动的近身攻击判定体。
-    /// 传给 <see cref="Start"/> 的两个数组来自 attack_config 的第 2~8 项，含义：
-    /// 0 位移x，1 位移y，2 时长，3 缓动名，4 特效，5 受击状态，6 伤害。
+    /// 近身攻击判定体。
+    /// 普通攻击：判定体从角色身上生成后按配置独立位移；
+    /// 空中组合技（<see cref="StickStart"/>）：判定体每帧贴在角色身上。
     /// </summary>
     public sealed class MeleeAttack : ICollidable, IMovable
     {
@@ -15,15 +16,6 @@ namespace StreetFighter.Gameplay
         private const float MapPaddingLeft = 15f;
         private const float MapPaddingRight = 20f;
 
-        private const int ValueMoveX = 0;
-        private const int ValueMoveY = 1;
-        private const int ValueDuration = 2;
-        private const int TextEasing = 3;
-        private const int TextEffect = 4;
-        private const int TextBeatState = 5;
-        private const int ValueDamage = 6;
-
-        private const int StickSizeIndex = 2;
         private const int StickSoundIndex = 0;
 
         /// <summary>一方血量见底后多久重开一局。</summary>
@@ -36,10 +28,14 @@ namespace StreetFighter.Gameplay
         private readonly BodyCollider _collider;
         private readonly AttackEffect _effects;
 
-        private float[] _values;
-        private string[] _texts;
+        private bool _hasAttack;
         private float[] _effectPosition;
         private string[] _sounds;
+        private string _effect;
+        private string _beatState;
+        private float _damage;
+        private float _stickOffsetX;
+        private float _stickOffsetY;
 
         public MeleeAttack(GameClock clock, Spirit master)
         {
@@ -97,30 +93,27 @@ namespace StreetFighter.Gameplay
         public AudioPlayer Audio { get; }
 
         /// <summary>开始一次独立位移的攻击判定。</summary>
-        public void Start(float offsetX, float offsetY, float[] values, string[] texts, float[] effectPosition, string[] sounds)
+        public void Start(MeleeAttackConfig config, int direction, float[] effectPosition, string[] sounds)
         {
             Left = _master.Direction == 1
-                ? _master.Left + offsetX
-                : _master.Left + _master.Width * 2f - offsetX - Width * 2f;
+                ? _master.Left + config.OffsetX
+                : _master.Left + _master.Width * 2f - config.OffsetX - Width * 2f;
 
-            Top = _master.Top + offsetY;
-            _effectPosition = effectPosition;
-            _values = values;
-            _texts = texts;
-            _sounds = sounds;
+            Top = _master.Top + config.OffsetY;
+            Begin(config.Effect, config.BeatState, config.Damage, effectPosition, sounds);
 
-            _motion.Start(values[ValueMoveX], values[ValueMoveY], values[ValueDuration], texts[TextEasing]);
+            Mode = MeleeMode.Normal;
+            _motion.Start(config.MoveX * direction, config.MoveY, config.Duration, config.Ease);
             _clock.Start(_timer);
         }
 
         /// <summary>空中组合技：判定体贴在角色身上。</summary>
-        public void StickStart(float[] values, string[] texts, float[] effectPosition, string[] sounds)
+        public void StickStart(ComboAttackConfig config, float[] effectPosition, string[] sounds)
         {
-            _values = values;
-            _texts = texts;
-            _effectPosition = effectPosition;
-            _sounds = sounds;
-            Width = Height = values[StickSizeIndex];
+            Begin(config.Effect, config.BeatState, config.Damage, effectPosition, sounds);
+            _stickOffsetX = config.OffsetX;
+            _stickOffsetY = config.OffsetY;
+            Width = Height = config.Size;
             Mode = MeleeMode.Stick;
             _clock.Start(_timer);
 
@@ -132,10 +125,22 @@ namespace StreetFighter.Gameplay
 
         public void Stop()
         {
+            _hasAttack = false;
             Mode = MeleeMode.Normal;
             _clock.Stop(_timer);
             _master.Status.SetAttackPower(new[] { 0f, 0f });
             PlayAudio(null, 0);
+        }
+
+        /// <summary>两类攻击共用的命中表现参数。</summary>
+        private void Begin(string effect, string beatState, float damage, float[] effectPosition, string[] sounds)
+        {
+            _hasAttack = true;
+            _effect = effect;
+            _beatState = beatState;
+            _damage = damage;
+            _effectPosition = effectPosition;
+            _sounds = sounds;
         }
 
         /// <summary>
@@ -181,7 +186,7 @@ namespace StreetFighter.Gameplay
 
         private void Tick()
         {
-            if (_values == null)
+            if (!_hasAttack)
             {
                 return;
             }
@@ -189,9 +194,9 @@ namespace StreetFighter.Gameplay
             if (Mode == MeleeMode.Stick)
             {
                 Left = _master.Direction == 1
-                    ? _master.Left + _values[0]
-                    : _master.Left + _master.Width - _values[0] + Width;
-                Top = _master.Top + _values[1];
+                    ? _master.Left + _stickOffsetX
+                    : _master.Left + _master.Width - _stickOffsetX + Width;
+                Top = _master.Top + _stickOffsetY;
             }
             else
             {
@@ -273,8 +278,8 @@ namespace StreetFighter.Gameplay
             var pushed = _master.Enemy.Border != Side.None && !_master.Status.IsJump() ? _master : _master.Enemy;
             pushed.Motion.Start((light ? -20f : -70f) * pushed.Direction, 0f, 200f, EasingNames.Linear);
 
-            var state = _master.States.Get(_master.StateName);
-            float defenseBlood = state.Get("defenseBlood").AsFloat;
+            var state = _master.Config.GetState(_master.StateName);
+            float defenseBlood = state != null ? state.DefenseBlood : 0f;
             if (defenseBlood > 0)
             {
                 _master.Enemy.BloodBar.Reduce(defenseBlood);
@@ -295,7 +300,7 @@ namespace StreetFighter.Gameplay
             float x = _master.Direction == 1
                 ? _master.Enemy.Left + _effectPosition[0]
                 : _master.Enemy.Left + _master.Enemy.Width + _effectPosition[0];
-            _effects.Start(_texts[TextEffect], x, _master.Enemy.Top + _effectPosition[1], _master.Direction);
+            _effects.Start(_effect, x, _master.Enemy.Top + _effectPosition[1], _master.Direction);
 
             bool light = _master.Status.IsAttackLight;
 
@@ -310,7 +315,7 @@ namespace StreetFighter.Gameplay
             }
             else
             {
-                _master.Enemy.Play(_texts[TextBeatState], true);
+                _master.Enemy.Play(_beatState, true);
             }
 
             if (_master.Enemy.Border != Side.None && !_master.Status.IsJump())
@@ -318,7 +323,7 @@ namespace StreetFighter.Gameplay
                 _master.Motion.Start((light ? -70f : -150f) * _master.Direction, 0f, 300f, EasingNames.Linear);
             }
 
-            _master.Enemy.BloodBar.Reduce(_values[ValueDamage]);
+            _master.Enemy.BloodBar.Reduce(_damage);
             _master.Enemy.Wave.IsReadyFiring = false;
 
             PlayAudio(null, 1);

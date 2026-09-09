@@ -1,50 +1,47 @@
 using System.Collections.Generic;
-using StreetFighter.Core;
+using StreetFighter.Config;
 
 namespace StreetFighter.Editor
 {
     /// <summary>
-    /// 图集切片表：图名 → 帧数。数据全部来自 Config：
-    /// 角色序列帧取 <c>Spirit.*.states.*</c> 的 bg / framesNum，特效图取 <c>hitEffect.*</c> 的 framesNum。
+    /// 图集切片表：图名 → 帧数。数据全部来自配置资产：
+    /// 角色序列帧取 <see cref="FighterAsset.States"/> 与 <see cref="FighterAsset.Combos"/> 的图集名 / 帧数，
+    /// 特效图取 <see cref="GameSettingsAsset.HitEffects"/>。
     /// </summary>
     public static class ArtSliceTable
     {
-        private const string SpiritKey = "Spirit";
-        private const string StatesKey = "states";
-        private const string BackgroundKey = "bg";
-        private const string FrameCountKey = "framesNum";
-        private const string HitEffectKey = "hitEffect";
-
-        /// <summary>读取配置，生成「图名 → 帧数」表。</summary>
+        /// <summary>读取配置资产，生成「图名 → 帧数」表。</summary>
         public static Dictionary<string, int> Build()
         {
-            var root = ConfigLoader.Load();
             var table = new Dictionary<string, int>();
 
-            var spirits = Members(root.Get(SpiritKey));
-            for (int i = 0; i < spirits.Count; i++)
+            var fighters = ConfigAssets.LoadFighters();
+            for (int i = 0; i < fighters.Length; i++)
             {
-                var states = Members(spirits[i].Get(StatesKey));
-                for (int j = 0; j < states.Count; j++)
-                {
-                    Add(table, states[j].Get(BackgroundKey).AsString, states[j].Get(FrameCountKey).AsInt);
-                }
+                AddAll(table, fighters[i].States);
+                AddAll(table, fighters[i].Combos);
             }
 
-            var effects = root.Get(HitEffectKey);
-            if (effects.Keys != null)
+            var settings = ConfigAssets.LoadSettings();
+            if (settings != null)
             {
-                for (int i = 0; i < effects.Keys.Count; i++)
+                var effects = settings.HitEffects;
+                for (int i = 0; i < effects.Count; i++)
                 {
-                    Add(table, effects.Keys[i], effects.Values[i].Get(FrameCountKey).AsInt);
+                    Add(table, effects[i].Type, effects[i].FrameCount);
                 }
             }
 
             return table;
         }
 
-        private static List<JVal> Members(JVal node) =>
-            node.Values ?? new List<JVal>();
+        private static void AddAll(Dictionary<string, int> table, IReadOnlyList<StateConfig> states)
+        {
+            for (int i = 0; i < states.Count; i++)
+            {
+                Add(table, states[i].Background, states[i].FrameCount);
+            }
+        }
 
         private static void Add(Dictionary<string, int> table, string name, int frames)
         {
