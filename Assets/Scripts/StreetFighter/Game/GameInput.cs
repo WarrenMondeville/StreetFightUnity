@@ -71,7 +71,15 @@ namespace StreetFighter.Game
             InputSystem.onDeviceChange -= OnDeviceChange;
             IsInitialized = false;
 
+            for (int i = 0; i < Players.Count; i++)
+            {
+                Players[i].DisposeInput();
+            }
+
+            Players.Clear();
+
             _system.Disable();
+            _system.Dispose();
             _system = null;
             _pause = null;
             _versusAi = null;

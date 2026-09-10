@@ -11,8 +11,14 @@ namespace StreetFighter.Core
     /// </summary>
     public sealed class GameClock
     {
-        /// <summary>一个逻辑帧的时长（毫秒）。</summary>
-        public const int TickMilliseconds = 17;
+        /// <summary>默认逻辑帧时长（毫秒），全局配置缺失时用它。</summary>
+        public const float DefaultTickMilliseconds = 17f;
+
+        /// <summary>
+        /// 一个逻辑帧的时长（毫秒）。默认 <see cref="DefaultTickMilliseconds"/>，
+        /// 由 <see cref="SetTickMilliseconds"/> 与全局配置资产的 fps 保持一致。
+        /// </summary>
+        public static float TickMilliseconds { get; private set; } = DefaultTickMilliseconds;
 
         /// <summary>定时器状态。</summary>
         public enum TimerState
@@ -52,6 +58,15 @@ namespace StreetFighter.Core
 
         /// <summary>时钟是否在推进（目前仅作标记，暂停由 <c>GameManager</c> 控制）。</summary>
         public bool IsRunning { get; set; }
+
+        /// <summary>用全局配置的 fps 覆盖逻辑帧时长（毫秒）；非正数会被忽略。</summary>
+        public static void SetTickMilliseconds(float milliseconds)
+        {
+            if (milliseconds > 0f)
+            {
+                TickMilliseconds = milliseconds;
+            }
+        }
 
         /// <summary>创建一个默认处于 <see cref="TimerState.Idle"/> 的定时器。</summary>
         public TimerHandle Add(Action callback) => new TimerHandle { Callback = callback, State = TimerState.Idle };

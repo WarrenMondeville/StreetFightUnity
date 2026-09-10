@@ -14,6 +14,7 @@ namespace StreetFighter.Game
         private const float MaxShrinkDurationMs = 500f;
         private const float DurationPerDamage = 1.5f;
 
+        private readonly GameClock _clock;
         private readonly Image _image;
         private readonly bool _anchoredLeft;
         private readonly float _originX;
@@ -26,13 +27,17 @@ namespace StreetFighter.Game
         private float _animationDelta;
         private float _animationStart;
         private float _animationDuration;
+
+        /// <summary>血条见底只需要通知一次，否则倒地后被继续命中会排入多次重开。</summary>
+        private bool _isEmptyInvoked;
         private bool _isAnimating;
 
         /// <summary>血量见底时派发。</summary>
         public readonly EventBus Events = new EventBus();
 
-        public BloodBar(Image image, bool anchoredLeft, float originX, float fullWidth)
+        public BloodBar(GameClock clock, Image image, bool anchoredLeft, float originX, float fullWidth)
         {
+            _clock = clock;
             _image = image;
             _anchoredLeft = anchoredLeft;
             _originX = originX;
@@ -55,25 +60,31 @@ namespace StreetFighter.Game
 
             _animationFrom = _currentWidth;
             _animationDelta = delta;
-            _animationStart = Time.time * 1000f;
+            _animationStart = (float)_clock.Now;
             _animationDuration = duration;
             _isAnimating = true;
 
-            if (_blood < 0)
+            if (_blood < 0 && !_isEmptyInvoked)
             {
+                _isEmptyInvoked = true;
                 Events.Invoke(GameEvents.Empty);
             }
         }
 
-        /// <summary>回满血。</summary>
-        public void Reload() => Reduce(_blood - FullBlood);
+        /// <summary>回满血，并允许再次触发见底事件。</summary>
+        public void Reload()
+        {
+            _isEmptyInvoked = false;
+            Reduce(_blood - FullBlood);
+        }
 
         /// <summary>每渲染帧推进收缩动画并写回 UI。</summary>
         public void Render()
         {
             if (_isAnimating)
             {
-                float elapsed = Time.time * 1000f - _animationStart;
+                // 与全局逻辑时钟同源，暂停时血条收缩也会一并冻结
+                float elapsed = (float)_clock.Now - _animationStart;
                 if (elapsed / _animationDuration >= 1f)
                 {
                     _currentWidth = _animationFrom + _animationDelta;

@@ -100,5 +100,25 @@ namespace StreetFighter.Core
         public void Pause() => _source.Pause();
 
         public void Stop() => _source.Stop();
+
+        /// <summary>停止播放并销毁本实例占用的 AudioSource 对象。</summary>
+        public void Dispose()
+        {
+            if (_source == null)
+            {
+                return;
+            }
+
+            _source.Stop();
+
+            if (Application.isPlaying)
+            {
+                Object.Destroy(_source.gameObject);
+            }
+            else
+            {
+                Object.DestroyImmediate(_source.gameObject);
+            }
+        }
     }
 }

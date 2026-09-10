@@ -23,6 +23,9 @@ namespace StreetFighter.Core
 
         private static readonly Dictionary<string, FighterAsset> Fighters = new Dictionary<string, FighterAsset>();
 
+        /// <summary>已经报过缺失的状态，避免每帧刷同一条告警。</summary>
+        private static readonly HashSet<string> MissingStates = new HashSet<string>();
+
         /// <summary>全局设置资产。</summary>
         public static GameSettingsAsset Settings { get; private set; }
 
@@ -102,7 +105,7 @@ namespace StreetFighter.Core
         public static PlayActionConfig GetPlay(string state)
         {
             var action = Play?.Get(state);
-            if (action == null)
+            if (action == null && state != null && MissingStates.Add(state))
             {
                 Debug.LogWarning($"[SF] 动作表缺少状态: {state}");
             }

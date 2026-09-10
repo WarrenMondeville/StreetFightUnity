@@ -229,9 +229,14 @@ namespace StreetFighter.Gameplay
 
             bool light = _master.Status.IsAttackLight;
 
-            _master.Enemy.Play(_master.Enemy.Status.IsJump()
-                ? StateNames.HeavyAttackedFallDown
-                : _wave.BeatState, true);
+            if (_master.Enemy.Status.IsJump())
+            {
+                _master.Enemy.Play(StateNames.HeavyAttackedFallDown);
+            }
+            else if (!string.IsNullOrEmpty(_wave.BeatState))
+            {
+                _master.Enemy.Play(_wave.BeatState, true);
+            }
 
             if (_master.Enemy.Border != Side.None
                 && (_master.Status.DistanceBand == DistanceBand.Near || _master.Status.DistanceBand == DistanceBand.Middle))

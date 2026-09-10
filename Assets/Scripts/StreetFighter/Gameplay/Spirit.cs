@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using StreetFighter.Config;
 using StreetFighter.Core;
@@ -52,11 +53,18 @@ namespace StreetFighter.Gameplay
         /// <summary>前进步伐的横向位移，推挤时会在运行时微调（不写回配置资产）。</summary>
         private float _forwardSpeed;
 
+        /// <summary>本帧是否正在顶边推挤对手（决定对手位移回调要不要生效）。</summary>
+        private bool _isPushingEnemy;
+
+        /// <summary>对手位移结束回调，构造期建好一次，避免每帧 new 闭包。</summary>
+        private readonly Action _onEnemyFrameDone;
+
         public Spirit(GameClock clock, string key, FighterAsset config)
         {
             _clock = clock;
             Key = key;
             Config = config;
+            _onEnemyFrameDone = OnEnemyFrameDone;
         }
 
         #region 配置与标识
@@ -181,6 +189,9 @@ namespace StreetFighter.Gameplay
             Stage = new Stage(this);
 
             BindEvents();
+
+            // 对手血条监听放在这里：此时双方的 BloodBar 都已由 GameManager 赋值
+            Attack.BindEnemyBloodBar();
 
             ChangeBackground(definition.Background, definition.FrameCount, 0);
             Play(DefaultState);
@@ -464,6 +475,12 @@ namespace StreetFighter.Gameplay
 
         #region 事件绑定
 
+        /// <summary>
+        /// 监听对手的位移结束事件（顶边推挤时反推对手）。
+        /// 必须在双方都 <see cref="Initialize"/> 之后调用：对手的 <see cref="Mover"/> 那时才创建出来。
+        /// </summary>
+        public void BindEnemyMotion() => Enemy.Motion.Events.AddListener(GameEvents.FrameDone, _onEnemyFrameDone);
+
         private void BindEvents()
         {
             Frames.Events.AddListener(GameEvents.FramesDone, OnFramesDone);
@@ -524,10 +541,10 @@ namespace StreetFighter.Gameplay
 
         private void OnMotionFrameStart()
         {
-            Enemy.Motion.Events.RemoveListener(GameEvents.FrameDone);
-
             bool pushingBorder = Border == Side.Left && HorizontalMoveSign == -1f
                                  || Border == Side.Right && HorizontalMoveSign == 1f;
+
+            _isPushingEnemy = false;
 
             if (!pushingBorder)
             {
@@ -543,22 +560,29 @@ namespace StreetFighter.Gameplay
             }
 
             Stage.Scroll(Border);
+            _isPushingEnemy = true;
+        }
 
-            Enemy.Motion.Events.AddListener(GameEvents.FrameDone, () =>
+        /// <summary>对手位移结束后按本帧滚动量反推；没有在推挤时什么都不做。</summary>
+        private void OnEnemyFrameDone()
+        {
+            if (!_isPushingEnemy)
             {
-                if (Enemy.HorizontalMoveSign == 0f && Enemy.VerticalMoveSign == 0f)
-                {
-                    Stage.PushEnemy();
-                }
-                else if (Stage.IsScrolling)
-                {
-                    Enemy.Motion.StagePush(Stage.ScrollValue);
-                }
-                else
-                {
-                    Enemy.Motion.StopStagePush();
-                }
-            }, true);
+                return;
+            }
+
+            if (Enemy.HorizontalMoveSign == 0f && Enemy.VerticalMoveSign == 0f)
+            {
+                Stage.PushEnemy();
+            }
+            else if (Stage.IsScrolling)
+            {
+                Enemy.Motion.StagePush(Stage.ScrollValue);
+            }
+            else
+            {
+                Enemy.Motion.StopStagePush();
+            }
         }
 
         private void OnCollision(ICollidable other, Side side)

@@ -25,7 +25,12 @@ namespace StreetFighter.Gameplay
         private EasingName _lastEase = EasingName.Linear;
         private int _direction = 1;
         private Side _lockedSide = Side.None;
-        private float[] _lastArgs;
+
+        /// <summary>上一次位移的参数，供 <see cref="Loop"/> 重播（用字段而非数组，避免每次起播都分配）。</summary>
+        private bool _hasLastArgs;
+        private float _lastOffsetX;
+        private float _lastOffsetY;
+        private float _lastDuration;
 
         /// <summary>位移过程中派发的事件（frameStart / frameDone / framesDone）。</summary>
         public readonly EventBus Events = new EventBus();
@@ -50,7 +55,10 @@ namespace StreetFighter.Gameplay
         /// <param name="ease">缓动类型。</param>
         public void Start(float offsetX, float offsetY, float duration, EasingName ease)
         {
-            _lastArgs = new[] { offsetX, offsetY, duration };
+            _hasLastArgs = true;
+            _lastOffsetX = offsetX;
+            _lastOffsetY = offsetY;
+            _lastDuration = duration;
             _lastEase = ease;
             _fromLeft = _owner.Left;
             _fromTop = _owner.Top;
@@ -72,9 +80,9 @@ namespace StreetFighter.Gameplay
         /// <summary>用上一次的参数重播位移（循环动作使用）。</summary>
         public void Loop()
         {
-            if (_lastArgs != null)
+            if (_hasLastArgs)
             {
-                Start(_lastArgs[0], _lastArgs[1], _lastArgs[2], _lastEase);
+                Start(_lastOffsetX, _lastOffsetY, _lastDuration, _lastEase);
             }
         }
 
@@ -82,45 +90,48 @@ namespace StreetFighter.Gameplay
         public void Move()
         {
             float elapsed = (float)_clock.Now - _startTime;
-
-            if (_duration > 0 && elapsed >= _duration)
-            {
-                Events.Invoke(GameEvents.FramesDone);
-            }
+            bool finished = _duration > 0 && elapsed >= _duration;
 
             Events.Invoke(GameEvents.FrameStart);
 
-            if (_offsetLeft == 0 && _offsetTop == 0)
+            if (_offsetLeft != 0 || _offsetTop != 0)
             {
-                Events.Invoke(GameEvents.FrameDone);
-                return;
+                Apply(elapsed);
             }
 
+            Events.Invoke(GameEvents.FrameDone);
+
+            // 一段位移只以一次 framesDone 收尾（原先首尾各判一次，会重复触发）
+            if (finished)
+            {
+                Events.Invoke(GameEvents.FramesDone);
+            }
+        }
+
+        /// <summary>按缓动算出本帧位置并写回实体；被锁定方向时保持不动。</summary>
+        private void Apply(float elapsed)
+        {
             float t = _duration <= 0 ? 1f : Mathf.Min(elapsed / _duration, 1f);
 
             float rawLeft = Easing.Evaluate(_leftEase, t, _fromLeft, _direction * _offsetLeft, 1f)
                             - _stageCount * _stageDistance;
             float newLeft = _owner.CrossBorder(rawLeft);
 
-            if (_lockedSide == Side.Right && newLeft > _owner.Left && _offsetTop == 0)
+            if (_offsetTop == 0)
             {
-                return;
-            }
+                if (_lockedSide == Side.Right && newLeft > _owner.Left)
+                {
+                    return;
+                }
 
-            if (_lockedSide == Side.Left && newLeft < _owner.Left && _offsetTop == 0)
-            {
-                return;
+                if (_lockedSide == Side.Left && newLeft < _owner.Left)
+                {
+                    return;
+                }
             }
 
             _owner.Left = newLeft;
             _owner.Top = Easing.Evaluate(_ease, t, _fromTop, _offsetTop, 1f);
-
-            Events.Invoke(GameEvents.FrameDone);
-
-            if (_duration > 0 && elapsed >= _duration)
-            {
-                Events.Invoke(GameEvents.FramesDone);
-            }
         }
 
         /// <summary>被撞击 / 被推动时的横向位移。</summary>

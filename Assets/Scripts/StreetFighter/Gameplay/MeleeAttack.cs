@@ -14,6 +14,9 @@ namespace StreetFighter.Gameplay
     {
         /// <summary>判定体边长（配置编辑器预览也用它）。</summary>
         public const float DefaultSize = 50f;
+
+        /// <summary>没有配置特效坐标时的兜底值。</summary>
+        private static readonly float[] ZeroEffectPosition = { 0f, 0f };
         private const float MapPaddingLeft = 15f;
         private const float MapPaddingRight = 20f;
 
@@ -50,9 +53,16 @@ namespace StreetFighter.Gameplay
             _motion.Events.AddListener(GameEvents.FramesDone, Stop);
             _collider.Hit += OnHit;
 
-            _master.Enemy.BloodBar.Events.AddListener(GameEvents.Empty, OnEnemyEmpty);
-
             _timer = clock.Add(Tick);
+        }
+
+        /// <summary>
+        /// 监听对手血条见底。必须在对手的 <see cref="Spirit.BloodBar"/> 赋值之后调用
+        /// （由 <see cref="Spirit.Initialize"/> 负责），否则会静默丢监听。
+        /// </summary>
+        public void BindEnemyBloodBar()
+        {
+            _master.Enemy.BloodBar.Events.AddListener(GameEvents.Empty, OnEnemyEmpty);
         }
 
         #region ICollidable / IMovable
@@ -140,7 +150,10 @@ namespace StreetFighter.Gameplay
             _effect = effect;
             _beatState = beatState;
             _damage = damage;
-            _effectPosition = effectPosition;
+
+            // 没配特效坐标的招式统一按「打在对方身上」处理，避免命中时取下标炸空引用
+            _effectPosition = effectPosition != null && effectPosition.Length >= 2 ? effectPosition : ZeroEffectPosition;
+
             _sounds = sounds;
         }
 
@@ -314,7 +327,7 @@ namespace StreetFighter.Gameplay
             {
                 _master.Enemy.Play(StateNames.JumpFallDown);
             }
-            else
+            else if (!string.IsNullOrEmpty(_beatState))
             {
                 _master.Enemy.Play(_beatState, true);
             }

@@ -82,6 +82,10 @@ namespace StreetFighter.Game
             SpriteLibrary.Initialize();
 
             _clock = new GameClock();
+
+            // 逻辑帧时长以 Global.asset 的 fps 为准，避免 GameClock 与 GameConfig 各持一套
+            GameClock.SetTickMilliseconds(GameConfig.Fps);
+
             BodyCollider.Clear();
 
             SetupCamera();
@@ -131,6 +135,19 @@ namespace StreetFighter.Game
             {
                 Instance = null;
             }
+
+            // Awake 可能没跑完（例如配置缺失导致 StartMatch 抛异常），这里逐项判空
+            if (_playerOne?.Keys != null)
+            {
+                _playerOne.Keys.Dispose();
+            }
+
+            if (_playerTwo?.Keys != null)
+            {
+                _playerTwo.Keys.Dispose();
+            }
+
+            _music?.Dispose();
 
             GameInput.Shutdown();
         }
@@ -205,8 +222,8 @@ namespace StreetFighter.Game
             var leftBlood = CreateImage(canvasObject.transform, "blood_left", 96f, 40f, 322f, 21f, Color.blue, WhiteSprite);
             var rightBlood = CreateImage(canvasObject.transform, "blood_right", 493f, 40f, 320f, 21f, Color.yellow, WhiteSprite);
 
-            _barOne = new BloodBar(leftBlood, true, 96f, 322f);
-            _barTwo = new BloodBar(rightBlood, false, 493f, 320f);
+            _barOne = new BloodBar(_clock, leftBlood, true, 96f, 322f);
+            _barTwo = new BloodBar(_clock, rightBlood, false, 493f, 320f);
         }
 
         private void StartMatch()
@@ -225,6 +242,10 @@ namespace StreetFighter.Game
 
             _playerOne.Initialize(_playerOneStartX, _groundY, 1);
             _playerTwo.Initialize(_playerTwoStartX, _groundY, -1);
+
+            // 跨角色的监听要等双方都初始化完，否则对手的 Mover 还是 null
+            _playerOne.BindEnemyMotion();
+            _playerTwo.BindEnemyMotion();
 
             _playerTwo.Keys.Stop();
             _playerTwo.Ai = new AiController(_clock, _playerTwo);
@@ -323,10 +344,14 @@ namespace StreetFighter.Game
                 _clock.Timeout(() =>
                 {
                     _playerTwo.Motion.MoveTo(_playerTwoStartX, _groundY);
-                    _playerTwo.Keys.Start();
                     _playerTwo.Direction = -1;
 
-                    if (_mode == GameMode.VersusAi)
+                    // 人机模式不恢复 P2 键盘输入，否则打完一局后 AI 会被玩家接管
+                    if (_mode == GameMode.VersusPlayer)
+                    {
+                        _playerTwo.Keys.Start();
+                    }
+                    else
                     {
                         _playerTwo.Ai.Start();
                     }

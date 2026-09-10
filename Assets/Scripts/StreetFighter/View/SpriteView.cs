@@ -42,6 +42,9 @@ namespace StreetFighter.View
         public void Show(string background, int frame, int sourceFrameCount, float left, float top,
             float sourceWidth, float sourceHeight, int direction, float zoom, bool fixedHeight = false)
         {
+            // 隐藏过的对象（例如上一发波动拳结束后 WaveView.Hide）必须重新激活，否则后续永远画不出来
+            SetVisible(true);
+
             if (string.IsNullOrEmpty(background))
             {
                 return;

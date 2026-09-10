@@ -10,8 +10,11 @@ namespace StreetFighter.Gameplay
     /// </summary>
     public sealed class AiController
     {
+        /// <summary>失误判定的分母。</summary>
         private const int SkillRoll = 10;
-        private const int SkillLevel = 11;
+
+        /// <summary>高水平判定的分子：命中率 = SkillLevel / SkillRoll，值越大 AI 越强。</summary>
+        private const int SkillLevel = 8;
         private const string FallbackAction = StateNames.ForceWait;
 
         private sealed class Response
@@ -40,7 +43,12 @@ namespace StreetFighter.Gameplay
 
         public void Start() => _clock.Start(_timer);
 
-        public void Stop() => _clock.Stop(_timer);
+        /// <summary>停止决策并丢弃尚未打出的连续技，避免下次开局立刻放出上一局的残留动作。</summary>
+        public void Stop()
+        {
+            _clock.Stop(_timer);
+            _pending.Clear();
+        }
 
         private int Roll(int count) => _random.Next(count);
 
@@ -287,13 +295,7 @@ namespace StreetFighter.Gameplay
                 return;
             }
 
-            var response = Respond(_self.Status.DistanceBand)
-                           ?? new Response
-                           {
-                               CorrectActions = new object[] { FallbackAction },
-                               WrongActions = new object[] { FallbackAction },
-                           };
-
+            var response = Respond(_self.Status.DistanceBand);
             object[] candidates = Roll(SkillRoll) < SkillLevel ? response.CorrectActions : response.WrongActions;
             Enqueue(candidates[Roll(candidates.Length)]);
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using StreetFighter.Config;
 using StreetFighter.Core;
 using StreetFighter.Game;
@@ -64,6 +65,12 @@ namespace StreetFighter.Gameplay
         private readonly Dictionary<string, bool> _previousHeld = new Dictionary<string, bool>();
         private readonly Queue<string> _buffer = new Queue<string>();
 
+        /// <summary>复用同一份缓冲拼组合键，避免每个逻辑帧都产生临时字符串。</summary>
+        private readonly StringBuilder _combination = new StringBuilder();
+
+        /// <summary>出招序列缓冲，同样复用。</summary>
+        private readonly StringBuilder _sequenceText = new StringBuilder();
+
         private readonly int _sampleInterval;
         private int _sampleCount;
         private bool _isLocked;
@@ -126,6 +133,16 @@ namespace StreetFighter.Gameplay
 
         /// <summary>朝向翻转后切换前后方向的含义。</summary>
         public void Mirror(int direction) => _activeMoves = direction == 1 ? _moveForward : _moveMirrored;
+
+        /// <summary>释放输入动作并从 <see cref="GameInput"/> 注销。</summary>
+        public void Dispose()
+        {
+            DisposeInput();
+            GameInput.Unregister(this);
+        }
+
+        /// <summary>只释放本玩家的动作表，不改动玩家列表（供 <see cref="GameInput.Shutdown"/> 批量调用）。</summary>
+        internal void DisposeInput() => _map.Dispose();
 
         /// <summary>恢复输入。</summary>
         public void Start()
@@ -300,16 +317,16 @@ namespace StreetFighter.Gameplay
 
         private string ReadHeldCombination()
         {
-            string combination = string.Empty;
+            _combination.Length = 0;
             for (int i = 0; i < _moveKeys.Count; i++)
             {
                 if (IsHeld(_moveKeys[i]))
                 {
-                    combination += _moveKeys[i];
+                    _combination.Append(_moveKeys[i]);
                 }
             }
 
-            return combination;
+            return _combination.ToString();
         }
 
         private string ReadFirstHeld()
@@ -415,7 +432,18 @@ namespace StreetFighter.Gameplay
 
                 _buffer.Enqueue(pending);
 
-                string combination = string.Join(",", _buffer.ToArray());
+                _sequenceText.Length = 0;
+                foreach (var step in _buffer)
+                {
+                    if (_sequenceText.Length > 0)
+                    {
+                        _sequenceText.Append(',');
+                    }
+
+                    _sequenceText.Append(step);
+                }
+
+                string combination = _sequenceText.ToString();
                 _buffer.Clear();
 
                 string special;
