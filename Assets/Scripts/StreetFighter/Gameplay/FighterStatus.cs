@@ -16,6 +16,15 @@ namespace StreetFighter.Gameplay
         /// <summary>config 里 attack_type = 2 表示「攻击判定中」。</summary>
         private const int AttackTypeIndex = 2;
 
+        /// <summary>状态名里出现这个子串表示空中动作。</summary>
+        private const string JumpToken = "jump";
+
+        /// <summary>状态名里出现这个子串表示蹲姿动作。</summary>
+        private const string CrouchToken = "crouch";
+
+        /// <summary>状态名里出现这个子串表示轻攻击。</summary>
+        private const string LightToken = "light";
+
         private static readonly AttackState[] AttackStates =
         {
             AttackState.Wait,
@@ -35,6 +44,7 @@ namespace StreetFighter.Gameplay
         {
             _owner = owner;
             _clock = clock;
+            RefreshPoseFlags();
         }
 
         /// <summary>当前攻防姿态。</summary>
@@ -45,6 +55,12 @@ namespace StreetFighter.Gameplay
 
         /// <summary>当前攻击是否为轻攻击。</summary>
         public bool IsAttackLight { get; private set; }
+
+        /// <summary>当前状态是否属于跳跃类（缓存值，随 <c>Spirit.StateName</c> 变化刷新）。</summary>
+        public bool IsJumping { get; private set; }
+
+        /// <summary>当前状态是否属于蹲姿类（缓存值，随 <c>Spirit.StateName</c> 变化刷新）。</summary>
+        public bool IsCrouching { get; private set; }
 
         /// <summary>攻击是否带有无敌（来自 attack_power 第二项）。</summary>
         public bool IsInvincible => _isPowerInvincible || _isCustomInvincible;
@@ -90,7 +106,7 @@ namespace StreetFighter.Gameplay
         {
             if (configValue == AttackTypeIndex)
             {
-                IsAttackLight = _owner.StateName != null && _owner.StateName.Contains("light");
+                IsAttackLight = _owner.StateName != null && _owner.StateName.Contains(LightToken);
             }
 
             if (configValue < 0 || configValue >= AttackStates.Length)
@@ -119,13 +135,21 @@ namespace StreetFighter.Gameplay
             _clock.Timeout(() => _isCustomInvincible = false, durationMs);
         }
 
-        public bool IsJump() => _owner.StateName != null && _owner.StateName.Contains("jump");
+        /// <summary>
+        /// 重算跳跃 / 蹲姿标记。由 <c>Spirit.StateName</c> 的 setter 调用，
+        /// 因此每帧读取姿态不需要再做字符串匹配。
+        /// </summary>
+        public void RefreshPoseFlags()
+        {
+            string name = _owner.StateName;
+            IsJumping = name != null && name.Contains(JumpToken);
+            IsCrouching = name != null && name.Contains(CrouchToken);
+        }
 
-        public bool IsStand() =>
-            _owner.StateName != null
-            && !_owner.StateName.Contains("jump")
-            && !_owner.StateName.Contains("crouch");
+        public bool IsJump() => IsJumping;
 
-        public bool IsCrouch() => _owner.StateName != null && _owner.StateName.Contains("crouch");
+        public bool IsStand() => _owner.StateName != null && !IsJumping && !IsCrouching;
+
+        public bool IsCrouch() => IsCrouching;
     }
 }

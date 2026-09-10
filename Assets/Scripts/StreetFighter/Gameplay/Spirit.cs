@@ -50,6 +50,9 @@ namespace StreetFighter.Gameplay
         private readonly GameClock _clock;
         private SpiritView _view;
 
+        /// <summary><see cref="StateName"/> 的后备字段。</summary>
+        private string _stateName;
+
         /// <summary>前进步伐的横向位移，推挤时会在运行时微调（不写回配置资产）。</summary>
         private float _forwardSpeed;
 
@@ -75,8 +78,26 @@ namespace StreetFighter.Gameplay
         /// <summary>角色配置资产（状态表、组合技表、按键表）。</summary>
         public FighterAsset Config { get; }
 
-        /// <summary>当前动作名（play 的键）。</summary>
-        public string StateName { get; private set; }
+        /// <summary>
+        /// 当前动作名（play 的键）。
+        /// 赋值时同步刷新 <see cref="FighterStatus"/> 的姿态标记，所以姿态判断不必每帧做字符串匹配。
+        /// </summary>
+        public string StateName
+        {
+            get => _stateName;
+            private set
+            {
+                if (_stateName == value)
+                {
+                    return;
+                }
+
+                _stateName = value;
+
+                // Status 在 Initialize 中创建，创建前的赋值由它自己构造时刷新一次补上
+                Status?.RefreshPoseFlags();
+            }
+        }
 
         /// <summary>当前正在播放的组合动作名（compose 的键）。</summary>
         public string CurrentState { get; private set; }
