@@ -132,10 +132,10 @@ Assets/
 
 ## 二次开发提示
 
-- 想调数值（伤害、判定框、帧数、位移）直接改 `Assets/Resources/Config/` 下对应的分片，不要改代码常量。
-- 想加角色：在 `Assets/Resources/Config/` 下新建 `Spirit_<名字>.json`（内容形如 `{"Spirit": {"<名字>": {...states, keyMap...}}}`），无需改加载代码，再到 `GameManager.StartMatch()` 里实例化。
+- 想调数值（伤害、判定框、帧数、位移）直接在 Inspector 改 `Assets/Resources/Config/` 下的配置资产，或用 `StreetFighter → Config Editor` 打开技能编辑器改，不要改代码常量。
+- 想加角色：`Assets/Resources/Config/Fighters/` 下 `Create → StreetFighter → Fighter` 新建一份资产（或复制 RYU1 后改名改 `Fighter Name`），无需改加载代码，再到 `GameManager.StartMatch()` 里实例化。
 - 想关掉 AI：`1`/`2` 切到双人模式，或删除 `StartMatch()` 中的 `AiController` 创建。
-- 想改键盘按键：改角色分片（`Spirit_*.json`）里 `keyMap.mapping` 的 keyCode（`KeyboardPaths` 负责翻译成 Input System 路径）；想改手柄按键：改 `FighterInput.GamepadAttackPaths`。
+- 想改键盘按键：改角色资产的 `KeyMap → Mappings` 里的 keyCode（`KeyboardPaths` 负责翻译成 Input System 路径）；想改手柄按键：改 `FighterInput.GamepadAttackPaths`。
 - 想加第三个玩家：给 `GameInput` 注册一个新的 `FighterInput` 即可，手柄会按注册序号自动分配。
 - 出场位置、追帧上限、重开节奏等参数都提成了 `GameManager` 的 Inspector 字段，可以在场景里直接调。
 

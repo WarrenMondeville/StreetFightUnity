@@ -11,10 +11,17 @@ namespace StreetFighter.Gameplay
     /// </summary>
     public sealed class WaveProjectile : ICollidable, IMovable
     {
-        private const float DefaultWidth = 56f;
-        private const float DefaultHeight = 32f;
-        private const float ColliderWidth = 48f;
-        private const float ColliderHeight = 32f;
+        /// <summary>绘制尺寸（配置编辑器预览也用它）。</summary>
+        public const float DefaultWidth = 56f;
+
+        /// <summary>绘制高度。</summary>
+        public const float DefaultHeight = 32f;
+
+        /// <summary>判定框宽（小于绘制宽度，居中放置）。</summary>
+        public const float ColliderWidth = 48f;
+
+        /// <summary>判定框高。</summary>
+        public const float ColliderHeight = 32f;
 
         private const float FireDelayMs = 150f;
         private const float VerticalOffset = 40f;

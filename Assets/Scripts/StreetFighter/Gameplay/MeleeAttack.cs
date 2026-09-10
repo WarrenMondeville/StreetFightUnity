@@ -12,7 +12,8 @@ namespace StreetFighter.Gameplay
     /// </summary>
     public sealed class MeleeAttack : ICollidable, IMovable
     {
-        private const float DefaultSize = 50f;
+        /// <summary>判定体边长（配置编辑器预览也用它）。</summary>
+        public const float DefaultSize = 50f;
         private const float MapPaddingLeft = 15f;
         private const float MapPaddingRight = 20f;
 
