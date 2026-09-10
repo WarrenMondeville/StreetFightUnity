@@ -36,6 +36,10 @@ namespace StreetFighter.Config
         /// <summary>组合技结束后回退到的基础帧，仅组合技使用。</summary>
         [SerializeField] private int _afterFrame;
 
+        /// <summary>招式说明，只给编辑器里的人看，不参与任何逻辑。</summary>
+        [TextArea(2, 6)]
+        [SerializeField] private string _description;
+
         /// <summary>状态名。</summary>
         public string Name => _name;
 
@@ -89,6 +93,9 @@ namespace StreetFighter.Config
 
         /// <summary>组合技结束后回退到的基础帧。</summary>
         public int AfterFrame => _afterFrame;
+
+        /// <summary>招式说明，只给编辑器里的人看。</summary>
+        public string Description => _description;
 
         // Unity 会把缺失的数组反序列化成长度 0 的数组而不是 null，这里统一归一成 null
         private static bool Empty<T>(T[] array) => array == null || array.Length == 0;

@@ -223,8 +223,8 @@ namespace StreetFighter.Editor
                 return;
             }
 
-            EditorGUILayout.PropertyField(_serialized.FindProperty("_fighterName"));
-            EditorGUILayout.PropertyField(_serialized.FindProperty("_defaultState"));
+            Field(_serialized.FindProperty("_fighterName"));
+            Field(_serialized.FindProperty("_defaultState"));
 
             EditorGUILayout.BeginHorizontal();
             if (TabButton("状态", _fighterTab == FighterTab.States))
@@ -253,6 +253,11 @@ namespace StreetFighter.Editor
                 return;
             }
 
+            EditorGUILayout.HelpBox(_fighterTab == FighterTab.Combos
+                ? "空中组合技：键名形如「跳状态_攻击」（如 jump_light_boxing），在原动作上叠加一段序列帧，判定体每帧贴在角色身上。"
+                : "状态：play 表 compose 引用的最小单位。改完用右侧预览确认帧序、判定框落点与特效点。",
+                MessageType.Info);
+
             EditorGUILayout.BeginHorizontal();
             DrawStateList();
             DrawStateDetail();
@@ -270,16 +275,16 @@ namespace StreetFighter.Editor
             }
 
             _pageScroll = EditorGUILayout.BeginScrollView(_pageScroll);
-            EditorGUILayout.PropertyField(_serialized.FindProperty("_fps"));
-            EditorGUILayout.PropertyField(_serialized.FindProperty("_keyFps"));
-            EditorGUILayout.PropertyField(_serialized.FindProperty("_spiritShadow"));
+            Field(_serialized.FindProperty("_fps"));
+            Field(_serialized.FindProperty("_keyFps"));
+            Field(_serialized.FindProperty("_spiritShadow"));
 
             BeginGroup("舞台");
-            EditorGUILayout.PropertyField(_serialized.FindProperty("_map"), true);
+            Field(_serialized.FindProperty("_map"), true);
             EndGroup();
 
             BeginGroup("命中特效");
-            EditorGUILayout.PropertyField(_serialized.FindProperty("_hitEffects"), new GUIContent("特效表"), true);
+            Field(_serialized.FindProperty("_hitEffects"), true);
             EndGroup();
 
             EditorGUILayout.EndScrollView();
@@ -299,7 +304,7 @@ namespace StreetFighter.Editor
             var list = _serialized.FindProperty(listPath);
             if (list != null)
             {
-                EditorGUILayout.PropertyField(list, new GUIContent(label), true);
+                Field(list, true);
             }
 
             EditorGUILayout.EndScrollView();
@@ -315,17 +320,17 @@ namespace StreetFighter.Editor
 
             _pageScroll = EditorGUILayout.BeginScrollView(_pageScroll);
             BeginGroup("按键映射（keyCode → 令牌）");
-            EditorGUILayout.PropertyField(keyMap.FindPropertyRelative("_mappings"), new GUIContent("映射"), true);
+            Field(keyMap.FindPropertyRelative("_mappings"), true);
             EndGroup();
 
             BeginGroup("移动表");
-            EditorGUILayout.PropertyField(keyMap.FindPropertyRelative("_moves"), new GUIContent("Moves"), true);
-            EditorGUILayout.PropertyField(keyMap.FindPropertyRelative("_movesMirrored"), new GUIContent("Moves Mirrored"), true);
+            Field(keyMap.FindPropertyRelative("_moves"), true);
+            Field(keyMap.FindPropertyRelative("_movesMirrored"), true);
             EndGroup();
 
             BeginGroup("出招表");
-            EditorGUILayout.PropertyField(keyMap.FindPropertyRelative("_normalAttacks"), new GUIContent("普攻"), true);
-            EditorGUILayout.PropertyField(keyMap.FindPropertyRelative("_specialAttacks"), new GUIContent("必杀"), true);
+            Field(keyMap.FindPropertyRelative("_normalAttacks"), true);
+            Field(keyMap.FindPropertyRelative("_specialAttacks"), true);
             EndGroup();
 
             EditorGUILayout.EndScrollView();
@@ -407,70 +412,216 @@ namespace StreetFighter.Editor
 
         private void DrawState(SerializedProperty state, bool isCombo)
         {
+            BeginGroup("说明");
+            Field(state.FindPropertyRelative("_description"));
+            EditorGUILayout.Space(2f);
+            EditorGUILayout.HelpBox(BuildSummary(state, isCombo), MessageType.None);
+            EndGroup();
+
             BeginGroup("序列帧");
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_name"));
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_background"));
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_frameCount"));
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_repeat"), true);
+            Field(state.FindPropertyRelative("_name"));
+            Field(state.FindPropertyRelative("_background"));
+            Field(state.FindPropertyRelative("_frameCount"));
+            Field(state.FindPropertyRelative("_repeat"), true);
             EndGroup();
 
             if (!isCombo)
             {
                 var easing = state.FindPropertyRelative("_easing");
                 BeginGroup("位移");
-                EditorGUILayout.PropertyField(easing.FindPropertyRelative("_dx"));
-                EditorGUILayout.PropertyField(easing.FindPropertyRelative("_autoTop"));
+                Field(easing.FindPropertyRelative("_dx"));
+                Field(easing.FindPropertyRelative("_autoTop"));
                 if (!easing.FindPropertyRelative("_autoTop").boolValue)
                 {
-                    EditorGUILayout.PropertyField(easing.FindPropertyRelative("_top"));
+                    Field(easing.FindPropertyRelative("_top"));
                 }
 
-                EditorGUILayout.PropertyField(easing.FindPropertyRelative("_step"));
-                EditorGUILayout.PropertyField(easing.FindPropertyRelative("_ease"));
+                Field(easing.FindPropertyRelative("_step"));
+                Field(easing.FindPropertyRelative("_ease"));
                 EndGroup();
 
                 BeginGroup("其它");
-                EditorGUILayout.PropertyField(state.FindPropertyRelative("_position"));
+                Field(state.FindPropertyRelative("_position"));
                 EndGroup();
             }
 
             BeginGroup("攻防");
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_attackType"));
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_near"));
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_attackPower"), true);
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_defenseBlood"));
+            Field(state.FindPropertyRelative("_attackType"));
+            Field(state.FindPropertyRelative("_near"));
+            Field(state.FindPropertyRelative("_attackPower"), true);
+            Field(state.FindPropertyRelative("_defenseBlood"));
             EndGroup();
 
             BeginGroup("判定");
             var kind = state.FindPropertyRelative("_attack");
-            EditorGUILayout.PropertyField(kind);
+            Field(kind);
 
             switch ((AttackConfigKind)kind.intValue)
             {
                 case AttackConfigKind.Melee:
-                    EditorGUILayout.PropertyField(state.FindPropertyRelative("_meleeAttack"), new GUIContent("近身攻击"), true);
+                    Field(state.FindPropertyRelative("_meleeAttack"), true);
                     break;
                 case AttackConfigKind.Wave:
-                    EditorGUILayout.PropertyField(state.FindPropertyRelative("_waveAttack"), new GUIContent("飞行道具"), true);
+                    Field(state.FindPropertyRelative("_waveAttack"), true);
                     break;
                 case AttackConfigKind.Combo:
-                    EditorGUILayout.PropertyField(state.FindPropertyRelative("_comboAttack"), new GUIContent("空中组合技"), true);
+                    Field(state.FindPropertyRelative("_comboAttack"), true);
                     break;
             }
 
             EndGroup();
 
             BeginGroup("表现");
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_effectPosition"), true);
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_sounds"), true);
-            EditorGUILayout.PropertyField(state.FindPropertyRelative("_specialSound"));
+            Field(state.FindPropertyRelative("_effectPosition"), true);
+            Field(state.FindPropertyRelative("_sounds"), true);
+            Field(state.FindPropertyRelative("_specialSound"));
             EndGroup();
 
             if (isCombo)
             {
                 BeginGroup("组合技");
-                EditorGUILayout.PropertyField(state.FindPropertyRelative("_afterFrame"));
+                Field(state.FindPropertyRelative("_afterFrame"));
                 EndGroup();
+            }
+        }
+
+        /// <summary>把当前招式的参数翻译成一段人话，方便核对数值。</summary>
+        private static string BuildSummary(SerializedProperty state, bool isCombo)
+        {
+            var lines = new List<string>();
+
+            int frameCount = Mathf.Max(1, state.FindPropertyRelative("_frameCount").intValue);
+            int total = ExpandedFrameCount(state);
+            string frames = total == frameCount
+                ? $"{frameCount} 帧"
+                : $"{frameCount} 帧（重复帧展开 {total} 帧）";
+
+            lines.Add($"序列帧：{state.FindPropertyRelative("_background").stringValue}，{frames}，"
+                      + $"每帧约 {FrameDurationMs(state):0} 毫秒");
+
+            if (!isCombo)
+            {
+                var easing = state.FindPropertyRelative("_easing");
+                string vertical = easing.FindPropertyRelative("_autoTop").boolValue
+                    ? "自动贴地"
+                    : easing.FindPropertyRelative("_top").floatValue.ToString();
+
+                lines.Add($"位移：横向 {easing.FindPropertyRelative("_dx").floatValue}（乘朝向），"
+                          + $"纵向 {vertical}，缓动 {easing.FindPropertyRelative("_ease").stringValue}");
+            }
+
+            lines.Add($"姿态：{AttackTypeText(state.FindPropertyRelative("_attackType").intValue)}");
+
+            var power = state.FindPropertyRelative("_attackPower");
+            if (power.arraySize > 0)
+            {
+                lines.Add($"攻击等级：{(int)power.GetArrayElementAtIndex(0).floatValue}");
+            }
+
+            float near = state.FindPropertyRelative("_near").floatValue;
+            if (near > 0f)
+            {
+                lines.Add($"近身触发：与对手距离 ≤ {near} 时改用 near_ 前缀的变体");
+            }
+
+            switch ((AttackConfigKind)state.FindPropertyRelative("_attack").intValue)
+            {
+                case AttackConfigKind.Melee:
+                {
+                    var config = state.FindPropertyRelative("_meleeAttack");
+                    lines.Add($"判定：近身 {MeleeAttack.DefaultSize}×{MeleeAttack.DefaultSize}，"
+                              + $"起点 ({config.FindPropertyRelative("_offsetX").floatValue}, "
+                              + $"{config.FindPropertyRelative("_offsetY").floatValue})，"
+                              + $"位移 ({config.FindPropertyRelative("_moveX").floatValue}, "
+                              + $"{config.FindPropertyRelative("_moveY").floatValue}) / "
+                              + $"{config.FindPropertyRelative("_duration").floatValue} 毫秒，"
+                              + $"{config.FindPropertyRelative("_ease").stringValue}");
+                    lines.Add($"命中：伤害 {config.FindPropertyRelative("_damage").floatValue}，"
+                              + $"特效 {config.FindPropertyRelative("_effect").stringValue}，"
+                              + $"对方进入「{config.FindPropertyRelative("_beatState").stringValue}」");
+                    break;
+                }
+
+                case AttackConfigKind.Wave:
+                {
+                    var config = state.FindPropertyRelative("_waveAttack");
+                    lines.Add($"判定：飞行道具 {WaveProjectile.ColliderWidth}×{WaveProjectile.ColliderHeight}"
+                              + $"（绘制 {WaveProjectile.DefaultWidth}×{WaveProjectile.DefaultHeight}），"
+                              + $"尺寸偏移 ({config.FindPropertyRelative("_sizeOffsetX").floatValue}, "
+                              + $"{config.FindPropertyRelative("_sizeOffsetY").floatValue})");
+                    lines.Add($"命中：伤害 {config.FindPropertyRelative("_damage").floatValue}，"
+                              + $"防御削血 {config.FindPropertyRelative("_defenseDamage").floatValue}，"
+                              + $"消失特效 {config.FindPropertyRelative("_disappearEffect").stringValue}，"
+                              + $"对方进入「{config.FindPropertyRelative("_beatState").stringValue}」");
+                    break;
+                }
+
+                case AttackConfigKind.Combo:
+                {
+                    var config = state.FindPropertyRelative("_comboAttack");
+                    float size = config.FindPropertyRelative("_size").floatValue;
+                    lines.Add($"判定：贴身 {size}×{size}，"
+                              + $"偏移 ({config.FindPropertyRelative("_offsetX").floatValue}, "
+                              + $"{config.FindPropertyRelative("_offsetY").floatValue})，每帧跟随角色");
+                    lines.Add($"命中：伤害 {config.FindPropertyRelative("_damage").floatValue}，"
+                              + $"特效 {config.FindPropertyRelative("_effect").stringValue}，"
+                              + $"对方进入「{config.FindPropertyRelative("_beatState").stringValue}」");
+                    break;
+                }
+
+                default:
+                    lines.Add("判定：无（这个状态不带攻击判定体）");
+                    break;
+            }
+
+            float defenseBlood = state.FindPropertyRelative("_defenseBlood").floatValue;
+            if (defenseBlood > 0f)
+            {
+                lines.Add($"防御削血：{defenseBlood}");
+            }
+
+            var position = state.FindPropertyRelative("_effectPosition");
+            if (position.arraySize >= 2)
+            {
+                lines.Add($"特效偏移：({position.GetArrayElementAtIndex(0).floatValue}, "
+                          + $"{position.GetArrayElementAtIndex(1).floatValue})，相对对方左上角");
+            }
+
+            var sounds = state.FindPropertyRelative("_sounds");
+            if (sounds.arraySize >= 2)
+            {
+                lines.Add($"音效：出招 {sounds.GetArrayElementAtIndex(0).stringValue}，"
+                          + $"受击 {sounds.GetArrayElementAtIndex(1).stringValue}");
+            }
+            else if (sounds.arraySize == 1)
+            {
+                lines.Add($"音效：{sounds.GetArrayElementAtIndex(0).stringValue}");
+            }
+
+            string special = state.FindPropertyRelative("_specialSound").stringValue;
+            if (!string.IsNullOrEmpty(special))
+            {
+                lines.Add($"招式音：{special}");
+            }
+
+            if (isCombo)
+            {
+                lines.Add($"组合技回退帧：{state.FindPropertyRelative("_afterFrame").intValue}");
+            }
+
+            return string.Join("\n", lines.ToArray());
+        }
+
+        private static string AttackTypeText(int value)
+        {
+            switch (value)
+            {
+                case 0: return "空闲（attack_type 0）";
+                case 1: return "防御中（attack_type 1）";
+                case 2: return "攻击判定中（attack_type 2）";
+                case 3: return "被击硬直（attack_type 3）";
+                case 4: return "倒地（attack_type 4）";
+                default: return $"未知（attack_type {value}）";
             }
         }
 
@@ -1026,6 +1177,97 @@ namespace StreetFighter.Editor
             style.fontStyle = active ? FontStyle.Bold : FontStyle.Normal;
             return GUILayout.Button(text, style, GUILayout.Height(22f)) && !active;
         }
+
+        /// <summary>画一个配置字段，用中文标签并带上悬浮说明。</summary>
+        private static void Field(SerializedProperty property) => Field(property, false);
+
+        /// <summary>画一个配置字段，<c>includeChildren</c> 为真时连同子字段一起展开。</summary>
+        private static void Field(SerializedProperty property, bool includeChildren)
+        {
+            if (property == null)
+            {
+                return;
+            }
+
+            EditorGUILayout.PropertyField(property, Label(property.name), includeChildren);
+        }
+
+        private static GUIContent Label(string fieldName)
+        {
+            GUIContent content;
+            if (Labels.TryGetValue(fieldName, out content))
+            {
+                return content;
+            }
+
+            content = new GUIContent(ObjectNames.NicifyVariableName(fieldName));
+            Labels[fieldName] = content;
+            return content;
+        }
+
+        private static GUIContent Tip(string label, string tooltip) => new GUIContent(label, tooltip);
+
+        /// <summary>字段名 → 中文标签 + 悬浮说明。</summary>
+        private static readonly Dictionary<string, GUIContent> Labels = new Dictionary<string, GUIContent>
+        {
+            // 资产顶层
+            { "_fighterName", Tip("角色键", "如 RYU1；运行时用它在 Resources/Config/Fighters 下找这份资产") },
+            { "_defaultState", Tip("默认状态", "一段动作播完后回到的状态，通常是 wait") },
+            { "_fps", Tip("逻辑帧时长", "毫秒；GameClock 的步长，也是运动时长计算的基准") },
+            { "_keyFps", Tip("输入采样周期", "毫秒；输入缓冲每隔这么久清一次") },
+            { "_spiritShadow", Tip("脚下阴影图", "Resources/Art 下的图名") },
+            { "_map", Tip("舞台", "远近两层背景图与角色缩放") },
+            { "_hitEffects", Tip("命中特效表", "每类特效的帧数与绘制高度") },
+            { "_actions", Tip("动作列表", "play 表：动作名 → 状态序列 + 优先级锁") },
+            { "_keyMap", Tip("按键表", "令牌映射、移动表与出招表") },
+            { "_mappings", Tip("按键映射", "键盘 keyCode → 令牌；顺序决定移动键的枚举顺序") },
+            { "_moves", Tip("移动表（朝右）", "令牌组合 → 移动动作，如 wa → jump_back") },
+            { "_movesMirrored", Tip("移动表（朝左）", "朝向翻转后前后互换的那一份") },
+            { "_normalAttacks", Tip("普攻", "单个按键 → 招式名") },
+            { "_specialAttacks", Tip("必杀", "方向序列 + 攻击键 → 招式名，如 crouch,forward,light_boxing") },
+
+            // 状态
+            { "_name", Tip("状态名", "play 的 compose 里引用的名字，一个角色内必须唯一") },
+            { "_background", Tip("图集", "Resources/Art 下的横向条带图名，按帧数横向均分") },
+            { "_frameCount", Tip("帧数", "图集横向切片帧数，至少 1") },
+            { "_repeat", Tip("重复帧", "每一项是对应源帧显示多少个逻辑帧；为空则每源帧显示 1 次") },
+            { "_easing", Tip("位移", "整段动作的位移与推进参数") },
+            { "_dx", Tip("横向位移", "像素；实际位移 = dx × 朝向") },
+            { "_autoTop", Tip("纵向自动", "勾选后忽略下方「纵向位移」，按包围盒自动补差使脚底贴地") },
+            { "_top", Tip("纵向位移", "像素，正数向下；配置里为 null 时就是自动模式") },
+            { "_step", Tip("推进间隔", "每几个逻辑帧推进一帧，同时作为运动时长系数（step × fps × 帧数）") },
+            { "_ease", Tip("缓动", "Easing 里按名字实现的缓动函数") },
+            { "_position", Tip("位置标记", "仅透传给表现层，不参与任何逻辑") },
+            { "_attackType", Tip("攻防类型", "0 空闲 / 1 防御 / 2 攻击判定 / 3 被击硬直 / 4 倒地") },
+            { "_near", Tip("近身距离", "与对手距离 ≤ 该值时改用 near_ 前缀的同名状态，0 表示不启用") },
+            { "_attack", Tip("判定类型", "决定下面哪一份判定配置生效") },
+            { "_attackPower", Tip("攻击等级", "[攻击等级, 无敌标记]；等级用于双方招式互拼") },
+            { "_effectPosition", Tip("特效偏移", "[x, y]，命中特效相对对方左上角的偏移") },
+            { "_sounds", Tip("音效", "[出招音, 受击音]") },
+            { "_specialSound", Tip("招式音", "独立于出招音之外的招式音，如波动拳的发声") },
+            { "_defenseBlood", Tip("防御削血", "对方防御成功时仍然削减的血量") },
+            { "_afterFrame", Tip("回退帧", "组合技播完后回退到基础动作的第几帧") },
+            { "_description", Tip("说明", "只给编辑器里的人看，不参与逻辑") },
+
+            // 判定配置
+            { "_meleeAttack", Tip("近身攻击", "判定体从角色身上生成后按配置独立位移") },
+            { "_waveAttack", Tip("飞行道具", "判定体飞出去，可与对方飞行道具相消") },
+            { "_comboAttack", Tip("空中组合技", "判定体每帧贴在角色身上，不独立位移") },
+            { "_offsetX", Tip("横向偏移", "相对角色左边的偏移；朝左时自动镜像") },
+            { "_offsetY", Tip("纵向偏移", "相对角色顶边的偏移，正数向下") },
+            { "_moveX", Tip("横向位移", "判定体的横向位移，实际值 = moveX × 朝向") },
+            { "_moveY", Tip("纵向位移", "判定体的纵向位移，正数向下") },
+            { "_duration", Tip("位移时长", "毫秒") },
+            { "_effect", Tip("命中特效", "hitEffect 里的类型名，同时也是图集名") },
+            { "_beatState", Tip("受击状态", "命中后对方进入的 play 动作名") },
+            { "_damage", Tip("伤害", "扣掉的血量") },
+            { "_sizeOffsetX", Tip("尺寸偏移 X", "判定尺寸的横向偏移") },
+            { "_sizeOffsetY", Tip("尺寸偏移 Y", "判定尺寸的纵向偏移") },
+            { "_colliderSize", Tip("判定尺寸", "判定体边长") },
+            { "_disappearEffect", Tip("消失特效", "命中或被相消时播放的特效类型") },
+            { "_defenseDamage", Tip("防御伤害", "对方防御成功时削减的血量") },
+            { "_size", Tip("判定边长", "判定体是正方形") },
+        };
 
         private static void BeginGroup(string title)
         {
