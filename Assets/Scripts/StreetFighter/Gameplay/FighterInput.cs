@@ -190,22 +190,32 @@ namespace StreetFighter.Gameplay
             return paths;
         }
 
-        /// <summary>从 move 表取出单键条目，确定每个字母对应的绝对方向。</summary>
+        /// <summary>从 move 表取出方向键条目，确定每个移动键对应的绝对方向。</summary>
         private void ReadDirections(IReadOnlyList<TokenMapping> moves)
         {
             for (int i = 0; i < moves.Count; i++)
             {
                 string letters = moves[i].Token;
-                if (string.IsNullOrEmpty(letters) || letters.Length != 1)
+                if (string.IsNullOrEmpty(letters))
                 {
                     continue;
                 }
 
+                // 只关心指向四个绝对方向（jump/crouch/back/forward）的状态。
                 MoveDirection direction;
-                if (DirectionsByMove.TryGetValue(moves[i].State, out direction))
+                if (!DirectionsByMove.TryGetValue(moves[i].State, out direction))
                 {
-                    _directions[letters] = direction;
+                    continue;
                 }
+
+                // 只登记会被单独查询的方向键。P1 用单字母令牌（w/a/s/d），P2 用单词令牌（up/left/right/down）；
+                // 组合令牌（如 sd、upleft）不会被单独查询，跳过以免污染方向表。
+                if (!_moveKeys.Contains(letters))
+                {
+                    continue;
+                }
+
+                _directions[letters] = direction;
             }
         }
 
