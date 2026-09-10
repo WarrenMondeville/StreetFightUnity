@@ -277,7 +277,7 @@ namespace StreetFighter.Gameplay
 
             bool light = _master.Status.IsAttackLight;
             var pushed = _master.Enemy.Border != Side.None && !_master.Status.IsJump() ? _master : _master.Enemy;
-            pushed.Motion.Start((light ? -20f : -70f) * pushed.Direction, 0f, 200f, EasingNames.Linear);
+            pushed.Motion.Start((light ? -20f : -70f) * pushed.Direction, 0f, 200f, EasingName.Linear);
 
             var state = _master.Config.GetState(_master.StateName);
             float defenseBlood = state != null ? state.DefenseBlood : 0f;
@@ -321,7 +321,7 @@ namespace StreetFighter.Gameplay
 
             if (_master.Enemy.Border != Side.None && !_master.Status.IsJump())
             {
-                _master.Motion.Start((light ? -70f : -150f) * _master.Direction, 0f, 300f, EasingNames.Linear);
+                _master.Motion.Start((light ? -70f : -150f) * _master.Direction, 0f, 300f, EasingName.Linear);
             }
 
             _master.Enemy.BloodBar.Reduce(_damage);

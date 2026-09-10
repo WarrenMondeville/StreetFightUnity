@@ -210,12 +210,12 @@ namespace StreetFighter.Gameplay
                 ? StateNames.ForceStandUpDefense
                 : StateNames.ForceStandCrouchDefense);
 
-            _master.Enemy.Motion.Start((light ? -50f : -100f) * _master.Enemy.Direction, 0f, 300f, EasingNames.Linear);
+            _master.Enemy.Motion.Start((light ? -50f : -100f) * _master.Enemy.Direction, 0f, 300f, EasingName.Linear);
 
             if (_master.Enemy.Border != Side.None
                 && (_master.Status.DistanceBand == DistanceBand.Near || _master.Status.DistanceBand == DistanceBand.Middle))
             {
-                _master.Motion.Start((light ? -50f : -100f) * _master.Direction, 0f, 300f, EasingNames.Linear);
+                _master.Motion.Start((light ? -50f : -100f) * _master.Direction, 0f, 300f, EasingName.Linear);
             }
 
             _master.Enemy.BloodBar.Reduce(_wave.DefenseDamage);
@@ -236,7 +236,7 @@ namespace StreetFighter.Gameplay
             if (_master.Enemy.Border != Side.None
                 && (_master.Status.DistanceBand == DistanceBand.Near || _master.Status.DistanceBand == DistanceBand.Middle))
             {
-                _master.Motion.Start((light ? -70f : -120f) * _master.Direction, 0f, 300f, EasingNames.Linear);
+                _master.Motion.Start((light ? -70f : -120f) * _master.Direction, 0f, 300f, EasingName.Linear);
             }
 
             _master.Enemy.BloodBar.Reduce(_wave.Damage);

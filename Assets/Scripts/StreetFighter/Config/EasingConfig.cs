@@ -14,7 +14,7 @@ namespace StreetFighter.Config
         [SerializeField] private bool _autoTop;
         [SerializeField] private float _top;
         [SerializeField] private float _step = 3f;
-        [SerializeField] private string _ease = EasingNames.Linear;
+        [SerializeField] private EasingName _ease = EasingName.Linear;
 
         /// <summary>横向位移（像素，实际使用时再乘朝向）。</summary>
         public float Dx => _dx;
@@ -28,7 +28,7 @@ namespace StreetFighter.Config
         /// <summary>每隔几个逻辑帧推进一帧，同时作为运动时长系数。</summary>
         public float Step => _step;
 
-        /// <summary>缓动函数名，见 <c>EasingNames</c>。</summary>
-        public string Ease => _ease;
+        /// <summary>缓动类型，见 <see cref="EasingName"/>。</summary>
+        public EasingName Ease => _ease;
     }
 }

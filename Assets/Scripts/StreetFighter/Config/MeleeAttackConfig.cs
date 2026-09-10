@@ -15,7 +15,7 @@ namespace StreetFighter.Config
         [SerializeField] private float _moveX;
         [SerializeField] private float _moveY;
         [SerializeField] private float _duration = 100f;
-        [SerializeField] private string _ease = EasingNames.Linear;
+        [SerializeField] private EasingName _ease = EasingName.Linear;
         [SerializeField] private string _effect;
         [SerializeField] private string _beatState;
         [SerializeField] private float _damage;
@@ -35,8 +35,8 @@ namespace StreetFighter.Config
         /// <summary>位移时长（毫秒）。</summary>
         public float Duration => _duration;
 
-        /// <summary>位移缓动函数名。</summary>
-        public string Ease => _ease;
+        /// <summary>位移缓动类型。</summary>
+        public EasingName Ease => _ease;
 
         /// <summary>命中特效类型。</summary>
         public string Effect => _effect;

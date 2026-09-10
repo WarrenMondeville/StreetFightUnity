@@ -24,7 +24,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 0
     _near: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 0
     _near: 0
@@ -80,7 +80,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 0
     _near: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 0
     _near: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 0
     _near: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 0
     _near: 0
@@ -260,7 +260,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 0
     _near: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 1
     _near: 0
@@ -350,7 +350,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -384,7 +384,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 5
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 1
     _near: 0
@@ -395,7 +395,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -429,7 +429,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 0
     _near: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -474,7 +474,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 1
     _near: 0
@@ -485,7 +485,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -519,7 +519,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 5
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 1
     _near: 0
@@ -530,7 +530,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -170
       _step: 3
-      _ease: sineaseOut
+      _ease: 5
     _position: 0
     _attackType: 0
     _near: 0
@@ -575,7 +575,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -609,7 +609,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -170
       _step: 3
-      _ease: sineaseOut
+      _ease: 5
     _position: 62
     _attackType: 0
     _near: 0
@@ -620,7 +620,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -654,7 +654,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 170
       _step: 3
-      _ease: sineaseIn
+      _ease: 4
     _position: 0
     _attackType: 0
     _near: 0
@@ -665,7 +665,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -699,7 +699,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -170
       _step: 3
-      _ease: sineaseOut
+      _ease: 5
     _position: 62
     _attackType: 0
     _near: 0
@@ -710,7 +710,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -744,7 +744,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 170
       _step: 3
-      _ease: sineaseIn
+      _ease: 4
     _position: 0
     _attackType: 0
     _near: 0
@@ -755,7 +755,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -789,7 +789,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 170
       _step: 10
-      _ease: sineaseIn
+      _ease: 4
     _position: 0
     _attackType: 0
     _near: 0
@@ -800,7 +800,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -834,7 +834,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 7
     _attackType: 2
     _near: 0
@@ -845,7 +845,7 @@ MonoBehaviour:
       _moveX: 110
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: light
       _beatState: attacked_light_top
       _damage: 20
@@ -885,7 +885,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 130
@@ -896,7 +896,7 @@ MonoBehaviour:
       _moveX: 110
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: light
       _beatState: attacked_light_top
       _damage: 25
@@ -936,7 +936,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 7
     _attackType: 2
     _near: 0
@@ -947,7 +947,7 @@ MonoBehaviour:
       _moveX: 120
       _moveY: 0
       _duration: 150
-      _ease: linear
+      _ease: 0
       _effect: heavy
       _beatState: attacked_heavy
       _damage: 120
@@ -987,7 +987,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 140
@@ -998,7 +998,7 @@ MonoBehaviour:
       _moveX: 110
       _moveY: 0
       _duration: 150
-      _ease: linear
+      _ease: 0
       _effect: heavy
       _beatState: attacked_heavy_top
       _damage: 130
@@ -1038,7 +1038,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -1049,7 +1049,7 @@ MonoBehaviour:
       _moveX: 150
       _moveY: 0
       _duration: 150
-      _ease: linear
+      _ease: 0
       _effect: light
       _beatState: attacked_light_bottom
       _damage: 30
@@ -1089,7 +1089,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -1100,7 +1100,7 @@ MonoBehaviour:
       _moveX: 150
       _moveY: 0
       _duration: 150
-      _ease: linear
+      _ease: 0
       _effect: heavy
       _beatState: attacked_heavy_bottom
       _damage: 120
@@ -1140,7 +1140,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: -50
     _attackType: 2
     _near: 0
@@ -1151,7 +1151,7 @@ MonoBehaviour:
       _moveX: 120
       _moveY: 0
       _duration: 150
-      _ease: linear
+      _ease: 0
       _effect: light
       _beatState: attacked_light_top
       _damage: 30
@@ -1191,7 +1191,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 140
@@ -1202,7 +1202,7 @@ MonoBehaviour:
       _moveX: 110
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: light
       _beatState: attacked_light_bottom
       _damage: 40
@@ -1242,7 +1242,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -1253,7 +1253,7 @@ MonoBehaviour:
       _moveX: 210
       _moveY: 0
       _duration: 150
-      _ease: linear
+      _ease: 0
       _effect: light
       _beatState: attacked_light_bottom
       _damage: 40
@@ -1293,7 +1293,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 2
     _near: 0
@@ -1304,7 +1304,7 @@ MonoBehaviour:
       _moveX: 160
       _moveY: -100
       _duration: 200
-      _ease: linear
+      _ease: 0
       _effect: heavy
       _beatState: attacked_heavy_top
       _damage: 150
@@ -1344,7 +1344,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 2
     _near: 160
@@ -1355,7 +1355,7 @@ MonoBehaviour:
       _moveX: 110
       _moveY: 0
       _duration: 150
-      _ease: linear
+      _ease: 0
       _effect: heavy
       _beatState: attacked_heavy_top
       _damage: 160
@@ -1395,7 +1395,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 2
     _near: 0
@@ -1406,7 +1406,7 @@ MonoBehaviour:
       _moveX: 230
       _moveY: 0
       _duration: 150
-      _ease: linear
+      _ease: 0
       _effect: heavy
       _beatState: crouch_kick_attacked_fall
       _damage: 130
@@ -1446,7 +1446,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -120
       _step: 3
-      _ease: strongEaseOut
+      _ease: 3
     _position: 0
     _attackType: 2
     _near: 0
@@ -1457,7 +1457,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: -120
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: heavy
       _beatState: heavy_attacked_fall_down
       _damage: 150
@@ -1497,7 +1497,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 120
       _step: 6
-      _ease: strongEaseIn
+      _ease: 2
     _position: 0
     _attackType: 0
     _near: 0
@@ -1508,7 +1508,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -1544,7 +1544,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -180
       _step: 3
-      _ease: strongEaseOut
+      _ease: 3
     _position: 0
     _attackType: 2
     _near: 0
@@ -1555,7 +1555,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: -180
       _duration: 200
-      _ease: linear
+      _ease: 0
       _effect: heavy
       _beatState: heavy_attacked_fall_down
       _damage: 220
@@ -1595,7 +1595,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 180
       _step: 12
-      _ease: strongEaseIn
+      _ease: 2
     _position: 0
     _attackType: 0
     _near: 0
@@ -1606,7 +1606,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -1642,7 +1642,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -20
       _step: 3
-      _ease: strongEaseOut
+      _ease: 3
     _position: 0
     _attackType: 2
     _near: 0
@@ -1653,7 +1653,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -1687,7 +1687,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 20
       _step: 2
-      _ease: strongEaseIn
+      _ease: 2
     _position: 0
     _attackType: 0
     _near: 0
@@ -1698,7 +1698,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -1732,7 +1732,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 2
     _near: 0
@@ -1743,7 +1743,7 @@ MonoBehaviour:
       _moveX: 370
       _moveY: 0
       _duration: 150
-      _ease: linear
+      _ease: 0
       _effect: heavy
       _beatState: heavy_attacked_fall_down
       _damage: 180
@@ -1783,7 +1783,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 2
     _near: 0
@@ -1794,7 +1794,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -1828,7 +1828,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: easeIn
+      _ease: 1
     _position: 0
     _attackType: 2
     _near: 0
@@ -1839,7 +1839,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -1873,7 +1873,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 2
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -1884,7 +1884,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -1918,7 +1918,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 2
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -1929,7 +1929,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -1963,7 +1963,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -110
       _step: 3
-      _ease: sineaseOut
+      _ease: 5
     _position: 0
     _attackType: 4
     _near: 0
@@ -1974,7 +1974,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2010,7 +2010,7 @@ MonoBehaviour:
       _autoTop: 1
       _top: 0
       _step: 6
-      _ease: sineaseIn
+      _ease: 4
     _position: 0
     _attackType: 4
     _near: 0
@@ -2021,7 +2021,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2057,7 +2057,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -50
       _step: 3
-      _ease: sineaseOut
+      _ease: 5
     _position: 0
     _attackType: 4
     _near: 0
@@ -2068,7 +2068,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2104,7 +2104,7 @@ MonoBehaviour:
       _autoTop: 1
       _top: 0
       _step: 3
-      _ease: sineaseIn
+      _ease: 4
     _position: 0
     _attackType: 4
     _near: 0
@@ -2115,7 +2115,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2151,7 +2151,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -110
       _step: 6
-      _ease: sineaseOut
+      _ease: 5
     _position: 0
     _attackType: 4
     _near: 0
@@ -2162,7 +2162,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2198,7 +2198,7 @@ MonoBehaviour:
       _autoTop: 1
       _top: 0
       _step: 6
-      _ease: sineaseIn
+      _ease: 4
     _position: 0
     _attackType: 4
     _near: 0
@@ -2209,7 +2209,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2245,7 +2245,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -160
       _step: 60
-      _ease: sineaseOut
+      _ease: 5
     _position: 0
     _attackType: 4
     _near: 0
@@ -2256,7 +2256,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2292,7 +2292,7 @@ MonoBehaviour:
       _autoTop: 1
       _top: 0
       _step: 45
-      _ease: sineaseIn
+      _ease: 4
     _position: 0
     _attackType: 4
     _near: 0
@@ -2303,7 +2303,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2339,7 +2339,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: -30
       _step: 6
-      _ease: sineaseOut
+      _ease: 5
     _position: 0
     _attackType: 4
     _near: 0
@@ -2350,7 +2350,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2386,7 +2386,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 30
       _step: 3
-      _ease: sineaseIn
+      _ease: 4
     _position: 0
     _attackType: 4
     _near: 0
@@ -2397,7 +2397,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2433,7 +2433,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 4
     _near: 0
@@ -2444,7 +2444,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2480,7 +2480,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 3
     _near: 0
@@ -2491,7 +2491,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2527,7 +2527,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 7
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 3
     _near: 0
@@ -2538,7 +2538,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2574,7 +2574,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 3
     _near: 0
@@ -2585,7 +2585,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2621,7 +2621,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 3
     _near: 0
@@ -2632,7 +2632,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2668,7 +2668,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 3
     _near: 0
@@ -2679,7 +2679,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2715,7 +2715,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 3
     _near: 0
@@ -2726,7 +2726,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2762,7 +2762,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 6
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 3
     _near: 0
@@ -2773,7 +2773,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2810,7 +2810,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -2821,7 +2821,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2861,7 +2861,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -2872,7 +2872,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2912,7 +2912,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -2923,7 +2923,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -2963,7 +2963,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -2974,7 +2974,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -3014,7 +3014,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -3025,7 +3025,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -3065,7 +3065,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -3076,7 +3076,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -3116,7 +3116,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -3127,7 +3127,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -3167,7 +3167,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -3178,7 +3178,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -3218,7 +3218,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -3229,7 +3229,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -3269,7 +3269,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -3280,7 +3280,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -3320,7 +3320,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -3331,7 +3331,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0
@@ -3371,7 +3371,7 @@ MonoBehaviour:
       _autoTop: 0
       _top: 0
       _step: 3
-      _ease: linear
+      _ease: 0
     _position: 0
     _attackType: 2
     _near: 0
@@ -3382,7 +3382,7 @@ MonoBehaviour:
       _moveX: 0
       _moveY: 0
       _duration: 100
-      _ease: linear
+      _ease: 0
       _effect: 
       _beatState: 
       _damage: 0

@@ -507,7 +507,7 @@ namespace StreetFighter.Editor
                     : easing.FindPropertyRelative("_top").floatValue.ToString();
 
                 lines.Add($"位移：横向 {easing.FindPropertyRelative("_dx").floatValue}（乘朝向），"
-                          + $"纵向 {vertical}，缓动 {easing.FindPropertyRelative("_ease").stringValue}");
+                          + $"纵向 {vertical}，缓动 {(EasingName)easing.FindPropertyRelative("_ease").intValue}");
             }
 
             lines.Add($"姿态：{AttackTypeText(state.FindPropertyRelative("_attackType").intValue)}");
@@ -535,7 +535,7 @@ namespace StreetFighter.Editor
                               + $"位移 ({config.FindPropertyRelative("_moveX").floatValue}, "
                               + $"{config.FindPropertyRelative("_moveY").floatValue}) / "
                               + $"{config.FindPropertyRelative("_duration").floatValue} 毫秒，"
-                              + $"{config.FindPropertyRelative("_ease").stringValue}");
+                              + $"{(EasingName)config.FindPropertyRelative("_ease").intValue}");
                     lines.Add($"命中：伤害 {config.FindPropertyRelative("_damage").floatValue}，"
                               + $"特效 {config.FindPropertyRelative("_effect").stringValue}，"
                               + $"对方进入「{config.FindPropertyRelative("_beatState").stringValue}」");
@@ -776,11 +776,11 @@ namespace StreetFighter.Editor
                     float moveX = config.FindPropertyRelative("_moveX").floatValue;
                     float moveY = config.FindPropertyRelative("_moveY").floatValue;
                     float duration = config.FindPropertyRelative("_duration").floatValue;
-                    string ease = config.FindPropertyRelative("_ease").stringValue;
+                    var ease = (EasingName)config.FindPropertyRelative("_ease").intValue;
 
                     // 与 Mover 一致：sinease 的横向位移仍然走线性
-                    string horizontalEase = ease == EasingNames.SineaseIn || ease == EasingNames.SineaseOut
-                        ? EasingNames.Linear
+                    EasingName horizontalEase = ease == EasingName.SineaseIn || ease == EasingName.SineaseOut
+                        ? EasingName.Linear
                         : ease;
 
                     float t = duration > 0f ? Mathf.Min(elapsed / duration, 1f) : 1f;
@@ -1012,7 +1012,7 @@ namespace StreetFighter.Editor
             easing.FindPropertyRelative("_autoTop").boolValue = false;
             easing.FindPropertyRelative("_top").floatValue = 0f;
             easing.FindPropertyRelative("_step").floatValue = 3f;
-            easing.FindPropertyRelative("_ease").stringValue = EasingNames.Linear;
+            easing.FindPropertyRelative("_ease").enumValueIndex = (int)EasingName.Linear;
         }
 
         private static void Clear(SerializedProperty array)
@@ -1236,7 +1236,7 @@ namespace StreetFighter.Editor
             { "_autoTop", Tip("纵向自动", "勾选后忽略下方「纵向位移」，按包围盒自动补差使脚底贴地") },
             { "_top", Tip("纵向位移", "像素，正数向下；配置里为 null 时就是自动模式") },
             { "_step", Tip("推进间隔", "每几个逻辑帧推进一帧，同时作为运动时长系数（step × fps × 帧数）") },
-            { "_ease", Tip("缓动", "Easing 里按名字实现的缓动函数") },
+            { "_ease", Tip("缓动", "Easing 里按 EasingName 实现的缓动函数") },
             { "_position", Tip("位置标记", "仅透传给表现层，不参与任何逻辑") },
             { "_attackType", Tip("攻防类型", "0 空闲 / 1 防御 / 2 攻击判定 / 3 被击硬直 / 4 倒地") },
             { "_near", Tip("近身距离", "与对手距离 ≤ 该值时改用 near_ 前缀的同名状态，0 表示不启用") },

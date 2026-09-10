@@ -20,9 +20,9 @@ namespace StreetFighter.Gameplay
         private float _duration;
         private float _stageDistance;
         private int _stageCount;
-        private string _ease = EasingNames.Linear;
-        private string _leftEase = EasingNames.Linear;
-        private string _lastEase = EasingNames.Linear;
+        private EasingName _ease = EasingName.Linear;
+        private EasingName _leftEase = EasingName.Linear;
+        private EasingName _lastEase = EasingName.Linear;
         private int _direction = 1;
         private Side _lockedSide = Side.None;
         private float[] _lastArgs;
@@ -47,11 +47,11 @@ namespace StreetFighter.Gameplay
         /// <param name="offsetX">横向位移量（会乘以朝向）。</param>
         /// <param name="offsetY">纵向位移量。</param>
         /// <param name="duration">时长（毫秒）。</param>
-        /// <param name="easeName">缓动函数名。</param>
-        public void Start(float offsetX, float offsetY, float duration, string easeName)
+        /// <param name="ease">缓动类型。</param>
+        public void Start(float offsetX, float offsetY, float duration, EasingName ease)
         {
             _lastArgs = new[] { offsetX, offsetY, duration };
-            _lastEase = easeName;
+            _lastEase = ease;
             _fromLeft = _owner.Left;
             _fromTop = _owner.Top;
             _offsetLeft = offsetX * _direction;
@@ -59,13 +59,13 @@ namespace StreetFighter.Gameplay
             _duration = duration;
             _startTime = (float)_clock.Now;
             _stageCount = 0;
-            _ease = easeName;
-            _leftEase = easeName;
+            _ease = ease;
+            _leftEase = ease;
 
             // 原版：挥空/受击的纵向缓动与横向不同，横向保持线性
-            if (easeName == EasingNames.SineaseOut || easeName == EasingNames.SineaseIn)
+            if (ease == EasingName.SineaseOut || ease == EasingName.SineaseIn)
             {
-                _leftEase = EasingNames.Linear;
+                _leftEase = EasingName.Linear;
             }
         }
 

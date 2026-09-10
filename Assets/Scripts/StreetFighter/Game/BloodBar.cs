@@ -81,7 +81,7 @@ namespace StreetFighter.Game
                 }
                 else
                 {
-                    _currentWidth = Easing.Evaluate(EasingNames.Linear, elapsed, _animationFrom, _animationDelta,
+                    _currentWidth = Easing.Evaluate(EasingName.Linear, elapsed, _animationFrom, _animationDelta,
                         _animationDuration);
                 }
             }
